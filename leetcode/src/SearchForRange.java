@@ -12,7 +12,7 @@ return [3, 4].
  * */
 public class SearchForRange {
 
-	public int[] searchRange(int[] A, int target) {
+	public int[] searchRange(int[] a, int target) {
         // Start typing your Java solution below
         // DO NOT write main() function
         
