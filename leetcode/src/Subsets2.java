@@ -3,29 +3,29 @@ import java.util.Collections;
 
 
 /**
- * Given a set of distinct integers, S, return all possible subsets.
+ * Given a collection of integers that might contain duplicates, S, return all possible subsets.
 
 Note:
 Elements in a subset must be in non-descending order.
 The solution set must not contain duplicate subsets.
 For example,
-If S = [1,2,3], a solution is:
+If S = [1,2,2], a solution is:
 
 [
-  [3],
-  [1],
   [2],
-  [1,2,3],
-  [1,3],
-  [2,3],
+  [1],
+  [1,2,2],
+  [2,2],
   [1,2],
   []
 ]
 » Solve this problem
+//XXX the same as subsets but with one more check for duplication
  * */
-public class AllSubsets {
-	public ArrayList<ArrayList<Integer>> subsets(int[] s) {
-        // Start typing your Java solution below
+public class Subsets2 {
+
+	public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] s) {
+		// Start typing your Java solution below
         // DO NOT write main() function
 		ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
 		list.add(new ArrayList<Integer>());
@@ -55,14 +55,16 @@ public class AllSubsets {
         	}
         	
         	Collections.sort(set);
-        	list.add(set);
+        	if(!list.contains(set)) { //XXXcheck for duplication
+        	    list.add(set);
+        	}
         }
         
         return list;
     }
 	
 	public static void main(String[] args) {
-		AllSubsets as = new AllSubsets();
+		Subsets as = new Subsets();
 		int[] set = new int[]{4, 1, 0};
 		System.out.println(as.subsets(set));
 	}
