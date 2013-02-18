@@ -57,4 +57,20 @@ public class SearchInRotateArray {
 		SearchInRotateArray s = new SearchInRotateArray();
 		System.out.println(s.search(new int[]{3, 5, 1}, 3));
 	}
+	
+	/**
+	 * Follow up for "Search in Rotated Sorted Array":
+What if duplicates are allowed?
+
+Would this affect the run-time complexity? How and why?
+
+Write a function to determine if a given target is in the array.
+	 * 
+	 * */
+	
+	public boolean search_dup(int[] A, int target) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        
+    }
 }
