@@ -14,7 +14,7 @@ If n = 4 and k = 2, a solution is:
   [1,4],
 ]
  * */
-xx
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -39,52 +39,27 @@ public class Combinations {
     }
 	
 	private ArrayList<ArrayList<Integer>> combine(ArrayList<Integer> numList, ArrayList<ArrayList<Integer>> currList, int k) {
-		System.out.println(numList);
-		System.out.println("  " + currList);
-		System.out.println("  " + k);
-		if(k <= 0) {
-			return currList;
-		}
-		if(numList.isEmpty()) {
+		if(k == 0) {
 			return currList;
 		}
 		
-		
-		ArrayList<ArrayList<Integer>> retList = new ArrayList<ArrayList<Integer>>();
-		
-        if(k == 1) { //XXX never forget the recursion ends
-		    for(int num : numList) {
-		    	ArrayList<Integer> l = new ArrayList<Integer>();
-		    	l.add(num);
-		    	retList.add(l);
-		    }
-		    System.out.println("  xx" + retList);
-		    return retList;
-		}
-		
-		for(int i = 0; i < numList.size(); i++) {
-			Integer n = numList.get(i);
-			//make a deep copy
-			ArrayList<Integer> remainingList = new ArrayList<Integer>();
-			remainingList.addAll(numList);
-			remainingList.remove(i);
-			//update the currList
-			ArrayList<ArrayList<Integer>> updatedLists = new ArrayList<ArrayList<Integer>>();
-			for(ArrayList<Integer> l : currList) {
-				ArrayList<Integer> updateList = new ArrayList<Integer>();
-				updateList.addAll(l);
-				updateList.add(n);
-				//
-				updatedLists.add(updateList);
+		ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+		//recursive
+		for(Integer i : numList) {
+			numList.remove(i);
+			
+			if(currList.isEmpty()) {
+				xx
+				
+			} else {
+				
 			}
-			//do recursion
-			System.out.println("  zz" + updatedLists);
-			ArrayList<ArrayList<Integer>> list = this.combine(remainingList, updatedLists, k - 1);
-			retList.addAll(list);
-			System.out.println("  yy" + retList);
+			
+		
+			numList.add(i);
 		}
 		
-		return retList;
+		return list;
 	}
 	
 	public static void main(String[] args) {
