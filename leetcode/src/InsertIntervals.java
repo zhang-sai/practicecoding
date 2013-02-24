@@ -58,3 +58,5 @@ public class InsertIntervals {
 		System.out.println(ii.insert(intervals, newInterval));
 	}
 }
+
+
