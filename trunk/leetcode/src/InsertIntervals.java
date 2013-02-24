@@ -15,9 +15,46 @@ This is because the new interval [4,9] overlaps with [3,5],[6,7],[8,10].
  * */
 public class InsertIntervals {
 
+	//a sample solution: http://blog.theliuy.com/2012/insert-interval/
 	public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
         // Start typing your Java solution below
         // DO NOT write main() function
+		
+		ArrayList<Interval> retList = new ArrayList<Interval>();
+		boolean flag =  false;
+		for(Interval interval : intervals) {
+			//[start, end] [new.start, new.end]  , did not reach the newInterval yet
+			if(interval.end < newInterval.start) {
+				retList.add(interval);
+				continue;
+			}
+			//[newStart, newEnd] [start end] 
+			if(interval.start > newInterval.end) {
+				if(!flag) {
+					retList.add(newInterval);
+					flag = true;
+				}
+				retList.add(interval);
+				continue;
+			}
+			//other cases, there must be some intersection
+			newInterval.start = Math.min(newInterval.start, interval.start);
+			newInterval.end = Math.max(newInterval.end, interval.end);
+		}
+		
+		//XXX do not forget this
+		if(!flag) {
+			retList.add(newInterval);
+		}
         
+		return retList;
     }
+	
+	public static void main(String[] args) {
+		InsertIntervals ii = new InsertIntervals();
+		ArrayList<Interval> intervals = new ArrayList<Interval>();
+		intervals.add(new Interval(1, 5));
+		Interval newInterval =  new Interval(1, 5);
+		System.out.println(ii.insert(intervals, newInterval));
+	}
 }
