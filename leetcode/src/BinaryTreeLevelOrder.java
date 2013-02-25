@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
@@ -35,6 +36,7 @@ public class BinaryTreeLevelOrder {
         	retList.add(iList);
         	list = this.getNextLevel(list);
         }
+//        Collections.reverse(retList);
         return retList;
     }
 	
