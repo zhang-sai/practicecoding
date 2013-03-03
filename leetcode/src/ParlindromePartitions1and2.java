@@ -98,23 +98,58 @@ For example, given s = "aab",
 Return 1 since the palindrome partitioning ["aa","b"] could be produced using 1 cut.
 	 * */
 	//https://sites.google.com/site/mytechnicalcollection/algorithms/dynamic-programming/palindrome-partitioning
-	XXX use a dynamic programming
+//	XXX use dynamic programming
 	public int minCut(String s) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		ArrayList<ArrayList<String>> all = this.partition(s);
-		int min = Integer.MAX_VALUE;
-		for(ArrayList<String> l : all) {
-			if(l.size() < min) {
-				min = l.size();
-			}
-		}
-		return min - 1;
+        int length = s.length();
+        if(length == 0 || length == 1) {
+        	return 0;
+        }
+		//create two array
+        boolean[][] isP = new boolean[length][length];
+        int[][] mCuts = new int[length][length];
+        
+        for(int i = 0; i < length; i++) {
+        	isP[i][i] = true;
+        	mCuts[i][i] = 0;
+        }
+        
+        //XXX iterate by string length, this is the key point
+        for(int sl = 2; sl <= length; sl++) {
+        	for(int startPoint = 0; startPoint < length - sl + 1; startPoint++) {
+        		int i = startPoint;
+        		int j = startPoint + sl - 1;
+        		if(sl == 2) {
+        			isP[i][j] = s.charAt(i) == s.charAt(j) ? true : false;
+        			mCuts[i][j] = isP[i][j] ? 0 : 1;
+        		} else {
+        			System.out.println(i + ",  " + j);
+        			isP[i][j] = (s.charAt(i) == s.charAt(j) && isP[i+1][j-1]) ? true : false;
+        			System.out.println(isP[i][j]);
+        			if(isP[i][j]) {
+        				
+        				mCuts[i][j] = 0;
+        			} else {
+        				//check the internal
+        				int min = Integer.MAX_VALUE;
+        				for(int k = i; k < j; k++) {
+        					System.out.println("k: " + k);
+        					if(mCuts[i][k] + mCuts[k+1][j] < min) {
+        						min = mCuts[i][k] + mCuts[k+1][j] + 1; //XXX do not forget + 1
+        						System.out.println("min : " + min);
+        					}
+        				}
+        				mCuts[i][j] = min;
+        			}
+        		}
+        	}
+        }
+        
+        return mCuts[0][length-1];
     }
 	
 	public static void main(String[] args) {
 		ParlindromePartitions1and2 p = new ParlindromePartitions1and2();
-		System.out.println(p.partition("fff"));
+		System.out.println(p.minCut("cdd"));
 	}
 	
 }
