@@ -22,6 +22,24 @@ public class GrayCode {
 	public ArrayList<Integer> grayCode(int n) {
         // Start typing your Java solution below
         // DO NOT write main() function
+        ArrayList<Integer> retList = new ArrayList<Integer>();
+        if(n == 0) {
+        	retList.add(0); //XXX the case for zero
+        	return retList;
+        }
+        if(n == 1) {
+        	retList.add(0);
+        	retList.add(1);
+        	return retList;
+        }
+        //
+        ArrayList<Integer> prevList = this.grayCode(n - 1);
+        retList.addAll(prevList);
+        for(int index = prevList.size() - 1; index >= 0; index--) {
+        	int v = prevList.get(index);
+        	retList.add(v + (int)Math.pow(2, n - 1));
+        }
         
+        return retList;
     }
 }
