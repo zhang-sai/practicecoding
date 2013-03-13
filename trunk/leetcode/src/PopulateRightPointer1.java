@@ -31,52 +31,41 @@ After calling your function, the tree should look like:
      / \  / \
     4->5->6->7 -> NULL
  * */
+
+//XXX another solution: http://leetcode.com/2010/03/first-on-site-technical-interview.html
 public class PopulateRightPointer1 {
 
+	//XXX PASS the test set
 	public void connect(TreeLinkNode root) {
-		// Start typing your Java solution below
-		// DO NOT write main() function
+		this.createLinks(root);
+		this.createLinkdsBetweenSubtrees(root);
+	}
+	
+	//create the next link between siblings
+	public void createLinks(TreeLinkNode root) {
 		if(root == null) {
 			return;
 		}
-		List<TreeLinkNode> queue = new LinkedList<TreeLinkNode>();
-		List<TreeLinkNode> orderedByLevels = new LinkedList<TreeLinkNode>();
-		queue.add(root);
-		queue.add(null);
-		while(!queue.isEmpty()) {
-			System.out.println("length of queue: " + queue.size());
-			TreeLinkNode node = queue.remove(0);
-			orderedByLevels.add(node);
-			if(node != null) {
-				if(node.left != null) {
-					queue.add(node.left);
-				}
-				if(node.right != null) {
-					queue.add(node.right);
-				}
-			} else {
-				if(queue.isEmpty()) {
-					break; //XXX must break out
-				}
-				queue.add(null);
-			}
-		}
-		//make the link
-		for(int i = 0; i < orderedByLevels.size(); i++) {
-			TreeLinkNode currNode = orderedByLevels.get(i);
-			TreeLinkNode nextNode = i == orderedByLevels.size() - 1? null : orderedByLevels.get(i + 1);
-			if(currNode == null) {
-				continue;
-			} else {
-				if(nextNode != null) {
-					currNode.next = nextNode;
-				} else {
-					currNode.next = null;
-				}
-			}
+		if(root.left != null && root.right != null) {
+			root.left.next = root.right;
+			root.right.next = null;
+			this.connect(root.left);
+			this.connect(root.right);
 		}
 	}
 	
+	public void createLinkdsBetweenSubtrees(TreeLinkNode node) {
+		if(node == null) {
+			return;
+		}
+		if(node.next != null) {
+			if(node.right != null) {
+				node.right.next = node.next.left;
+			}
+		}
+		this.createLinkdsBetweenSubtrees(node.left);
+		this.createLinkdsBetweenSubtrees(node.right);
+	}
 
 	public static void main(String[] args) {
 		PopulateRightPointer1 p = new PopulateRightPointer1();
@@ -100,40 +89,5 @@ public class PopulateRightPointer1 {
 		p.connect(n);
 		
 		System.out.println(n);
-	}
-}
-
-class TreeLinkNode {
-	int val;
-	TreeLinkNode left, right, next;
-	TreeLinkNode(int x) {
-		val = x;
-	}
-	
-	public String toString() {
-		return this.printNode(this, 0);
-	}
-	
-	private String printNode(TreeLinkNode node, int indent) {
-		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < indent; i++) {
-			sb.append(" ");
-		}
-		if(node == null) {
-			sb.append("null");
-			return sb.toString();
-		}
-		sb.append("val: " + node.val + ", left: " + (node.left == null ? "null" : node.left.val)
-				+ ", right: " + (node.right == null ? "null" : node.right.val)
-				+ ", next: " + (node.next == null ? "null" : node.next.val));
-		sb.append("\n");
-		String left = printNode(node.left, indent + 4);
-		sb.append(left);
-		sb.append("\n");
-		String right = printNode(node.right, indent + 4);
-		sb.append(right);
-		sb.append("\n");
-		
-		return sb.toString();
 	}
 }
