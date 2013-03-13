@@ -1,4 +1,6 @@
 
+XXX
+
 public class PopulateRightPointer2 {	/**
 	 * Follow up for problem "Populating Next Right Pointers in Each Node".
 
