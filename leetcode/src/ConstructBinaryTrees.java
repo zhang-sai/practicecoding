@@ -19,6 +19,7 @@ You may assume that duplicates do not exist in the tree.
         // Start typing your Java solution below
         // DO NOT write main() function
         return null;
+        //trivial to extend
     }
 	
 	/**
