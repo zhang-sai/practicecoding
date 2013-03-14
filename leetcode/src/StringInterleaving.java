@@ -16,7 +16,6 @@ When s3 = "aadbbcbcac", return true.
 When s3 = "aadbbbaccc", return false.
  * */
 
-xx
 /**
  * Not as easy as expected!!!
  * 
@@ -38,100 +37,70 @@ public class StringInterleaving {
 		if(s1 == null || s2 == null || s3 == null) {
 			return false;
 		}
-		
 		if(s1.length() + s2.length() != s3.length()) {
 			return false;
 		}
-		
-		//initialize
-		List<Character> l3 = new LinkedList<Character>();
-		for(char c : s3.toCharArray()) {
-			l3.add(c);
+		if(s1.isEmpty() || s2.isEmpty()) {
+			return s3.equals(s1 + s2);
 		}
-		List<Character> l1 = new LinkedList<Character>();
-		for(char c : s1.toCharArray()) {
-			l1.add(c);
-		}
-		List<Character> l2 = new LinkedList<Character>();
-		for(char c : s2.toCharArray()) {
-			l2.add(c);
+		//then use dynamic programming to solve this
+		boolean[][] matrix = new boolean[s1.length() + 1][s2.length() + 1];
+		matrix[0][0] = true; //it is ok to be true
+		for(int i = 1; i <= s2.length(); i++) {
+			boolean prevCell = i == 1 ? true : matrix[0][i-1];
+			if(prevCell && s3.charAt(i - 1) == s2.charAt(i - 1)) {
+				matrix[0][i] = true;
+			}
 		}
 		
-
-		System.out.println(l3);
-		System.out.println(l1);
-		int currPos = 0;
-		Set<Integer> removedInteger = new HashSet<Integer>();
-		for(Character c : l1) {
-			if(l3.subList(currPos, l3.size() - 1).indexOf(c) >= currPos) {
-				currPos = l3.subList(currPos, l3.size() - 1).indexOf(c) + 1;
-				//l3.remove(currPos - 1);
+		for(int i = 1; i <= s1.length(); i++) {
+			boolean prevCell = i == 1 ? true : matrix[i-1][0];
+			if(prevCell && s3.charAt(i - 1) == s1.charAt(i - 1)) {
+				matrix[i][0] = true;
+			}
+		}
+		
+		//start to compute each cell
+//		System.out.println("s1 length: " + s1.length());
+//		System.out.println("s2 length: " + s2.length());
+		for(int i = 1; i <= s1.length(); i++) {
+			for(int j = 1; j <= s2.length(); j++) {
+				//two possibilities
+				//1. matrix[i-1][j] = true && s3[i + j -1] == s1[i-1]
+				//2. matrix[i][j-1] = true && s3[i+j - 1] = s2[j-1]
 				
-			} else {
-				break;
+				char s3char = s3.charAt(i + j - 1);
+				char s1char = s1.charAt(i - 1);
+				char s2char = s2.charAt(j - 1);
+//				System.out.println(i + ", " + j + ", matrix size: "
+//						+ matrix.length + ", " + matrix[0].length
+//						+ " s1char: " + s1char + ", s2char: " + s2char + ", s3 char: " + s3char
+//						+ "  last two cells: " + matrix[i-1][j] + ", and " + matrix[i][j-1]);
+				if(matrix[i-1][j] && s3char == s1char) {
+					matrix[i][j] = true;
+				} else if (matrix[i][j-1] && s3char == s2char) {
+					matrix[i][j] = true;
+				}
 			}
 		}
-		System.out.println(l3);
-		System.out.println(l2);
-		if(l3.equals(l2)) {
-			return true;
-		}
 		
-		System.out.println("------");
-		l3.clear();
-		for(char c : s3.toCharArray()) {
-			l3.add(c);
-		}
+//		for(int i = 0; i < s1.length() + 1; i++) {
+//			for(int j = 0; j < s2.length() + 1; j++) {
+//				System.out.print(matrix[i][j] + "  ");
+//			}
+//			System.out.println();
+//		}
 		
-		System.out.println(l3);
-		System.out.println(l2);
-		currPos = -1;
-		for(Character c : l2) {
-			if(l3.indexOf(c) > currPos) {
-				currPos = l3.indexOf(c);
-				l3.remove(c);
-			} else {
-				break;
-			}
-		}
-		System.out.println(l3);
-		System.out.println(l2);
-		System.out.println(l1);
-		if(l3.equals(l1)) {
-			return true;
-		}
-		return false;
+		return matrix[s1.length()][s2.length()];
 	}
 	
 	
 	
 	public static void main(String[] args) {
 		StringInterleaving s = new StringInterleaving();
-		System.out.println(s.isInterleave("ab", "bc", "bcab"));
+		System.out.println(s.isInterleave("aabaac", "aadaaeaaf", "aadaaeaabaafaac"));
+//		System.out.println(s.isInterleave("ab", "bc", "abbc"));
 		//ab", "bc", "bbac
 	}
 	
 }
-
-/**
- * public static void interleave(String ab, String cd, String str) {
- 
-     if(ab.length() == 0) {
- 
-          str += cd;
- 
-          System.out.println(str);
- 
-          return;
- 
-     }
- 
-     interleave(ab.substring(1), cd, str + ab.charAt(0));
- 
-     interleave(cd.substring(1), ab, str + cd.charAt(0));
- 
-}
- 
- * 
- * */
- */
