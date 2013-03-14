@@ -14,9 +14,17 @@ XXX
 //one sample solution: https://gist.github.com/xiaonanz/4013895
 //XX
 public class RecoverBinaryTree {
+	
+	//a const space solution
+	//http://fisherlei.blogspot.com/2012/12/leetcode-recover-binary-search-tree.html
+	XXX
+	public void recoverTree(TreeNode root) {
+		
+	}
+	
 	//the key point is that the in order traversal of a binary
 	//tree must be a sorted list
-	public void recoverTree(TreeNode root) {
+	public void recoverTree_not_const_space(TreeNode root) {
 		if(root == null) {
 			return;
 		}
