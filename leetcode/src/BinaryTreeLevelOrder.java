@@ -19,7 +19,45 @@ return its level order traversal as:
 ]
  * */
 public class BinaryTreeLevelOrder {
+	
 	public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
+		ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+		if(root == null) {
+			return ret;
+		}
+		int level = 1;
+		while(true) {
+			ArrayList<Integer> array = new ArrayList<Integer>();
+			ArrayList<Integer> list = this.getNodesOfLevel(root,level, array);
+			if(array.isEmpty()) {
+				break;
+			} else {
+				ret.add(list);
+			}
+			level ++;
+		}
+		
+		return ret;
+	}
+	
+	public ArrayList<Integer> getNodesOfLevel(TreeNode node, int level, ArrayList<Integer> array) {
+		if(level == 1) {
+			array.add(node.val);
+			return array;
+		} else {
+			//ArrayList<Integer> ret = new ArrayList<Integer>();
+			if(node.left != null) {
+				this.getNodesOfLevel(node.left, level - 1, array);
+			}
+			if(node.right != null) {
+				this.getNodesOfLevel(node.right, level - 1, array);
+			}
+			return array;
+		}
+	}
+	
+	//XXX this is using BFS
+	public ArrayList<ArrayList<Integer>> levelOrder_bfs(TreeNode root) {
         // Start typing your Java solution below
         // DO NOT write main() function
 		ArrayList<ArrayList<Integer>> retList = new ArrayList<ArrayList<Integer>>();
