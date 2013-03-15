@@ -1,5 +1,8 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class ThreeFourSums {
@@ -18,6 +21,38 @@ The solution set must not contain duplicate triplets.
 	 * */
 	//XXX time limit exceeds
 	public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
+		Set<ArrayList<Integer>> set = new HashSet<ArrayList<Integer>>();
+		ArrayList<ArrayList<Integer>> retList = new ArrayList<ArrayList<Integer>>();
+		if(num.length < 3) {
+			return retList;
+		}
+		Arrays.sort(num);
+		for(int i = 0; i < num.length; i++) {
+			int j = i + 1;
+			int k = num.length - 1;
+			while(j < k) {
+				if(num[i] + num[j] + num[k] > 0) {
+					k--;
+				} else if (num[i] + num[j] + num[k] < 0) {
+					j++;
+				} else {
+					//find
+					ArrayList<Integer> list = new ArrayList<Integer>();
+					list.add(num[i]);
+					list.add(num[j]);
+					list.add(num[k]);
+					set.add(list);
+					j++;
+					k--;
+				}
+			}
+		}
+		
+		retList.addAll(set);
+		return retList;
+	}
+	
+	public ArrayList<ArrayList<Integer>> threeSum_recursive(int[] num) {
         // Start typing your Java solution below
         // DO NOT write main() function
 		ArrayList<Integer> validIndices = new ArrayList<Integer>();
@@ -93,7 +128,34 @@ The solution set must not contain duplicate triplets.
 	public int threeSumClosest(int[] num, int target) {
         // Start typing your Java solution below
         // DO NOT write main() function
+        Arrays.sort(num);
+        if(num.length < 3) {
+        	throw new Error(); 
+        }
+        int retNum = 0;
+        int closest = Integer.MAX_VALUE;
+        for(int i = 0; i < num.length; i++) {
+        	int j = i + 1;
+        	int k = num.length - 1;
+        	while(j < k) {
+        		int sum = num[i] + num[j] + num[k];
+        		int delta = Math.abs(sum - target);
+        		if(delta < closest) {
+        			retNum = sum;
+        			closest = delta;
+        		}
+        		//use some aggressive filtering
+        		if(sum > target) {
+        			k--;
+        		} else if (sum < target) {
+        			j++;
+        		} else {
+        			return target;
+        		}
+        	}
+        }
         
+        return retNum;
     }
 	
 	/**
@@ -109,9 +171,65 @@ The solution set must not contain duplicate quadruplets.
     (-2, -1, 1, 2)
     (-2,  0, 0, 2)
 	 * */
+	//XXX the following pass the small tests, but exceed time limit of the large tests
 	public ArrayList<ArrayList<Integer>> fourSum(int[] num, int target) {
         // Start typing your Java solution below
         // DO NOT write main() function
         
+		ArrayList<ArrayList<Integer>> retList = new ArrayList<ArrayList<Integer>>();
+		if(num.length < 4) {
+			return retList;
+		}
+		
+		Arrays.sort(num);
+		Set<ArrayList<Integer>> set = new HashSet<ArrayList<Integer>>();
+		
+		
+		for(int i = 0; i <= num.length - 4; i++) {
+			//XXX  be aware of -5, -3, -1, -1  target is 11
+			if(num[i] > 0 && num[i] > target) {
+				System.out.println("i is: " + i + ", " + num[i]);
+				break;
+			}
+			for(int j = i + 1; j <= num.length - 3; j++) {
+				if(num[j] > 0 && num[i] + num[j] > target) {
+					break;
+				}
+				
+				int k = j + 1;
+				if(num[k] > 0 && num[i] + num[j] + num[k] > target ) {
+					break;
+				}
+				int l = num.length - 1;
+				while(k < l) {
+//					System.out.println(i + ", " + j + ", " + k + ", " + l);
+					int sum = num[i] + num[j] + num[k] + num[l];
+					if(sum < target) {
+						k ++;
+					} else if (sum > target) {
+						l --;
+					} else {
+						ArrayList<Integer> list = new ArrayList<Integer>();
+						list.add(num[i]);
+						list.add(num[j]);
+						list.add(num[k]);
+						list.add(num[l]);
+						set.add(list);
+						k++;
+						l--;
+					}
+				}
+			}
+		}
+		
+		
+		retList.addAll(set);
+		
+		return retList;
     }
+	
+	public static void main(String[] args) {
+		ThreeFourSums tfsums = new ThreeFourSums();
+		System.out.println(tfsums.fourSum(new int[]{1,-2,-5,-4,-3,3,3,5}, -11));
+	}
 }
