@@ -35,28 +35,37 @@ public class Combinations {
 			l.add(i+1);
 		}
 		
-        return this.combine(l, new ArrayList<ArrayList<Integer>>(), k);
+        return this.combine(l, k);
     }
 	
-	private ArrayList<ArrayList<Integer>> combine(ArrayList<Integer> numList, ArrayList<ArrayList<Integer>> currList, int k) {
-		if(k == 0) {
-			return currList;
+	private ArrayList<ArrayList<Integer>> combine(ArrayList<Integer> numList, int k) {
+		//System.out.println(numList  + ",  k: " + k);
+		ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+		if(k == 1) {
+			for(Integer v : numList) {
+				ArrayList<Integer> l = new ArrayList<Integer>();
+				l.add(v);
+				list.add(l);
+			}
+			return list;
 		}
 		
-		ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+		
 		//recursive
-		for(Integer i : numList) {
-			numList.remove(i);
-			
-			if(currList.isEmpty()) {
-				xx
-				
-			} else {
-				
+		for(int index = 0; index < numList.size(); index++) { //XXX note only return the larger index!
+			ArrayList<Integer> cloneList = new ArrayList<Integer>();
+			for(int i = index + 1; i < numList.size(); i++) {
+				cloneList.add(numList.get(i));
 			}
 			
-		
-			numList.add(i);
+			ArrayList<ArrayList<Integer>>  reList = this.combine(cloneList, k-1);
+			for(ArrayList<Integer> l : reList) {
+				ArrayList<Integer> nl = new ArrayList<Integer>();
+				nl.add(numList.get(index));
+				nl.addAll(l);
+				Collections.sort(nl);
+				list.add(nl);
+			}
 		}
 		
 		return list;
