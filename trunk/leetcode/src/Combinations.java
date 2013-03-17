@@ -18,6 +18,7 @@ If n = 4 and k = 2, a solution is:
 import java.util.ArrayList;
 import java.util.Collections;
 
+//more solution: http://tianrunhe.wordpress.com/2012/07/12/all-posssible-k-combinations-of-numbers-out-of-1-to-n-combinations/
 public class Combinations {
 	public ArrayList<ArrayList<Integer>> combine(int n, int k) {
         // Start typing your Java solution below

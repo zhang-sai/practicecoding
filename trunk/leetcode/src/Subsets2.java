@@ -22,6 +22,8 @@ If S = [1,2,2], a solution is:
 » Solve this problem
 //XXX the same as subsets but with one more check for duplication
  * */
+//another solution: http://smartlhc.blogspot.com/2013/02/subsets-ii.html
+//did not read but SHOULD
 public class Subsets2 {
 
 	public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] s) {
