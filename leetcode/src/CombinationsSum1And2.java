@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class CombinationsSum1And2 {
 
@@ -15,10 +18,13 @@ A solution set is:
 [7] 
 [2, 2, 3] 
 	 * */
-	 public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {
+	XXX
+	 public ArrayList<ArrayList<Integer>> combinationSum(int[] num, int target) {
 	        // Start typing your Java solution below
 	        // DO NOT write main() function
+	        Arrays.sort(num);
 	        
+	        return null;
 	    }
 	 
 	 /**
@@ -40,7 +46,58 @@ A solution set is:
 	 public ArrayList<ArrayList<Integer>> combinationSum2(int[] num, int target) {
 	        // Start typing your Java solution below
 	        // DO NOT write main() function
-	        
-	    }
+		 Arrays.sort(num);
+	
+		 ArrayList<Integer> numList = new ArrayList<Integer>();
+		 for(int i : num) {
+			 if(i > target) {
+				 continue;
+			 }
+			 numList.add(i);
+		 }
+		 
+		 return this.findCombinations(numList, 0, target);
+	 }
+	 
+	 private ArrayList<ArrayList<Integer>> findCombinations(ArrayList<Integer> numList, int startIndex, int target) {
+		 System.out.println(numList + ",  " + startIndex + ",  " + target);
+		 ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+		 if(numList.isEmpty()) {
+			 return ret; //XXX do not forget this condition 
+		 }
+		 if(target < numList.get(startIndex)) {
+			 return ret;
+		 }
+		 
+		 
+		 if(startIndex == numList.size() - 1) {
+			 if(numList.get(startIndex) == target) {
+				 ArrayList<Integer> l = new ArrayList<Integer>();
+				 l.add(target);
+				 ret.add(l); //XXX donot forget this
+				 return ret;
+			 } else {
+				 return ret;//empty
+			 }
+		 }
+		 
+		 //two possibilititis
+		 ArrayList<ArrayList<Integer>> remainList1 = this.findCombinations(numList, startIndex + 1, target - numList.get(startIndex));
+		 for(ArrayList<Integer> l : remainList1) {
+			 l.add(0, numList.get(startIndex));
+			 ret.add(l);
+		 }
+		 
+		 ArrayList<ArrayList<Integer>> remainList2 = this.findCombinations(numList, startIndex + 1, target);
+		 ret.addAll(remainList2);
+		 
+		 return ret;
+		 
+	 }
+	 
+	 public static void main(String[] args) {
+		 CombinationsSum1And2 c = new CombinationsSum1And2();
+		 System.out.println(c.combinationSum2(new int[]{1}, 1));
+	 }
 	
 }
