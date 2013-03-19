@@ -43,6 +43,8 @@ A solution set is:
 [2, 6] 
 [1, 1, 6] 
 	  * */
+	//a sample solution:
+	//http://tianrunhe.wordpress.com/2012/07/12/finding-all-combinations-of-numbers-sum-up-to-a-number-combination-sum-ii/
 	 public ArrayList<ArrayList<Integer>> combinationSum2(int[] num, int target) {
 	        // Start typing your Java solution below
 	        // DO NOT write main() function
