@@ -72,8 +72,54 @@ public class Combinations {
 		return list;
 	}
 	
+	public void combine_iter(int n, int k) {
+		//keep a list of index
+		int[] num = new int[n];
+		for(int i = 0; i < n; i++) {
+			num[i] = i+1;
+		}
+		//establish index array
+		int[] indices = new int[k];
+		for(int i = 0; i < k; i++) {
+			indices[i] = i; //point to the index of the num array
+		}
+		//return the next
+		boolean hasNext = true;
+		while(hasNext) {
+			StringBuilder sb = new StringBuilder();
+			for(int index : indices) {
+				sb.append(num[index]);
+				sb.append("  ");
+			}
+			System.out.println(sb);
+			
+			//start to move the index
+			if(indices[0] == n - k ) {
+				hasNext = false;
+			} else {
+				//move the each index to the new place
+				int movableIndex = -1;
+				for(int i = k - 1; i>= 0; i--) {
+					if(indices[i] != (n-1) -(k-1 - i)) {
+						movableIndex = i;
+						break;
+					}
+				}
+//				System.out.println("movable index: " + movableIndex);
+				//move the index to the next
+				indices[movableIndex] = indices[movableIndex] + 1;
+				for(int i = movableIndex + 1; i <= k-1; i++) {
+					indices[i] = indices[movableIndex] + (i - movableIndex);
+				}
+			}
+		}
+	}
+	
+	
+	
 	public static void main(String[] args) {
 		Combinations comb = new Combinations();
-		System.out.println(comb.combine(4, 2));
+		System.out.println(comb.combine(5, 3));
+		comb.combine_iter(5, 3);
 	}
 }
