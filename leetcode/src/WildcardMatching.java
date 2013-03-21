@@ -1,5 +1,10 @@
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -27,7 +32,9 @@ public class WildcardMatching {
 	
 	public static void main(String[] args) {
 		WildcardMatching wm = new WildcardMatching();
-		System.out.println(wm.isMatch_recusive("aa", "*"));
+//		System.out.println(wm.isMatch_recusive("aa", "*"));
+//		System.out.println(wm.isMatch("a", "a*"));
+		System.out.println(wm.isMatch("aab", "c*a*b"));
 	}
 	
 	//NOT SO EFFICIENT, fail on large
@@ -79,11 +86,10 @@ public class WildcardMatching {
 		return false;
 	}
 	
+	//XXX fail on large set
 	public boolean isMatch(String s, String regex) {
 		//first remove all successive starts
 		int slen = s.length();
-		int rlen = regex.length();
-		
 		//count the number of no stars
 		int lengthOfNoStar = 0;
 		for(char c : regex.toCharArray()) {
@@ -94,7 +100,6 @@ public class WildcardMatching {
 		if(lengthOfNoStar > slen) {
 			return false;
 		}
-		
 		//some optimization
 		if(slen == 0) {
 			if(lengthOfNoStar == 0) {
@@ -108,31 +113,95 @@ public class WildcardMatching {
 			return s.isEmpty() ? true : false;
 		}
 		
-		//
+		//need to eliminate the regex to remove neighboring *
+		List<Character> lchar = new ArrayList<Character>();
+		for(int i = 0; i < regex.length(); i++) {
+			char c = regex.charAt(i);
+			if(i != 0) {
+				if(c == '*' && c == regex.charAt(i-1)) {
+					continue;
+				}
+			}
+			lchar.add(c);
+		}
+		char[] newChars = new char[lchar.size()];
+		for(int i = 0; i < newChars.length; i++) {
+			newChars[i] = lchar.get(i);
+		}
+		regex = String.valueOf(newChars);
 		
-		//slen must > 0
+		//create a matrix
 		boolean[][] matrix = new boolean[regex.length()][s.length()];
 		
-		int lastMatchedCol = -1;
-		for(int i = 0; i < matrix.length; i++) {
-			for(int j = 0; j < matrix[i].length; j++) {
-				if(j < lastMatchedCol) {
-					matrix[i][j] = false;
-				}
-				if(regex.charAt(i) == '?') {
-					
-				} else if (regex.charAt(i) == '*') {
-					
-				} else {
-					//normal character
-					if(regex.charAt(i) == s.charAt(j)) {
-						matrix[i][j] = true;
-					} else {
-						matrix[i][j] = false;
-					}
+		//for the special case
+		for(int i = 0; i < s.length(); i++) {
+			if(regex.charAt(0) == '*') {
+			    matrix[0][i] = true;
+			} else if (regex.charAt(0) == '?') {
+				matrix[0][0] = true; //XXX set the first being matched
+				break;
+			} else {
+				if(regex.charAt(0) == s.charAt(0)) {
+					matrix[0][0] = true;
+					break;
 				}
 			}
 		}
+		boolean seeNonStarChar = false;
+		for(int i = 0; i < regex.length(); i++) { //XXX this step is critical, be aware: "aab", "c*a*b"
+			if(regex.charAt(i) == '*') {
+				if(seeNonStarChar && !matrix[i-1][0]) { //XXX Must check this
+					matrix[i][0] = false;
+				} else {
+				    matrix[i][0] = true;
+				}
+			} else if (regex.charAt(i) == '?') {
+				if(!seeNonStarChar) { //all star chars
+				    matrix[i][0] = true;  //XXX be aware of the case: a -> a*
+				}
+				seeNonStarChar = true;
+			} else {
+				if(regex.charAt(i) == s.charAt(0)) {
+					if(!seeNonStarChar) {
+					    matrix[i][0] = true;
+					}
+				}
+				seeNonStarChar = true;
+			}
+		}
+		
+		//fill in the matrix
+		for(int i = 1; i < matrix.length; i++) {
+			
+			Set<Integer> matchedColumns = new HashSet<Integer>();
+			for(int j = 0; j < matrix[i-1].length; j++) {
+				if(matrix[i-1][j]) {
+					matchedColumns.add(j);
+				}
+			}
+			
+			char regexChar = regex.charAt(i);
+			for(int j = 1; j < matrix[i].length; j++) {
+				char cChar = s.charAt(j);
+				if(regexChar == '*') {
+					matrix[i][j] = !matchedColumns.isEmpty() && j >= Collections.min(matchedColumns) ? true : false;
+				} else if (regexChar == '?') {
+					matrix[i][j] = matchedColumns.contains(j-1) ? true : false;
+				} else {
+					matrix[i][j] = cChar == regexChar && matchedColumns.contains(j-1) ? true : false;
+				}
+			}
+		}
+		
+		//print the matrix
+		for(int i = 0; i < matrix.length; i++) {
+			for(int j = 0; j < matrix[i].length; j++) {
+				System.out.print(matrix[i][j] + "  ");
+			}
+			System.out.println();
+		}
+		
+		return matrix[regex.length() - 1][s.length() - 1];
 	}
 	
 	//XXX a dynamic programming algorithm
