@@ -12,5 +12,45 @@ public class EditDistance {
         // Start typing your Java solution below
         // DO NOT write main() function
         
+		if(word1.isEmpty() || word2.isEmpty()) {
+			return Math.max(word1.length(), word2.length());
+		}
+		
+		//init a grid
+		int[][] distances = new int[word1.length()][word2.length()];
+		distances[0][0] = word1.charAt(0) == word2.charAt(0) ? 0 : 1;
+		//compute the first row
+		for(int i = 1; i < word1.length(); i++) {
+			distances[i][0] = word1.charAt(i) == word2.charAt(0) ?
+					i : distances[i-1][0] + 1;
+		}
+		for(int j = 1; j < word2.length(); j++) {
+			distances[0][j] = word1.charAt(0) == word2.charAt(j) ?
+					j : distances[0][j-1] + 1;
+		}
+		
+		for(int i = 1; i < word1.length(); i++) {
+			for(int j = 1; j < word2.length(); j++) {
+				char ci = word1.charAt(i);
+				char cj = word2.charAt(j);
+				
+				//compute the value in distances[i][j]
+				if(ci == cj) {
+					//three possibilities
+					int deleteCost = distances[i-1][j] + 1;
+					int addCost = distances[i][j - 1] + 1 ;
+					int replaceCost =  distances[i-1][j-1];
+					distances[i][j] = Math.min(deleteCost, Math.min(addCost, replaceCost));
+				} else {
+					//three possibilities
+					int deleteCost = distances[i-1][j] + 1;
+					int addCost = distances[i][j - 1] + 1 ;
+					int replaceCost = distances[i-1][j-1] + 1;
+					distances[i][j] = Math.min(deleteCost, Math.min(addCost, replaceCost));
+				}
+			}
+		}
+		
+		return distances[word1.length() - 1][word2.length() - 1];
     }
 }
