@@ -40,7 +40,7 @@ public class MultipleString {
 	        		//update the last
 	        		if(j == 0) {
 	        			if(carrier > 0) {
-	        				result[index - 1] = carrier;
+	        				result[index - 1] = carrier; //XXX note, need to write to the array cell
 	        			}
 	        		}
 	        	}
