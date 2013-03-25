@@ -2,6 +2,8 @@
 /**
  * Implement pow(x, n).
  * */
+//read the poster here: http://leetcode.com/groups/linkedin-interview-questions/forum/topic/implement-powx-y/
+//be aware of the space cost
 public class PowXN {
 
 	public double pow(double x, int n) {
