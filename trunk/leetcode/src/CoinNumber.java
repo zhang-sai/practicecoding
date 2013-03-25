@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -6,18 +9,43 @@ import java.util.Map;
  * Given a number, use as few coins to 
  * */
 public class CoinNumber {
+	
+	public static void main(String[] args) {
+		CoinNumber cn = new CoinNumber();
+		System.out.println((cn.getMinCoinNumber(10)));
+		System.out.println((cn.getMinCoinNumber(11)));
+		System.out.println((cn.getMinCoinNumber(12)));
+		System.out.println((cn.getMinCoinNumber(13)));
+		System.out.println((cn.getMinCoinNumber(14)));
+		System.out.println((cn.getMinCoinNumber(15)));
+		System.out.println((cn.getMinCoinNumber(20)));
+	}
 
 	//1, 2, 5
-	public Integer[] getMinCoinNumber(int num) {
+	public List<Integer> getMinCoinNumber(int num) {
 		//use dynamic programming
-		Map<Integer, Integer[]> coins = new HashMap<Integer, Integer[]>();
+		Map<Integer, List<Integer>> coins = new HashMap<Integer, List<Integer>>();
 		
-		coins.put(0, new Integer[]{});
-		coins.put(1, new Integer[]{1});
-		coins.put(2, new Integer[]{2});
-		coins.put(3, new Integer[]{1, 2});
-		coins.put(4, new Integer[]{2, 2});
-		coins.put(5, new Integer[]{1});
+		coins.put(0, new ArrayList<Integer>());
+		ArrayList<Integer> l1 = new ArrayList<Integer>();
+		l1.add(1);
+		coins.put(1, l1);
+		
+		ArrayList<Integer> l2 = new ArrayList<Integer>();
+		l2.add(2);
+		coins.put(2, l2);
+		
+		ArrayList<Integer> l3 = new ArrayList<Integer>();
+		l3.add(1); l3.add(2);
+		coins.put(3, l3);
+		
+		ArrayList<Integer> l4 = new ArrayList<Integer>();
+		l4.add(2); l4.add(2);
+		coins.put(4, l4);
+		
+		ArrayList<Integer> l5 = new ArrayList<Integer>();
+		l5.add(5);
+		coins.put(5, l5);
 		
 		if(coins.containsKey(num)) {
 			return coins.get(num);
@@ -25,27 +53,30 @@ public class CoinNumber {
 		
 		for(int i = 6; i <=num; i++) {
 			//three possibility
-			int newCoin = -1;
-			int size1 = coins.get(i - 1).length;
-			int size2 = coins.get(i - 2).length;
-			int size5 = coins.get(i - 5).length;
+			int size1 = coins.get(i - 1).size();
+			int size2 = coins.get(i - 2).size();
+			int size5 = coins.get(i - 5).size();
 			
 			int min = Math.min(Math.min(size1, size2), size5);
 			
 			if(min == size1) {
-				Integer[] newInts = new Integer[coins.get(i-1).length + 1];
-				for(int j = 1; j < coins.get(i-1).length; j++) {
-					newInts[j] = coins.get(i-1)[j];
-				}
+				List<Integer> l = new ArrayList<Integer>();
+				l.addAll(coins.get(i-1));
+				l.add(1);
+				coins.put(i, l);
 			} else if (min == size2) {
-				Integer[] newInts = new Integer[coins.get(i-2).length + 1];
-				xx
+				List<Integer> l = new ArrayList<Integer>();
+				l.addAll(coins.get(i-2));
+				l.add(2);
+				coins.put(i, l);
 			} else {
-				Integer[] newInts = new Integer[coins.get(i-5).length + 1];
-				xx
+				List<Integer> l = new ArrayList<Integer>();
+				l.addAll(coins.get(i-5));
+				l.add(5);
+				coins.put(i, l);
 			}
 		}
-		
+		return coins.get(num);
 	}
 	
 }
