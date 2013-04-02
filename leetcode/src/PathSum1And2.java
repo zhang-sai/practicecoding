@@ -58,6 +58,31 @@ return
 	public ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        
+        if(root == null) {
+        	return new ArrayList<ArrayList<Integer>>();
+        }
+        ArrayList<ArrayList<Integer>> allPaths = new ArrayList<ArrayList<Integer>>();
+        this.pathSum(root, sum, new ArrayList<Integer>(), allPaths);
+        return allPaths;
     }
+	
+	public void pathSum(TreeNode root, int sum, ArrayList<Integer> currPath,
+			ArrayList<ArrayList<Integer>> allPaths) {
+		if(root.left == null && root.right == null && root.val == sum) {
+			ArrayList<Integer> list = (ArrayList<Integer>) currPath.clone();
+			list.add(root.val);
+			allPaths.add(list);
+		} else {
+			if(root.left != null) {
+				ArrayList<Integer> list = (ArrayList<Integer>) currPath.clone();
+				list.add(root.val);
+				this.pathSum(root.left, sum - root.val, list, allPaths);
+			}
+			if(root.right != null) {
+				ArrayList<Integer> list = (ArrayList<Integer>) currPath.clone();
+				list.add(root.val);
+				this.pathSum(root.right, sum - root.val, list, allPaths);
+			}
+		}
+	}
 }
