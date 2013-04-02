@@ -20,7 +20,21 @@ return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 	public boolean hasPathSum(TreeNode root, int sum) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        
+        if(root == null) {
+        	return false;
+        }
+        if(root.left == null && root.right == null && root.val == sum) {
+        	return true;
+        }
+        if(root.left != null) {
+        	if(this.hasPathSum(root.left, sum - root.val)) {
+        		return true;
+        	}
+        }
+        if(root.right != null) {
+        	return this.hasPathSum(root.right, sum - root.val);
+        }
+        return false;
     }
 	
 	/**
