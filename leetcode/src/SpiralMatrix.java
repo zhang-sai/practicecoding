@@ -83,23 +83,29 @@ You should return the following matrix:
         matrix[x][y] = 1;
         int i = 2;
         while(i <= n*n) {
-        	if(y + 1 < n && matrix[x][y + 1] == 0) {
+        	while(y + 1 < n && matrix[x][y + 1] == 0) {
         		y ++;
         		matrix[x][y] = i;
-        	} else if (x + 1 < n && matrix[x+1][y] == 0) {
+        		i++;
+        	} 
+        	
+        	while (x + 1 < n && matrix[x+1][y] == 0) {
         		x++;
         		matrix[x][y] = i;
-        	} else if (y - 1 >= 0 && matrix[x][y-1] == 0) {
+        		i++;
+        	} 
+        	
+        	while(y - 1 >= 0 && matrix[x][y-1] == 0) {
         		y--;
         		matrix[x][y] = i;
-        	} else if (x - 1 >= 0 && matrix[x-1][y] == 0) {
+        		i++;
+        	} 
+        	
+        	while(x - 1 >= 0 && matrix[x-1][y] == 0) {
         		x--;
         		matrix[x][y] = i;
-        	} else {
-        		throw new Error();
+        		i++;
         	}
-        	
-        	i++;
         }
         
         
