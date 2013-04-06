@@ -41,6 +41,7 @@ public class QuickSort {
 	
 	XXX
 	
+	what about exchange two nodes in a linked list?
 	
 	
 	
