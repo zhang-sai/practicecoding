@@ -68,7 +68,7 @@ Write a function to determine if a given target is in the array.
 	 * 
 	 * */
 	
-	public boolean search_dup(int[] A, int target) {
+	public boolean search_dup(int[] a, int target) {
         // Start typing your Java solution below
         // DO NOT write main() function
         

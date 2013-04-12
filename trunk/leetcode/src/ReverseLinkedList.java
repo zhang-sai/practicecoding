@@ -16,7 +16,11 @@ Given m, n satisfy the following condition:
 	public ListNode reverseBetween(ListNode head, int m, int n) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        
+        if(head == null) {
+        	return head;
+        }
+		//use two pointers
+        //curr
     }
 	
 	
