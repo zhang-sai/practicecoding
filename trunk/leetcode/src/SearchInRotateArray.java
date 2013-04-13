@@ -67,10 +67,31 @@ Would this affect the run-time complexity? How and why?
 Write a function to determine if a given target is in the array.
 	 * 
 	 * */
-	
+	xx
+	//adapt from: http://gongxuns.blogspot.com/2012/12/leetcode-search-in-rotated-sorted-array_9.html
 	public boolean search_dup(int[] a, int target) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        
+        int start = 0;
+        int end = a.length - 1;
+        while(start <= end) {
+        	int mid = (start + end)/2;
+        	if(a[mid] == target) {
+        		return true;
+        	} else if (a[mid] > target) {
+        		
+        	} else { //a[mid] < target
+        		//three possibilities:
+        		//1. the most normal way
+        		if(a[mid] > a[end] || a[end] >= target) { //1.  [3,4,5,6,1,2] target = 6
+        			start = mid + 1;                      //2.  [2,3,4,5,6] target = 4
+        		} else if (a[end] > a[mid] && a[end] < target) {   // [1, 3, 5, 7, 2, 4] target = 7
+        			
+        		} else {
+        			
+        		}
+        	}
+        }
+        return false;
     }
 }
