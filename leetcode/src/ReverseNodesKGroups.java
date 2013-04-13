@@ -19,38 +19,57 @@ public class ReverseNodesKGroups {
 	public ListNode reverseKGroup(ListNode head, int k) {
         // Start typing your Java solution below
         // DO NOT write main() function
-		
+	
 		if(head == null || k < 2) {
 			return head;
 		}
-        
-		ListNode nextNode = head;
-		ListNode startNode = null;
-		ListNode endNode = null;
-		head = null;
+		ListNode tmp = new ListNode(-1);
+		tmp.next = head;
 		
-		while(nextNode != null) {
-			startNode = nextNode;
-			endNode = nextNode;
-			
-			//move
-			for(int i = 1; i <=k; i++) {
-				endNode = endNode.next;
-				if(endNode == null) {
-					break;
-				}
-			}
-			
-			//check end node
-			if(endNode != null) {
-				
-			} else {
-				nextNode = null;
-			}
-			
-			if(head == null) {
-				head = startNode;
-			}
+		ListNode prev = tmp;
+		ListNode curr = tmp.next; //[on the first element to be swapped]
+		
+		while(curr != null) {
+		    int step = k;
+		    //first test whether there are k steps ahead
+		    ListNode forward = curr;
+		    while(forward != null && step > 0) { //XXX must add step > 0, otherwise, it will keep going
+		    	forward = forward.next;
+		    	step--;
+		    }
+		    if(step != 0) {
+		    	break;
+		    }
+		    //start to swap
+		    step = k - 1; //only k-1 steps remained
+		    ListNode n = curr.next;
+		    while(step > 0) {
+		    	curr.next = n.next;
+		    	n.next = prev.next;
+		    	prev.next = n;
+		    	step--;
+		    	n = curr.next;
+		    }
+		    //reset the curr
+		    prev = curr; //XXX do not forget setting prev
+		    curr = prev.next;
+		    
 		}
-    }
+		
+		return tmp.next;
+	}
+	
+	public static void main(String[] args) {
+		ListNode n1 = new ListNode(1);
+		ListNode n2 = new ListNode(2);
+		ListNode n3 = new ListNode(3);
+		n1.next = n2;
+		n2.next = n3;
+		ReverseNodesKGroups rnk = new ReverseNodesKGroups();
+		ListNode head = rnk.reverseKGroup(n1, 2);
+		while(head != null) {
+			System.out.println(head.val);
+			head = head.next;
+		}
+	}
 }
