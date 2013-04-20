@@ -18,8 +18,17 @@ return its level order traversal as:
   [15,7]
 ]
  * */
+//the need for memory efficiency
+//http://meigou.wordpress.com/2013/04/16/leetcode-binary-tree-level-order-traversal/
+//https://gist.github.com/eclipse9614/5067681
+//http://discuss.leetcode.com/questions/49/binary-tree-level-order-traversal
+
 public class BinaryTreeLevelOrder {
 	
+	
+	/**
+	 * get the n-th level one by one
+	 * */
 	public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
 		ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
 		if(root == null) {
@@ -56,7 +65,9 @@ public class BinaryTreeLevelOrder {
 		}
 	}
 	
-	//XXX this is using BFS
+	/***
+	 * Another way
+	 * */
 	public ArrayList<ArrayList<Integer>> levelOrder_bfs(TreeNode root) {
         // Start typing your Java solution below
         // DO NOT write main() function
