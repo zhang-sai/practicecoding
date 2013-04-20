@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 Note: All inputs will be in lower-case.
  * */
+
 public class AnagramAll {
 	//copy from: https://gist.github.com/xiaonanz/4005780
 	public ArrayList<String> anagrams(String[] strs) {
@@ -26,7 +27,7 @@ public class AnagramAll {
             anagrams.add(str);
         }
         
-        ArrayList<String> result = new ArrayList();
+        ArrayList<String> result = new ArrayList<String>();
         for(String key : map.keySet()) {
             ArrayList<String> anagrams = map.get(key);
             if(anagrams.size() > 1) {
