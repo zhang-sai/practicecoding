@@ -12,6 +12,50 @@ Note:
 You are not suppose to use the library's sort function for this problem.
  * */
 public class SortColor {
+	
+	public static void main(String[] args) {
+		SortColor sc = new SortColor();
+		int[] a = new int[]{1, 0};
+		sc.sortColors_one_pass(a);
+		for(int i : a) {
+			System.out.println(i);
+		}
+	}
+	
+	public void sortColors_one_pass(int[] a) {
+		if(a.length < 2) {
+			return;
+		}
+		int pos0 = 0;
+		int pos1 = a.length - 1;
+		int pos2 = a.length - 1;
+		while(pos0 < pos2) {
+			if(a[pos0] == 0) {
+				pos0++;
+			} else if (a[pos0] == 1) {
+				if(pos0 < pos1) {
+					swap(a, pos0, pos1);
+					pos1 --; //move back
+				} else {
+					pos0++;
+				}
+			} else {
+				//a[pos0] == 2
+				swap(a, pos0, pos2);
+				pos2 --;
+				if(pos1 > pos2) {
+					pos1 = pos2; //1 must be before 2
+				}
+			}
+		}
+	}
+	
+	private void swap(int[] a, int index1, int index2) {
+		int tmp = a[index1];
+		a[index1] = a[index2];
+		a[index2] = tmp;
+	}
+	
 	public void sortColors(int[] a) {
         // Start typing your Java solution below
         // DO NOT write main() function
