@@ -7,6 +7,9 @@ import java.util.Set;
 public class Permutations1and2 {
 
 	/**
+	 * 
+	 * http://zhedahht.blog.163.com/blog/static/254111742007499363479/
+	 * 
 	 * Given a collection of numbers, return all possible permutations.
 
 For example,

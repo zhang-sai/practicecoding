@@ -23,6 +23,8 @@ return its level order traversal as:
 //https://gist.github.com/eclipse9614/5067681
 //http://discuss.leetcode.com/questions/49/binary-tree-level-order-traversal
 
+no queue
+
 public class BinaryTreeLevelOrder {
 	
 	

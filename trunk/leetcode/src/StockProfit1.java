@@ -5,6 +5,7 @@
 
 If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit.
  * */
+//see: http://zhedahht.blog.163.com/blog/static/2541117420116135376632/
 public class StockProfit1 {
 	public int maxProfit(int[] prices) {
         if(prices.length < 2) {
@@ -30,6 +31,10 @@ public class StockProfit1 {
         }
         return Math.max(0, maxProfit);
     }
+	
+	public int maxProfit_v2(int[] prices) {
+		
+	}
 	
 	public static void main(String[] args) {
 		StockProfit1 p = new StockProfit1();
