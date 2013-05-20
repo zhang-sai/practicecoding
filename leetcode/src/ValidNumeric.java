@@ -26,6 +26,8 @@ XXX
 //cannot pass the large test
 //http://www.cnblogs.com/remlostime/archive/2012/11/18/2775938.html
 
+xxx
+
 public class ValidNumeric {
 	
 	public boolean isNumber(String s) {

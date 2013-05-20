@@ -29,7 +29,10 @@ Return 0 if there is no such transformation sequence.
 
 
  * */
-
+//XXX note that constructing the graph may consume a significant amount of
+//time, thus, a better way is to explore successive edge on demand,
+//that tis, given a word, try to replace each in each place with
+//'a' --- 'z' and then search its existence in the dictionary
 public class WordWadder {
 
 	public static void main(String[] args) {
@@ -66,7 +69,6 @@ public class WordWadder {
         allWords.add(end);
         
 //        System.out.println(allWords);
-        
         Map<String, Set<String>> paths = new HashMap<String, Set<String>>();
         for(String w1 : allWords) {
         	for(String w2 : allWords) {
@@ -92,16 +94,6 @@ public class WordWadder {
         				paths.get(w2).add(w1);
         			}
         		}
-        	}
-        }
-        
-        //XXX special case for the same word
-        System.out.println(paths);
-        if(start.equals(end)) {
-        	if(paths.get(start) != null) {
-        		return 3;
-        	} else {
-        		return 0;
         	}
         }
         
@@ -160,9 +152,54 @@ public class WordWadder {
 	/**
 	 * find all wadders
 	 * */
+	
 	public ArrayList<ArrayList<String>> findLadders(String start, String end, HashSet<String> dict) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
+		if(start.length() != end.length()) {
+        	return new ArrayList<ArrayList<String>>();
+        }
         
+        //construct a graph
+        HashSet<String> allWords = new HashSet<String>();
+        allWords.addAll(dict);
+        allWords.add(start);
+        allWords.add(end);
+        
+//        System.out.println(allWords);
+        
+        Map<String, Set<String>> paths = new HashMap<String, Set<String>>();
+        for(String w1 : allWords) {
+        	for(String w2 : allWords) {
+        		if(w1.equals(w2)) {
+        			continue;
+        		}
+        		if(w1.length() == w2.length()) {
+        			//if w1 and w2 only differ in 1 character?
+        			int diff = 0;
+        			for(int i = 0; i < w1.length(); i++) {
+        				if(w1.charAt(i) != w2.charAt(i)) {
+        					diff++;
+        				}
+        			}
+        			if(diff == 1) {
+        				if(!paths.containsKey(w1)) {
+        					paths.put(w1, new HashSet<String>());
+        				}
+        				paths.get(w1).add(w2);
+        				if(!paths.containsKey(w2)) {
+        					paths.put(w2, new HashSet<String>());
+        				}
+        				paths.get(w2).add(w1);
+        			}
+        		}
+        	}
+        }
+        //
+        ArrayList<ArrayList<String>> ladders = new ArrayList<ArrayList<String>>();
+        
+        xx
+        //my previous code:
+        //https://code.google.com/p/guierrordetector/source/browse/trunk/GUIErrorDetector/tests/edu/washington/cs/detector/experiments/search/ExhaustiveSearcher.java
+        
+        return ladders;
     }
 }
