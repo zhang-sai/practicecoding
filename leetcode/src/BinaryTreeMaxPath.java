@@ -14,36 +14,41 @@ Return 6.
  * */
 public class BinaryTreeMaxPath {
 	
-	int currentMax = Integer.MIN_VALUE;
+int currentMax = Integer.MIN_VALUE;
 	
 	public int maxPathSum(TreeNode root) {
         // Start typing your Java solution below
         // DO NOT write main() function
-		int max = this.computeMax(root);
+		currentMax = Integer.MIN_VALUE;
+		this.computeMax(root);
 		return currentMax;
     }
-	
-	
-	private int computeMax(TreeNode node) {
-		int value = node.val;
-		if(node.left != null) {
-			int leftMax = this.computeMax(node.left);
-			if(leftMax >= 0) {
-				value = value + leftMax;
-			}
-		}
-		if(node.right != null) {
-			int rightMax = this.computeMax(node.right);
-			if(rightMax >= 0) {
-				value = value + rightMax;
-			}
-		}
-		
-		if(value > currentMax) {
-			currentMax = value;
-		}
-		return value;
-	}
+    
+    int computeMax(TreeNode root){
+         
+        if (root == null) {
+            return 0;
+        }
+        int l = computeMax(root.left);
+        int r = computeMax(root.right);
+        int m = root.val;
+        if (l>0) {
+            m+=l;
+        }
+        if (r>0) {
+            m+=r;
+        }
+         
+        currentMax = Math.max(currentMax,m);
+        
+        if (Math.max(l,r)>0) {
+            return (Math.max(l,r)+root.val);
+        }
+        else {
+            return root.val;
+        }
+         
+    }
 	
 
 	public static void main(String[] args) {

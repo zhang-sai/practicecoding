@@ -21,16 +21,15 @@ Note: Given n will be between 1 and 9 inclusive.
 //explanation: http://smartlhc.blogspot.com/2012/08/find-kth-permutation-sequence.html
 public class PermutationSequence {
 	public String getPermutation(int n, int k) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		
-		Map<Integer, Integer> permValues = new HashMap<Integer, Integer>();
+        //records the number of permutations of n
+        Map<Integer, Integer> permValues = new HashMap<Integer, Integer>();
 		permValues.put(0, 1);
 		int value = 1;
 		for(int i = 1; i <=n; i++) {
 			value = value*i;
 			permValues.put(i, value);
 		}
+		//here is the initial value [1, 2, 3, ...., n]
 		ArrayList<Integer> ints = new ArrayList<Integer>();
 		for(int i = 1; i <=n; i++) {
 			ints.add(i);
@@ -48,7 +47,6 @@ public class PermutationSequence {
 		}
 		
         return sb.toString();
-        
     }
 	
 	public static void main(String[] args) {

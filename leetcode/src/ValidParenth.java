@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 
 /**
@@ -11,39 +12,33 @@ public class ValidParenth {
 	public boolean isValid(String s) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        if(s == null || s.isEmpty()) {
-        	return true;
-        }
-        List<Character> list = new LinkedList<Character>();
+        Stack<Character> stack = new Stack<Character>();
         for(char c : s.toCharArray()) {
-        	if(list.isEmpty()) {
-        		list.add(c);
-        	} else {
-        		if(c == '(' || c == '[' || c == '{') {
-        			list.add(c);
-        		} else {
-        			if(c == ')') {
-        				if(list.get(list.size() - 1) == '(') {
-        					list.remove(list.size() - 1);
-        				} else {
-        					return false;
-        				}
-        			} else if (c == ']') {
-        				if(list.get(list.size() - 1) == '[') {
-        					list.remove(list.size() - 1);
-        				} else {
-        					return false;
-        				}
-        			} else if (c == '}') {
-        				if(list.get(list.size() - 1) == '{') {
-        					list.remove(list.size() - 1);
-        				} else {
-        					return false;
-        				}
-        			}
-        		}
-        	}
+            if(c=='(' || c == '{' || c == '[') {
+                stack.push(c);
+            }
+            if(c == ')') {
+                if(stack.isEmpty() || stack.peek() != '(') {
+                    return false;
+                } else {
+                    stack.pop();
+                }
+            }
+            if(c == '}') {
+                if(stack.isEmpty() ||stack.peek() != '{') {
+                    return false;
+                } else {
+                    stack.pop();
+                }
+            }
+            if(c == ']') {
+                if(stack.isEmpty() || stack.peek() != '[') {
+                    return false;
+                } else {
+                    stack.pop();
+                }
+            }
         }
-        return list.isEmpty();
+        return stack.isEmpty();
     }
 }

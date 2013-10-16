@@ -67,19 +67,12 @@ public class SodukuSolver {
         // Start typing your Java solution below
         // DO NOT write main() function
         this.solve(0, 0, board);
-        for(int i = 0; i < 9; i ++) {
-        	for(int j = 0; j < 9; j++) {
-        		System.out.print(" ");
-        		System.out.print(board[i][j]);
-        	}
-        	System.out.println();
-        }
     }
 	
 	//the next cell to solve
 	private boolean solve(int i , int j, char[][] board) {
+	    //move to the end of the column
 		if(i == 9) {
-			//XXX reset i
 			i = 0;
 			j = j + 1;
 			if( j == 9) {
@@ -101,7 +94,7 @@ public class SodukuSolver {
 			}
 		}
 		
-		//XXX reset
+		//backtracking
 		board[i][j] = '.';
 		return false;
 	}

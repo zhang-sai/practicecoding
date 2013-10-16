@@ -9,38 +9,28 @@ public class AddTwoNumbers {
 	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         // Start typing your Java solution below
         // DO NOT write main() function
-		if(l1 == null || l2 == null) {
-			return null;
-		}
-        ListNode retNode = null;
-        ListNode prevNode = null; 
-        
         int carrier = 0;
+        ListNode head = new ListNode(-1);
+        ListNode curr = head;
         while(l1 != null || l2 != null) {
-        	int v1 = l1 != null ? l1.val : 0;
-        	int v2 = l2 != null ? l2.val : 0;
-        	int value = v1 + v2 + carrier;
-        	int rValue = value >= 10 ? value % 10 : value; //XXX note this
-        	carrier = value >= 10 ? value / 10 : 0;
-        	
-        	ListNode newNode = new ListNode(rValue);
-        	if(retNode == null) {
-        		retNode = newNode;
-        		prevNode = newNode;
-        	} else {
-        		prevNode.next = newNode;
-        		prevNode = prevNode.next; //XXX do not forget this
-        	}
-        	//reset l1 and l2
-        	l1 = l1 == null ? null : l1.next;
-        	l2 = l2 == null ? null : l2.next;
+            
+            int v1 = l1 != null ? l1.val: 0;
+            int v2 = l2 != null ? l2.val : 0;
+            
+            int digit = (v1 + v2 + carrier)%10;
+            ListNode newNode = new ListNode(digit);
+            curr.next = newNode;
+            curr = curr.next;
+            
+            carrier = (v1 + v2 + carrier)/10;
+            l1 = l1 != null ? l1.next : null;
+            l2 = l2 != null ? l2.next : null;
+            
+            
         }
-        
-        //XXX donot forget this
-        if(carrier > 0) {
-        	prevNode.next = new ListNode(carrier);
+        if(carrier != 0) {
+            curr.next = new ListNode(carrier);
         }
-        
-        return retNode;
+        return head.next;
     }
 }

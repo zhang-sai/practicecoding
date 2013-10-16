@@ -17,9 +17,8 @@ public class SpiralMatrix {
 	//here is a recusive way:
 	//http://leetcode.com/2010/05/printing-matrix-in-spiral-order.html
 	public ArrayList<Integer> spiralOrder(int[][] matrix) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		ArrayList<Integer> list = new ArrayList<Integer>();
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        ArrayList<Integer> list = new ArrayList<Integer>();
 		if(matrix.length == 0) {
 			return list;
 		}

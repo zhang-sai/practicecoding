@@ -22,29 +22,28 @@ Return the sum = 12 + 13 = 25.
  * */
 public class SumRootToLeaf {
 	public int sumNumbers(TreeNode root) {
-		if(root == null) {
-			return 0;
-		}
-        return this.computeValue(root, 0);
-		
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(root == null) {
+            return 0;
+        }
+        int[] vals = new int[]{0};
+        sumNumbers(root, vals, 0);
+        return vals[0];
     }
-	
-	public int computeValue(TreeNode node, int currValue) {
-		int v = currValue*10;
-		v+=node.val;
-		
-		if(node.left == null && node.right == null) {
-			return v;
-		}
-		
-		int retValue = 0;
-		if(node.left != null) {
-			retValue += this.computeValue(node.left, v);
-		}
-		if(node.right != null) {
-			retValue += this.computeValue(node.right, v);
-		}
-		
-		return retValue;
-	}
+    
+    public void sumNumbers(TreeNode root, int[] num, int currVal) {
+        currVal = currVal * 10 + root.val;
+        if(root.left == null && root.right == null) {
+            num[0] = num[0] + currVal;
+            return;
+        } else {
+            if(root.left!=null) {
+                sumNumbers(root.left, num, currVal);
+            }
+            if(root.right!=null) {
+                sumNumbers(root.right, num, currVal);
+            }
+        }
+    }
 }

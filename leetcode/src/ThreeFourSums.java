@@ -21,102 +21,47 @@ The solution set must not contain duplicate triplets.
 	 * */
 	//XXX time limit exceeds
 	public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
-		Set<ArrayList<Integer>> set = new HashSet<ArrayList<Integer>>();
-		ArrayList<ArrayList<Integer>> retList = new ArrayList<ArrayList<Integer>>();
-		if(num.length < 3) {
-			return retList;
-		}
-		Arrays.sort(num);
-		for(int i = 0; i < num.length; i++) {
-			int j = i + 1;
-			int k = num.length - 1;
-			while(j < k) {
-				if(num[i] + num[j] + num[k] > 0) {
-					k--;
-				} else if (num[i] + num[j] + num[k] < 0) {
-					j++;
-				} else {
-					//find
-					ArrayList<Integer> list = new ArrayList<Integer>();
-					list.add(num[i]);
-					list.add(num[j]);
-					list.add(num[k]);
-					set.add(list);
-					j++;
-					k--;
-				}
-			}
-		}
-		
-		retList.addAll(set);
-		return retList;
-	}
-	
-	public ArrayList<ArrayList<Integer>> threeSum_recursive(int[] num) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		ArrayList<Integer> validIndices = new ArrayList<Integer>();
-		for(Integer i = 0; i < num.length; i++) {
-			validIndices.add(i);
-		}
-		ArrayList<ArrayList<Integer>> results = this.sum(3, num, validIndices, 0);
-//		for(ArrayList<Integer> r : results) {
-//			Collections.sort(r);
-//		}
-		ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
-		for(ArrayList<Integer> r : results) {
-			ArrayList<Integer> al = new ArrayList<Integer>();
-			for(Integer i : r) {
-				al.add(num[i]);
-			}
-			Collections.sort(al);
-			if(!ret.contains(al)) {
-				ret.add(al);
-			}
-		}
-		return ret;
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+        if(num.length < 3) {
+            return result;
+        }
+        Arrays.sort(num);
+        
+        HashSet<ArrayList<Integer>> set = new HashSet<ArrayList<Integer>>();
+        for(int i = 0; i <= num.length-3; i++) {
+            if(num[i] > 0) {
+                break;
+            }
+            int j = i + 1;
+            int k = num.length - 1;
+            while(j < k) {
+                if(num[i] + num[j] > 0) {
+                    break;
+                }
+                if(num[i] + num[j] + num[k] == 0) {
+                    ArrayList<Integer> l = new ArrayList<Integer>();
+                    l.add(num[i]);
+                    l.add(num[j]);
+                    l.add(num[k]);
+                    set.add(l);
+                    k--;
+                    j++;
+                } else if(num[i] + num[j] + num[k] > 0) {
+                    k--;
+                } else {
+                    j++;
+                }
+            }
+        }
+        
+        result.addAll(set);
+        
+        return result;
+        
     }
 	
 	
-	ArrayList<ArrayList<Integer>> sum(int num, int[] values, ArrayList<Integer> validIndices, int target) {
-		ArrayList<ArrayList<Integer>> indices = new ArrayList<ArrayList<Integer>>();
-		if(num > validIndices.size()) {
-			return indices;
-		}
-		if(num == 1) {
-			for(int index : validIndices) {
-				if(values[index] == target) {
-					ArrayList<Integer> list = new ArrayList<Integer>();
-					list.add(index);
-					indices.add(list);
-				}
-			}
-			return indices;
-		}
-		
-		ArrayList<ArrayList<Integer>> retList = new ArrayList<ArrayList<Integer>>();
-		for(Integer index : validIndices) {
-			int value = values[index];
-			
-			ArrayList<Integer> newValidIndices = (ArrayList<Integer>)validIndices.clone();
-			newValidIndices.remove(index);
-			
-			ArrayList<ArrayList<Integer>> lst = this.sum(num - 1, values, newValidIndices, target - value);
-			
-			
-			if(!lst.isEmpty()) {
-				for(ArrayList<Integer> l : lst) {
-				    ArrayList<Integer> aList = new ArrayList<Integer>();
-				    aList.add(index);
-				    aList.addAll(l);
-				    retList.add(aList);
-				}
-				
-			}
-		}
-		
-		return retList;
-	}
 	
 	/**
 	 * Given an array S of n integers, find three integers in S such that the sum is closest to a given number, target. Return the sum of the three integers. You may assume that each input would have exactly one solution.
@@ -126,8 +71,7 @@ The solution set must not contain duplicate triplets.
     The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
 	 * */
 	public int threeSumClosest(int[] num, int target) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
+        // Note: The Solution object is instantiated only once and is reused by each test case.
         Arrays.sort(num);
         if(num.length < 3) {
         	throw new Error(); 
@@ -173,10 +117,8 @@ The solution set must not contain duplicate quadruplets.
 	 * */
 	//XXX the following pass the small tests, but exceed time limit of the large tests
 	public ArrayList<ArrayList<Integer>> fourSum(int[] num, int target) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        
-		ArrayList<ArrayList<Integer>> retList = new ArrayList<ArrayList<Integer>>();
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        ArrayList<ArrayList<Integer>> retList = new ArrayList<ArrayList<Integer>>();
 		if(num.length < 4) {
 			return retList;
 		}
@@ -188,7 +130,6 @@ The solution set must not contain duplicate quadruplets.
 		for(int i = 0; i <= num.length - 4; i++) {
 			//XXX  be aware of -5, -3, -1, -1  target is 11
 			if(num[i] > 0 && num[i] > target) {
-				System.out.println("i is: " + i + ", " + num[i]);
 				break;
 			}
 			for(int j = i + 1; j <= num.length - 3; j++) {
@@ -202,7 +143,6 @@ The solution set must not contain duplicate quadruplets.
 				}
 				int l = num.length - 1;
 				while(k < l) {
-//					System.out.println(i + ", " + j + ", " + k + ", " + l);
 					int sum = num[i] + num[j] + num[k] + num[l];
 					if(sum < target) {
 						k ++;

@@ -8,37 +8,40 @@
 // http://leetcode.com/2011/05/longest-substring-without-repeating-characters.html
 public class LongestSubstrWithoutRepetition {
 	public int lengthOfLongestSubstring(String s) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		if(s.length() < 2) {
-			return s.length();
-		}
-		//use two indices
-		int i = 0;
-		int j = i + 1;
-		int maxlen = -1;
-		boolean[] exists = new boolean[256];
-		exists[s.charAt(i)] = true;
-		while(j < s.length()) {
-//			System.out.println("j: " + j);
-			if(!exists[s.charAt(j)]) {
-				exists[s.charAt(j)] = true;
-				j++;
-			} else {
-				maxlen = Math.max(maxlen, j - i);
-				//increase i to j
-				while(s.charAt(i) != s.charAt(j)) {
-//					System.out.println("i: " + i+ ", j: " + j);
-					exists[s.charAt(i)] = false; //clear it
-					i++;
-				}
-//				System.out.println("Found: i: " + i+ ", j: " + j);
-				i++;
-				j++; //XXX must increase j here
-			}
-		}
-		maxlen = Math.max(maxlen, j - i);
-		return maxlen;
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        char[] cs = s.toCharArray();
+        if(cs.length < 2) {
+            return cs.length;
+        }
+        //check the existence
+        boolean[] set = new boolean[26];
+        
+        int start = 0;
+        set[cs[start] - 'a']=true;
+        int end = start + 1;
+        int max = 1;
+        
+        while(end < cs.length) {
+            char c = cs[end];
+            if(!set[c-'a']) {
+                set[c-'a'] = true;
+                end ++;
+            } else {
+                max = Math.max(max, end - start);
+                //move the start
+                while(cs[start] != c) {
+                    set[cs[start] - 'a'] = false;
+                    start++;
+                }
+                start++; //do not forget to move the start index one step further
+                // set.remove(cs[start]);
+                end++;
+            }
+        }
+        
+        max = Math.max(max, end - start);
+        
+        return max;
     }
 	
 	public static void main(String[] args) {

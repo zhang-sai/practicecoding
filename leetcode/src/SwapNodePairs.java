@@ -2,36 +2,28 @@
 public class SwapNodePairs {
 
 	public ListNode swapPairs(ListNode head) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        if(head == null) {
-        	return head;
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        if(head == null || head.next == null) {
+            return head;
         }
-        if(head.next == null) {
-        	return head;
-        }
-        ListNode newHead = null;
+        ListNode newHead = new ListNode(-1);
+        newHead.next = head;
         
-        ListNode prev = null;
-        ListNode current = head;
-        ListNode next = current.next;
-        while(current != null && next != null) {
-        	current.next = next.next; //XXX this is error-prone
-        	next.next = current;
-        	if(prev != null) {
-        		prev.next = next;
-        	} else {
-        		newHead = next;
-        	}
-        	//go to the next
-        	prev = current;
-        	current = current.next;
-        	if(current != null) {
-        		next = current.next;
-        	}
-        }
+        //use three pointers
+        ListNode prev = newHead;
+        ListNode curr = head;
+        ListNode next = curr.next;
         
-        return newHead;
+        while(next != null) {
+            prev.next = next;
+            curr.next = next.next;
+            next.next = curr;
+            //adjust the pointer
+            prev = curr;
+            curr = curr.next;
+            next = curr != null ? curr.next : null;
+        }
+        return newHead.next;
     }
 	
 	class ListNode {

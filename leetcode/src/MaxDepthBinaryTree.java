@@ -8,17 +8,19 @@ public class MaxDepthBinaryTree {
         // Start typing your Java solution below
         // DO NOT write main() function
         if(root == null) {
-        	return 0;
+            return 0;
         }
-        int maxDepth = 1;
+        if(root.left == null && root.right == null) {
+            return 1;
+        }
+        int max = 0;
         if(root.left != null) {
-        	maxDepth += this.maxDepth(root.left);
+            max = 1 + maxDepth(root.left);
         }
         if(root.right != null) {
-        	maxDepth = Math.max(maxDepth, 1 + this.maxDepth(root.right));
+            max = Math.max(max, 1 + maxDepth(root.right));
         }
-        
-        return maxDepth;
+        return max;
     }
 	
 }

@@ -25,9 +25,8 @@ If S = [1,2,3], a solution is:
  * */
 public class Subsets {
 	public ArrayList<ArrayList<Integer>> subsets(int[] s) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
 		list.add(new ArrayList<Integer>());
         int size = s.length;
         if(size == 0) {

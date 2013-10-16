@@ -21,6 +21,7 @@ confused what "{1,#,2,3}" means? > read more on how binary tree is serialized on
  * */
 //XXX some tricks in 
 public class BinaryTreeZigZagTraversal {
+	
 	public ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode root) {
         // Start typing your Java solution below
         // DO NOT write main() function
@@ -45,14 +46,9 @@ public class BinaryTreeZigZagTraversal {
     }
 	
 	ArrayList<TreeNode> getNextLevel(ArrayList<TreeNode> currLevel, boolean leftToRight) {
-		System.out.println("leftoright? " + leftToRight +  ", current list: " + currLevel);
 		ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
-//		if(leftToRight) {
-		//XXX note that no matter in which order, you must reverse the list
-		//since the next traversal order is ALWAYS different than the previous one
-			Collections.reverse(currLevel);
-//			System.out.println("   -- reversed current list: " + currLevel);
-//		}
+		// must reverse the queue here
+		Collections.reverse(currLevel);
 		for(TreeNode node : currLevel) {
 			if(leftToRight) {
 			    if(node.left != null) {

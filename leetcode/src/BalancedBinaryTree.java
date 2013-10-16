@@ -9,24 +9,20 @@ public class BalancedBinaryTree {
 	public boolean isBalanced(TreeNode root) {
         // Start typing your Java solution below
         // DO NOT write main() function
-		if(root == null) {
-			return true;
-		}
-		
-		//add some short cut here
-		//XXX ADD such tricks works
-		if(root.left == null && root.right != null) {
-			if(root.right.left != null || root.right.right != null) {
-				return false;
-			}
-		}
-		if(root.left != null && root.right == null) {
-			if(root.left.left != null || root.left.right != null) {
-				return false;
-			}
-		}
-		
-		if(root.left != null) {
+        if(root == null) {
+            return true;
+        }
+        if(root.left == null && root.right != null) {
+            if(root.right.left != null || root.right.right != null) {
+                return false;
+            }
+        }
+        if(root.right == null && root.left != null) {
+            if(root.left.left != null || root.left.right != null) {
+                return false;
+            }
+        }
+        if(root.left != null) {
 			if(!this.isBalanced(root.left)) {
 				return false;
 			}
@@ -43,8 +39,8 @@ public class BalancedBinaryTree {
 		}
 		return true;
     }
-	
-	private int maxDepth(TreeNode node) {
+    
+    private int maxDepth(TreeNode node) {
 		if(node == null) {
 			return 0;
 		}

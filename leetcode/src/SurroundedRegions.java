@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +27,8 @@ XXX
 
 //XXX hints: http://discuss.leetcode.com/questions/1223/surrounded-regions
 /**
- * First scan the four edges of the board, if you meet an 'O', call a recursive mark function to mark that region to something else (for example, '+');
+ * First scan the four edges of the board, if you meet an 'O', call
+ * a recursive mark function to mark that region to something else (for example, '+');
 scan all the board, if you meet an 'O', flip it to 'X';
 scan again the board, if you meet an '+', flip it to 'O';
  * */
@@ -37,6 +39,9 @@ public class SurroundedRegions {
 	char t = '+';
 	
 	public void solve(char[][] board) {
+	    if(board == null || board.length == 0) {
+	        return;
+	    }
 		if(board.length == 0) {
         	return;
         }
@@ -44,9 +49,7 @@ public class SurroundedRegions {
 		for(int i = 0; i < board.length; i++) {
         	for(int j = 0; j < board[i].length; j++) {
         		if(i == 0 || j == 0 || i == board.length - 1 || j == board[i].length -1) {
-        			Set<IntPair> set = new HashSet<IntPair>();
-        			this.mark(board, i, j, set);
-        			set.clear();
+        			this.mark(board, i, j);
         		}
         	}
 		}
@@ -65,33 +68,34 @@ public class SurroundedRegions {
 	
 	//XXX must have a set for visited
 	//otherwise this wont stop
-	private void mark(char[][] board, int x, int y, Set<IntPair> visited) {
+	private void mark(char[][] board, int x, int y) {
 //		System.out.println(x + ", " + y);
-		if(x < 0 || y < 0 || x >= board.length || y >= board[x].length) {
+		if(x < 0 || y < 0 || x >= board.length || y >= board[0].length) {
 			return;
 		}
 		if(board[x][y] != o) {
 			return;
 		}
+		Set<IntPair> visited = new HashSet<IntPair>();
 		IntPair newPair = new IntPair(x, y);
-		if(visited.contains(newPair)) {
-			return;
-		}
-		System.out.println(board[x][y] + ",   " + x + ", " + y);
-		//set to a temporal symbol, say t
-		board[x][y] = t;
-		visited.add(newPair);
-		if(x > 0) {
-		    this.mark(board, x - 1, y, visited);
-		}
-		if( x < board.length - 1) {
-		    this.mark(board, x + 1, y, visited);
-		}
-		if(y > 0) {
-		    this.mark(board, x, y - 1, visited);
-		}
-		if(y < board[x].length - 1) {
-		    this.mark(board, x, y + 1, visited);
+		ArrayList<IntPair> queue = new ArrayList<IntPair>();
+		queue.add(newPair);
+		while(!queue.isEmpty()) {
+		    IntPair p = queue.remove(0);
+		    if(p.x < 0 || p.y < 0 || p.x >= board.length || p.y >= board[0].length) {
+		        continue;
+		    }
+		    if(visited.contains(p)) {
+		        continue;
+		    }
+		    if(board[p.x][p.y] != o) {
+		        continue;
+		    }
+		    board[p.x][p.y] = t;
+		    queue.add(new IntPair(p.x - 1, p.y));
+		    queue.add(new IntPair(p.x + 1, p.y));
+		    queue.add(new IntPair(p.x, p.y - 1));
+		    queue.add(new IntPair(p.x, p.y + 1));
 		}
 	}
 	

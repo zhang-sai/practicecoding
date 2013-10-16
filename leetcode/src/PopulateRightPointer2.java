@@ -1,5 +1,4 @@
 
-XXX
 
 public class PopulateRightPointer2 {	/**
 	 * Follow up for problem "Populating Next Right Pointers in Each Node".
@@ -26,50 +25,52 @@ public class PopulateRightPointer2 {	/**
 		 * */
 	//XXX PASS the test set
 	public void connect(TreeLinkNode root) {
-		this.createLinks(root);
-		this.createLinkdsBetweenSubtrees(root);
-	}
-	
-	//create the next link between siblings
-	public void createLinks(TreeLinkNode root) {
-		if(root == null) {
-			return;
-		}
-		if(root.left != null && root.right != null) {
-			root.left.next = root.right;
-			root.right.next = null;
-			this.createLinks(root.left);
-			this.createLinks(root.right);
-		} else if(root.left != null) {
-			root.left.next = null;
-			this.createLinks(root.left);
-		} else if (root.right != null) {
-			root.right.next = null;
-			this.createLinks(root.right);
-		}
-	}
-	
-	public void createLinkdsBetweenSubtrees(TreeLinkNode node) {
-		if(node == null) {
-			return;
-		}
-		if(node.next != null) {
-			TreeLinkNode node1 = node.right != null ? node.right : node.left;
-			if(node1 != null && node1.next == null) {
-				//XXX this tricky point you need to follow the next to the most left one
-				TreeLinkNode nextNode = node.next;
-				while(nextNode!= null) {
-					if(nextNode.left != null || nextNode.right != null) {
-						break;
-					}
-					nextNode = nextNode.next;
-				}
-				TreeLinkNode node2 = nextNode == null ? null
-						: (nextNode.left != null ? nextNode.left : nextNode.right);
-				node1.next = node2;
-			}
-		}
-		this.createLinkdsBetweenSubtrees(node.left);
-		this.createLinkdsBetweenSubtrees(node.right);
-	}
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(root == null) {
+            return;
+        }
+        if(root.left != null) {
+            if(root.right != null) {
+                root.left.next = root.right;
+            } else {
+                TreeLinkNode nextNode = root.next;
+                while(nextNode != null) {
+                    if((nextNode.left != null ||  nextNode.right != null)) {
+                        break;
+                    } else {
+                        nextNode = nextNode.next;
+                    }
+                }
+                root.left.next =  (nextNode ==  null)
+                    ? null
+                    : (nextNode.left != null ? nextNode.left : nextNode.right);
+            }
+        }
+        if(root.right != null) {
+            if(root.next == null) {
+                root.right.next = null;
+            } else {
+                TreeLinkNode nextNode = root.next;
+                while(nextNode != null) {
+                    if((nextNode.left != null || nextNode.right != null)) {
+                        break;
+                    } else {
+                        nextNode = nextNode.next;
+                    }
+                }
+                if(nextNode == null) {
+                    root.right.next = null;
+                } else {
+                    root.right.next = nextNode.left != null ? nextNode.left : nextNode.right;
+                }
+            }
+        }
+        
+        //the recursive order may make some right side pointer 
+        //initialized after the left side
+        connect(root.right);
+        connect(root.left);
+        //must connect right before connecting left
+    }
 }

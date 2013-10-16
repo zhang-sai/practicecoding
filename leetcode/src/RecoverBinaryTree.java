@@ -17,19 +17,13 @@ public class RecoverBinaryTree {
 	
 	//a const space solution
 	//http://fisherlei.blogspot.com/2012/12/leetcode-recover-binary-search-tree.html
-	XXX
+//	XXX
 	public void recoverTree(TreeNode root) {
-		
-	}
-	
-	//the key point is that the in order traversal of a binary
-	//tree must be a sorted list
-	public void recoverTree_not_const_space(TreeNode root) {
-		if(root == null) {
+        if(root == null) {
 			return;
 		}
 		List<TreeNode> list = this.inorder(root);
-		System.out.println(list);
+// 		System.out.println(list);
 		TreeNode n1 = null;
 		TreeNode n2 = null;
 		for(int i = 0; i < list.size() - 1; i++) {
@@ -46,8 +40,8 @@ public class RecoverBinaryTree {
 			}
 		}
 		
-		System.out.println(n1);
-		System.out.println(n2);
+// 		System.out.println(n1);
+// 		System.out.println(n2);
 		
 		int tmp = n1.val;
 		n1.val = n2.val;

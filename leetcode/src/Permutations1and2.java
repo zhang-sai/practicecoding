@@ -18,9 +18,8 @@ For example,
 	 * */
 //	XXX
 	public ArrayList<ArrayList<Integer>> permute(int[] num) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		ArrayList<ArrayList<Integer>>  ret = new ArrayList<ArrayList<Integer>> ();
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        ArrayList<ArrayList<Integer>>  ret = new ArrayList<ArrayList<Integer>> ();
 		if(num.length == 0) {
 			return ret;
 		}
@@ -44,8 +43,9 @@ For example,
 				}
 				array[index++] = num[j];
 			}
-			//
+			//recursive call the
 			ArrayList<ArrayList<Integer>> lists = this.permuteInternal(array);
+			//add the current result
 			for(ArrayList<Integer> list : lists) {
 				list.add(0, num[i]);
 				ret.add(list);
@@ -64,64 +64,93 @@ For example,
 	 * */
 	//credit goes to: http://www.tsechung.com/wordpress/tag/permutation/
 	public ArrayList<ArrayList<Integer>> permuteUnique(int[] num) {
-		// Start typing your Java solution below
-		// DO NOT write main() function
-		ArrayList<ArrayList<Integer>> al = new ArrayList<ArrayList<Integer>>();
-		ArrayList<Integer> head = new ArrayList<Integer>();
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        ArrayList<ArrayList<Integer>> al = new ArrayList<ArrayList<Integer>>();
+// 		ArrayList<Integer> head = new ArrayList<Integer>();
 		Arrays.sort(num);
 		
-		//after sorting the array, the sorted one is the first permutated item
-		for (int i = 0; i < num.length; i++)
-			head.add(num[i]);
-		al.add(head);
-
-		//the total number of possible permutation number
-		int factorial = 1;
-		for (int i = 0; i < num.length; i++)
-			factorial *= (i + 1);
-
-		
-		for (int t = 1; t < factorial; t++) {
-			int first_non_decreasing_index = -1, swap_point = -1;
-
-			// from the end, find first index that num[index]<num[index+1]
-			for (int i = num.length - 1; i > 0; i--) {
-				if (num[i - 1] < num[i]) {
-					first_non_decreasing_index = i - 1;
-					break;
-				} else if (i == 1) {
-					//at this point: num is sorted in a descreasing order
-					return al;
-				}
-			}
-
-			// finding the first numthat num[swap_point]>num[index]
-			for (int i = num.length - 1; i > first_non_decreasing_index; i--) {
-				if (num[first_non_decreasing_index] < num[i]) {
-					swap_point = i;
-					break;
-				}
-			}
-			//swap num[index], num[swap_point]
-			int tmp = num[first_non_decreasing_index];
-			num[first_non_decreasing_index] = num[swap_point];
-			num[swap_point] = tmp;
-
-			// swap the index+1...end sequences
-			for (int i = 0; i < (num.length - 1 - first_non_decreasing_index) / 2; i++) {
-				tmp = num[first_non_decreasing_index + 1 + i];
-				num[first_non_decreasing_index + 1 + i] = num[num.length - 1 - i];
-				num[num.length - 1 - i] = tmp;
-			}
-
-			//create the next permutated list
-			ArrayList<Integer> next = new ArrayList<Integer>();
-			for (int i = 0; i < num.length; i++)
-				next.add(num[i]);
-			al.add(next);
+		ArrayList<Integer> list1 = new ArrayList<Integer>();
+		for(int i : num) {
+		    list1.add(i);
 		}
+		al.add(list1);
+		
+		int[] prevNum = new int[num.length];
+	    System.arraycopy(num, 0, prevNum, 0, num.length);
+		
+		while(true) {
+		    num = nextPermutation(num);
+		    if(equals(prevNum, num)) {
+		        break;
+		    } else {
+		       ArrayList<Integer> list = new ArrayList<Integer>();
+		       for(int i : num) {
+		           list.add(i);
+		       }
+		       al.add(list);
+		    }
+		}
+		
 		return al;
-	}
+		
+    }
+    
+    public boolean equals(int[] a, int[] b) {
+        for(int i = 0; i < a.length; i++) {
+            if(a[i] != b[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public int[] nextPermutation(int[] num) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        if (num.length == 1)
+			return num;
+		
+		int leastIndexToBeChanged = -1, swapIndex = -1;
+		for (int i = num.length - 1; i > 0; i--) {
+		    //find the first index i, that num[i] < num[i+1]
+			if (num[i - 1] < num[i]) {
+				leastIndexToBeChanged = i - 1;
+				break;
+			}
+		}
+		
+		if(leastIndexToBeChanged == -1) {
+		    Arrays.sort(num);
+		    return num;
+		}
+
+        //find the last index that is great than the leastIndexToBeChanged
+		for (int i = num.length - 1; i > 0; i--) {
+			if (num[i] > num[leastIndexToBeChanged]) {
+				swapIndex = i;
+				break;
+			}
+		}
+
+		int tmp = num[swapIndex];
+		num[swapIndex] = num[leastIndexToBeChanged];
+		num[leastIndexToBeChanged] = tmp;
+
+		//this step is critical
+		//swap the location of the remaining array
+		//e.g.,   1, 2, 3, 4
+		// =>   1, 2, 4, 3
+		// =>   1, 3, 4, 2    ==>  1, 3, 2, 4 (this step)
+		// => 1, 3, 4, 2
+		// => 1, 4, 3, 2   ==>  1, 4, 2, 3 (this step)
+		// => 1, 4, 3, 2
+		for (int i = 0; i < (num.length - 1 - leastIndexToBeChanged) / 2; i++) {
+			tmp = num[leastIndexToBeChanged + 1 + i];
+			num[leastIndexToBeChanged + 1 + i] = num[num.length - 1 - i];
+			num[num.length - 1 - i] = tmp;
+		}
+		
+		return num;
+    }
 
 	
 	public static void main(String[] args) {

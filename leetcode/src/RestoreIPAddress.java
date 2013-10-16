@@ -11,94 +11,64 @@ return ["255.255.11.135", "255.255.111.35"]. (Order does not matter)
  * */
 public class RestoreIPAddress {
 	public ArrayList<String> restoreIpAddresses(String s) {
-		if(s == null || s.isEmpty()) {
-			return new ArrayList<String>();
-		}
         // Start typing your Java solution below
         // DO NOT write main() function
-		ArrayList<String> list =  this.restoreIpAddresses(s, 4);
-		if(list == null) {
-			return new ArrayList<String>();
-		} else {
-			return list;
-		}
+        if(s.length() > 12) { //check max length
+            return new ArrayList<String>();
+        }
+        return restoreIp(s, 0, 4);
     }
-	
-	private Integer parseIntegerNoExp(String s) {
-		try {
-			return Integer.parseInt(s);
-		} catch (Throwable e) {
-			return -1;
-		}
-	}
-	
-	private ArrayList<String> restoreIpAddresses(String s, int num) {
-		
-//		System.out.println("string: " + s + "  -- num: " + num);
-		if(s.isEmpty()) {
-			return null;
-		}
-		//the case of only 1 num
-		if(num == 1) {
-			if(s.length() > 1 && s.startsWith("0")) { //XXX add this constraint
-				return null;
-			}
-			ArrayList<String> list = new ArrayList<String>();
-			int address = parseIntegerNoExp(s);
-			if(address >= 0 && address < 256) {
-				list.add(s);
-				return list;
-			} else {
-				return null;
-			}
-		} else {
-			//for the current address part, either 1 digit or 2 digit or 3 digit
-			//some tricks can be employed to remove some possibilities here
-			String firstDigit =  s.substring(0, 1);
-//			if(Integer.parseInt(firstDigit) == 0) {
-//				return null;
-//			} else 
-			{
-				ArrayList<String> list = new ArrayList<String>();
-				
-				ArrayList<String> restAddresses = this.restoreIpAddresses(s.substring(1), num - 1);
-				if(restAddresses != null) {
-					for(String addr : restAddresses) {
-						list.add(firstDigit + "." + addr);
-						//do not return here
-					}
-				}
-				
-				String firstTwoDigits = s.length() > 1 ? s.substring(0, 2) : null;
-				if(firstTwoDigits != null && !firstDigit.equals("0")) { //XXX add this constraint
-					restAddresses = this.restoreIpAddresses(s.substring(2), num - 1);
-					if(restAddresses != null) {
-					    for(String addr : restAddresses) {
-						    list.add(firstTwoDigits + "." + addr);
-					    }
-					}
-				}
-				
-				String firstThreeDigits = s.length() > 2 ? s.substring(0, 3) : null;
-				if(firstThreeDigits != null && !firstDigit.equals("0")) {
-					if(Integer.parseInt(firstThreeDigits) < 256) {
-					    restAddresses = this.restoreIpAddresses(s.substring(3), num - 1);
-					    if(restAddresses != null) { 
-					        for(String addr : restAddresses) {
-						        list.add(firstThreeDigits + "." + addr);
-					        }
-					    }
-					}
-				}
-				
-				if(list.isEmpty()) {
-					return null;
-				}
-				
-				return list;
-			}
-		}
-	}
+    
+    public ArrayList<String> restoreIp(String s, int startIndex, int num) {
+        ArrayList<String> ips = new ArrayList<String>();
+        if(startIndex >= s.length()) {
+            return ips;
+        }
+        
+        if(num == 1) {
+            String str = s.substring(startIndex);
+            if(str.startsWith("0") && str.length() > 1) {
+                return ips;
+            }
+            Integer v = Integer.parseInt(str);  //it may overflow
+            if(v <= 255) {
+                ips.add(str);
+                return ips;
+            }
+        }
+        
+        //the possiblity of first character
+        ArrayList<String> list1 = restoreIp(s, startIndex + 1, num-1);
+        String str = s.substring(startIndex, startIndex+1);
+        if(!list1.isEmpty()) {
+            for(String ip : list1) {
+                ips.add(str + "." + ip);
+            }
+        }
+        
+        ArrayList<String> list2 = restoreIp(s, startIndex + 2, num-1);
+        if(startIndex + 1 <= s.length() - 1) {
+            str = s.substring(startIndex, startIndex+2);
+            if(!list2.isEmpty() && !str.startsWith("0")) {
+                for(String ip : list2) {
+                    ips.add(str + "." + ip);
+                }
+            }
+        }
+        
+        ArrayList<String> list3 = restoreIp(s, startIndex + 3, num-1);
+        if(startIndex + 2 <= s.length() - 1) {
+            str = s.substring(startIndex, startIndex+3);
+            Integer v = Integer.parseInt(str);  //it may overflow
+            if(!list3.isEmpty() && !str.startsWith("0") && v <= 255) {
+                for(String ip : list3) {
+                    ips.add(str + "." + ip);
+                }
+            }
+        }
+        
+        return ips;
+    }
 	
 	public static void main(String[] args) {
 		RestoreIPAddress r = new RestoreIPAddress();

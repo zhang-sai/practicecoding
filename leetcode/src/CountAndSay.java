@@ -13,8 +13,7 @@ Note: The sequence of integers will be represented as a string.
 
 public class CountAndSay {
 	public String countAndSay(int n) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
+        // Note: The Solution object is instantiated only once and is reused by each test case.
         int round = 1;
         String value = "1";
         while(round++ < n) {

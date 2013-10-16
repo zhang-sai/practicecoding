@@ -23,6 +23,7 @@ public class StringToInteger {
 	//    or  134abc = 134
 	//illegal space  +  4 is illegal
 	public int atoi(String str) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
         // Start typing your Java solution below
         // DO NOT write main() function
         str = str.trim();
@@ -44,7 +45,6 @@ public class StringToInteger {
         		break;
         	}
         }
-        System.out.println(first_illegal_char + ", " + str);
         if(first_illegal_char != -1) {
             str = str.substring(0, first_illegal_char);
         }
@@ -109,6 +109,7 @@ public class StringToInteger {
         } else {
         	return value;
         }
+    
     }
 	
 	public static void main(String[] args) {

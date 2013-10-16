@@ -14,21 +14,25 @@ public class LengthOfLastWord {
 	public int lengthOfLastWord(String s) {
         // Start typing your Java solution below
         // DO NOT write main() function
-		s = s.trim();
-		if(s.isEmpty()) {
-			return 0;
-		}
-		for(int i = s.length() - 1; i >=0; i--) {
-			if(isChar(s.charAt(i))) {
-				continue;
-			} else {
-				return s.length() - i - 1;
-			}
-		}
-        return s.length();
+        if(s == null || s.length() == 0) {
+            return 0;
+        }
+        char[] cs = s.toCharArray();
+        int startFromEnd = cs.length - 1;
+        while(startFromEnd >= 0 && !isAlpha(cs[startFromEnd]) ) {
+            startFromEnd--;
+        }
+        if(startFromEnd == -1) {
+            return 0;
+        }
+        int endFromEnd = startFromEnd - 1;
+        while(endFromEnd >= 0 && isAlpha(cs[endFromEnd]) ) {
+            endFromEnd --;
+        }
+        return startFromEnd - endFromEnd;
     }
-	
-	private boolean isChar(char c) {
-		return (c>='a' && c <= 'z') || (c>='A' && c <='Z');
-	}
+    
+    private boolean isAlpha(char c) {
+        return (c>='a' && c <= 'z') || (c>= 'A' && c <='Z');
+    }
 }

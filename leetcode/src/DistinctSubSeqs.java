@@ -11,7 +11,54 @@ Return 3.
  * */
 //discussion goes to: http://discuss.leetcode.com/questions/281/distinct-subsequences
 public class DistinctSubSeqs {
-	public int numDistinct(String str, String target) {
+	
+	public int numDistinct(String s, String t) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(s == null && t == null) {
+            return 1;
+        }
+        if(t.length() == 0) {
+            return s.length();
+        }
+        if(s.length() < t.length()) {
+            return 0;
+        }
+        if(s.length() == t.length()) {
+            return s.equals(t) ? 1 : 0;
+        }
+        
+        //credit goes to:
+        //http://tech-lightnight.blogspot.com/2012/11/distinct-subsequences.html
+        //use dynamic programming to solve this problem
+        int[][] numbers = new int[s.length() + 1][t.length() + 1];
+        //leave an extra
+        
+        //compute the initial cases in dynamic programming
+        //compare the last character of t with all s
+        int lastTChar = t.charAt(t.length() - 1);
+        for(int i = 0; i < s.length(); i++) {
+            if(lastTChar == s.charAt(i)) {
+                numbers[i][t.length() - 1] = 1;
+            }
+        }
+        
+        for(int i = s.length() - 1; i >= 0; i--) {
+            for(int j = t.length() -1; j >=0; j--) {
+                if(s.charAt(i) == t.charAt(j)) {
+                    //two possiblities
+                    numbers[i][j] += numbers[i+1][j];
+                    numbers[i][j] += numbers[i+1][j+1];
+                } else {
+                    numbers[i][j] += numbers[i+1][j];
+                }
+            }
+        }
+        
+        return numbers[0][0];
+    }
+	
+	public int numDistinct_old_but_work(String str, String target) {
 		if(target.length() > str.length()) {
 			return 0;
 		}

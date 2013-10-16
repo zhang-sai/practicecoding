@@ -22,9 +22,17 @@ public class LongestConsecutiveSequence {
         if(num.length == 0) {
         	return 0;
         }
+        //here is the running example:
+        //100, 4, 3, 2, 1
+        //100, 1
+        //4, 1
+        //3, 1
+        //merge: 3,4
+        //4, 2
+        //3, 2
         
         HashMap<Integer, Integer> clusters = new HashMap<Integer, Integer>();
-        int max = 1; //XXX initial value should be 1 not 0
+        int max = 1;
         for(int i : num) {
         	if(!clusters.containsKey(i)) {
         		clusters.put(i, 1);

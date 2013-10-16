@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Given a binary tree, return the inorder traversal of its nodes' values.
@@ -21,48 +22,32 @@ public class BinaryTreeInOrder {
 	//XXX a non-recursive version
 	//http://leetcode.com/2010/04/binary-search-tree-in-order-traversal.html
 	public ArrayList<Integer> inorderTraversal(TreeNode root) {
-		ArrayList<Integer> ret = new ArrayList<Integer>();
-		List<TreeNode> stack = new LinkedList<TreeNode>();
-		if(root == null) {
-			return ret;
-		}
-		TreeNode node = root;
-		while(true) {
-			while(node != null) {
-				stack.add(0, node);
-				node = node.left;
-			}
-			//check
-			if(stack.isEmpty()) {
-				break;
-			} else {
-				TreeNode n = stack.remove(0);
-				ret.add(n.val);
-				node = n.right; //XXX go to the next
-			}
-		}
-		return ret;
-	}
-	
-	//XXX a recursive version
-	public ArrayList<Integer> inorderTraversal_recursive(TreeNode root) {
         // Start typing your Java solution below
         // DO NOT write main() function
-		ArrayList<Integer> ret = new ArrayList<Integer>();
-		if(root == null) {
-			return ret;
-		}
-        this.traverseInOrder(root, ret);
-        return ret;
+        
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        if(root == null) {
+            return list;
+        }
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        // stack.push(root);
+        //first left than right
+        TreeNode current = root;
+        while(!stack.isEmpty() || current != null) {
+            if(current != null) {
+                stack.push(current);
+                current = current.left;
+            } else {
+                current = stack.pop();
+                list.add(current.val);
+                TreeNode currentRight = current.right;
+                current = currentRight;
+                // if(currentRight != null) {
+                //     stack.push(currentRight);
+                // }
+            }
+        }
+        
+        return list;
     }
-	
-	public void traverseInOrder(TreeNode node, ArrayList<Integer> list) {
-		if(node.left != null) {
-			this.traverseInOrder(node.left, list);
-		}
-		list.add(node.val);
-		if(node.right != null) {
-			this.traverseInOrder(node.right, list);
-		}
-	}
 }
