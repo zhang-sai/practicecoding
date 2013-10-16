@@ -11,7 +11,8 @@ return 1->2->2->4->3->5.
 //XXX
 public class PartitionList {
 	public ListNode partition(ListNode head, int x) {
-		if(head == null) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        if(head == null) {
 			return null;
 		}
         // Start typing your Java solution below

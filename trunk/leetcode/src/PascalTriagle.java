@@ -20,7 +20,7 @@ Return
 	public ArrayList<ArrayList<Integer>> generate(int numRows) {
         // Start typing your Java solution below
         // DO NOT write main() function
-		ArrayList<ArrayList<Integer>> retList = new ArrayList<ArrayList<Integer>>();
+        ArrayList<ArrayList<Integer>> retList = new ArrayList<ArrayList<Integer>>();
 		
 		for(int i = 0; i < numRows; i++) {
 			if(i == 0) {

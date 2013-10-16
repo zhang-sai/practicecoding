@@ -19,8 +19,10 @@ import java.util.Stack;
 
 public class MaxRectangleAndHistogram {
 
-	 public int maximalRectangle(char[][] matrix) {
-	        // Start typing your Java solution below
+	public int maximalRectangle(char[][] matrix) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+         // Start typing your Java solution below
 	        // DO NOT write main() function
 		 
 		 //check the boundary cases

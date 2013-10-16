@@ -7,34 +7,31 @@ public class LongestCommonPrefix {
 	public String longestCommonPrefix(String[] strs) {
         // Start typing your Java solution below
         // DO NOT write main() function
-		if(strs.length == 0) {
-			return "";
-		}
-		
-		for(String str : strs) {
-			if(str.isEmpty()) {
-				return "";
-			}
-		}
+        if(strs.length == 0) {
+            return "";
+        }
+        char[] firstChars = strs[0].toCharArray();
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < firstChars.length; i++) {
+            char c = firstChars[i];
+            boolean matched = true;
+            for(int j = 1; j < strs.length; j++) {
+                if(strs[j].length() <= i) { //check the length
+                    matched = false;
+                    break;
+                }
+                if(strs[j].charAt(i) != c) {
+                    matched = false;
+                    break;
+                }
+            }
+            if(matched) {
+                sb.append(c);
+            } else {
+                break;
+            }
+        }
         
-		String prefix = strs[0];
-		for(int i = 1; i < strs.length; i++) {
-			String nextString = strs[i];
-			
-			int index = 0;
-			for(index = 0; index < prefix.length() && index < nextString.length(); index++) {
-				if(nextString.charAt(index) != prefix.charAt(index)) {
-					break;
-				}
-			}
-			
-			if(index == 0) {
-				return "";
-			}
-			prefix = prefix.substring(0, index);
-			
-		}
-		
-		return prefix;
+        return sb.toString();
     }
 }

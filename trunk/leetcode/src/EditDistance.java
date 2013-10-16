@@ -39,7 +39,7 @@ public class EditDistance {
 					//three possibilities
 					int deleteCost = distances[i-1][j] + 1;
 					int addCost = distances[i][j - 1] + 1 ;
-					int replaceCost =  distances[i-1][j-1];
+					int replaceCost =  distances[i-1][j-1];  //the diff case when ci == cj
 					distances[i][j] = Math.min(deleteCost, Math.min(addCost, replaceCost));
 				} else {
 					//three possibilities

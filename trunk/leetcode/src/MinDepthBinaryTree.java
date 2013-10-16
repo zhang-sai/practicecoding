@@ -10,18 +10,17 @@ public class MinDepthBinaryTree {
         // Start typing your Java solution below
         // DO NOT write main() function
         if(root == null) {
-        	return 0;
+            return 0;
         }
-        //XXX NOTE that the a leaf means the following condition, do not confuse
         if(root.left == null && root.right == null) {
-        	return 1;
+            return 1;
         }
-        int min = Integer.MAX_VALUE;
+        int min = 10000;
         if(root.left != null) {
-        	min  = Math.min(min, 1 + this.minDepth(root.left));
+            min = Math.min(min, 1+minDepth(root.left));
         }
         if(root.right != null) {
-        	min = Math.min(min, 1 + this.minDepth(root.right));
+            min = Math.min(min, 1 + minDepth(root.right));
         }
         return min;
     }

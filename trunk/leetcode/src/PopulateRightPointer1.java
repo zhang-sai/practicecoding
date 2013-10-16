@@ -35,37 +35,32 @@ After calling your function, the tree should look like:
 //XXX another solution: http://leetcode.com/2010/03/first-on-site-technical-interview.html
 public class PopulateRightPointer1 {
 
-	//XXX PASS the test set
 	public void connect(TreeLinkNode root) {
-		this.createLinks(root);
-		this.createLinkdsBetweenSubtrees(root);
-	}
-	
-	//create the next link between siblings
-	public void createLinks(TreeLinkNode root) {
-		if(root == null) {
-			return;
-		}
-		if(root.left != null && root.right != null) {
-			root.left.next = root.right;
-			root.right.next = null;
-			this.connect(root.left);
-			this.connect(root.right);
-		}
-	}
-	
-	public void createLinkdsBetweenSubtrees(TreeLinkNode node) {
-		if(node == null) {
-			return;
-		}
-		if(node.next != null) {
-			if(node.right != null) {
-				node.right.next = node.next.left;
-			}
-		}
-		this.createLinkdsBetweenSubtrees(node.left);
-		this.createLinkdsBetweenSubtrees(node.right);
-	}
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(root == null) {
+            return;
+        }
+        if(root.left != null) {
+            if(root.right != null) {
+                root.left.next = root.right;
+            } else {
+                root.left.next =  (root.next ==  null)
+                    ? null
+                    : (root.next.left != null ? root.next.left : root.next.right);
+            }
+        }
+        if(root.right != null) {
+            if(root.next == null) {
+                root.right.next = null;
+            } else {
+                root.right.next = root.next.left != null ? root.next.left : root.next.right;
+            }
+        }
+        
+        connect(root.left);
+        connect(root.right);
+    }
 
 	public static void main(String[] args) {
 		PopulateRightPointer1 p = new PopulateRightPointer1();

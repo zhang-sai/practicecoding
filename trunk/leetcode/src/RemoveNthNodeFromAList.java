@@ -13,32 +13,29 @@ Try to do this in one pass.
 public class RemoveNthNodeFromAList {
 	//http://www.cnblogs.com/remlostime/archive/2012/11/14/2770033.html
 	public ListNode removeNthFromEnd(ListNode head, int n) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        if(n == 0 || head == null) {
-        	return head;
+        if(n == 0) {
+            return head;
         }
-        ListNode prev = null; //XXX note this
-        ListNode next = head;
-        for(int i = 0; i < n - 1; i++) {
-        	next = next.next;
-        }
-        while(next.next != null) {
-        	if(prev == null) {   //XXX attention this condition
-        		prev = head;
-        	} else {
-        	    prev = prev.next;
-        	}
-        	next = next.next;
-        }
-        if(prev == null) {
-        	return head.next;
-        } else {
-            //delete the next node of prev
-            prev.next = prev.next.next;
+        ListNode newHead = new ListNode(-1);
+        newHead.next = head;
+        
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        ListNode slowNode = newHead;
+        ListNode fastNode = newHead;
+        for(int i = 0; i < n; i++) {
+            fastNode = fastNode.next;
         }
         
-        return head;
+        while(fastNode.next != null) {
+            fastNode = fastNode.next;
+            slowNode = slowNode.next;
+        }
+        
+        //remove the next node of slow node
+        ListNode toRemove = slowNode.next;
+        slowNode.next = toRemove.next;
+        
+        return newHead.next;
     }
 	//1, 2   == 1
 	

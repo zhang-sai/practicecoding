@@ -23,6 +23,7 @@ Your algorithm should run in O(n) time and uses constant space.
 	//XXX a fairly smart solution
 	//a sample solution here: http://yewenxing.wordpress.com/2012/03/13/first-missing-positive/
 	public int firstMissingPositive(int[] a) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
         int length = a.length;
         //put every element in A such that A[i]=i
         for(int i = 0; i < length; i++) {

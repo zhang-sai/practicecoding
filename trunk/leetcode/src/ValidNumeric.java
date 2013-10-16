@@ -29,74 +29,74 @@ XXX
 
 public class ValidNumeric {
 	
-		public boolean isNumber(String s) {
-	        // Note: The Solution object is instantiated only once and is reused by each test case.
-	        s = s.trim();
-	        if(s.length() == 0) {
-	            return false;
-	        }
-	        
-	        boolean hasDot = false;
-	        boolean hasE = false;
-	        boolean beginWithMinusOrPlus = false;
-	        
-	        int digitCount = 0;
-	        
-	        char[] cs = s.toCharArray();
-	        
-	        for(int i = 0; i < cs.length; i++) {
-	            char c = cs[i];
-	            if(i==0) {
-	                if(c == '.') {
-	                    hasDot = true;
-	                } else if(c=='-' || c == '+') {
-	                    beginWithMinusOrPlus = true;
-	                } else {
-	                    if(!isDigit(c)) {
-	                        return false;
-	                    } else {
-	                        digitCount++;
-	                    }
-	                }
-	            } else {
-	                //check others
-	                if(c=='.') {
-	                    if(hasDot || hasE) {
-	                        return false;
-	                    } else {
-	                        hasDot = true;
-	                    }
-	                } else if (c == 'e') {
-	                    if(hasE) {
-	                        return false;
-	                    } else {
-	                        if(i == cs.length-1 || digitCount == 0) {
-	                            return false; //e cannot be the last digit
-	                        }
-	                        hasE = true;
-	                    }
-	                } else if (c == '-' || c == '+') {
-	                    if(cs[i-1] != 'e' || i == cs.length - 1) { //this is OK: 4e+1, but not this: 4e+
-	                        return false;
-	                    }
-	                } else {
-	                    if(!isDigit(c)) {
-	                        return false;
-	                    } else {
-	                        digitCount++;
-	                    }
-	                }
-	            }
-	        }
-	        
-	        if(digitCount == 0) {
-	            return false;
-	        }
-	        
-	        return true;
-	    }
-	    
-	    public boolean isDigit(char c) {
-	        return c >= '0' && c <= '9';
-	    }
+	public boolean isNumber(String s) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        s = s.trim();
+        if(s.length() == 0) {
+            return false;
+        }
+        
+        boolean hasDot = false;
+        boolean hasE = false;
+        boolean beginWithMinusOrPlus = false;
+        
+        int digitCount = 0;
+        
+        char[] cs = s.toCharArray();
+        
+        for(int i = 0; i < cs.length; i++) {
+            char c = cs[i];
+            if(i==0) {
+                if(c == '.') {
+                    hasDot = true;
+                } else if(c=='-' || c == '+') {
+                    beginWithMinusOrPlus = true;
+                } else {
+                    if(!isDigit(c)) {
+                        return false;
+                    } else {
+                        digitCount++;
+                    }
+                }
+            } else {
+                //check others
+                if(c=='.') {
+                    if(hasDot || hasE) {
+                        return false;
+                    } else {
+                        hasDot = true;
+                    }
+                } else if (c == 'e') {
+                    if(hasE) {
+                        return false;
+                    } else {
+                        if(i == cs.length-1 || digitCount == 0) {
+                            return false; //e cannot be the last digit
+                        }
+                        hasE = true;
+                    }
+                } else if (c == '-' || c == '+') {
+                    if(cs[i-1] != 'e' || i == cs.length - 1) { //this is OK: 4e+1, but not this: 4e+
+                        return false;
+                    }
+                } else {
+                    if(!isDigit(c)) {
+                        return false;
+                    } else {
+                        digitCount++;
+                    }
+                }
+            }
+        }
+        
+        if(digitCount == 0) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public boolean isDigit(char c) {
+        return c >= '0' && c <= '9';
+    }
 }

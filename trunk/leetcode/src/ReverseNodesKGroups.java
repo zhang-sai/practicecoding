@@ -17,10 +17,8 @@ For k = 3, you should return: 3->2->1->4->5
 public class ReverseNodesKGroups {
 	//for details, see: http://crackinterviewtoday.wordpress.com/2010/03/28/k-reverse-linked-list/
 	public ListNode reverseKGroup(ListNode head, int k) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-	
-		if(head == null || k < 2) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        if(head == null || k < 2) {
 			return head;
 		}
 		ListNode tmp = new ListNode(-1);
@@ -57,7 +55,7 @@ public class ReverseNodesKGroups {
 		}
 		
 		return tmp.next;
-	}
+    }
 	
 	public static void main(String[] args) {
 		ListNode n1 = new ListNode(1);

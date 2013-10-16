@@ -11,43 +11,24 @@ confused what "{1,#,2,3}" means? > read more on how binary tree is serialized on
 » Solve this problem
  * */
 public class ValidBinarySearchTree {
-	public boolean isValidBST(TreeNode root) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		if(root == null) {
-			return true;
-		}
-		if(root.left != null) {
-			if(!this.validateBound(root.left, Integer.MIN_VALUE, root.val)) {
-				return false;
-			}
-		}
-		if(root.right != null) {
-			if(!this.validateBound(root.right, root.val, Integer.MAX_VALUE)) {
-				return false;
-			}
-		}
-		return true;
-    }
-	
-	private boolean validateBound(TreeNode node, int lower, int upper) {
-//		System.out.println("checking: " + node + ", lower: " + lower + ", upper: " + upper);
-		if(node.val <= lower || node.val >= upper) {
-//			System.out.println("    invalidate: " + node + ", lower: " + lower + ", upper: " + upper);
-			return false;
-		}
-		if(node.left != null) {
-			if(!this.validateBound(node.left, lower, node.val)) { //XXX the change of bound is critical
-				return false;
-			}
-		}
-		if(node.right != null) {
-			if(!this.validateBound(node.right, node.val, upper)) {
-				return false;
-			}
-		}
-		return true;
-	}
+	 public boolean isValidBST(TreeNode root, int min, int max) {
+	        if(root == null) {
+	            return true;
+	        }
+	        if(root.val <= min || root.val >= max) {
+	            return false;
+	        }
+	        boolean isLeftBST = isValidBST(root.left, min, Math.min(max, root.val));
+	        if(!isLeftBST) {
+	            return false;
+	        }
+	        boolean isRightBST = isValidBST(root.right, Math.max(min, root.val), max);
+	        return isRightBST;
+	    }
+	    
+	    public boolean isValidBST(TreeNode root) {
+	        return isValidBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	    }
 	
 	public static void main(String[] args) {
 		ValidBinarySearchTree v = new ValidBinarySearchTree();

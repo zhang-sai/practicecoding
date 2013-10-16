@@ -11,32 +11,19 @@ public class SameTree {
 	public boolean isSameTree(TreeNode p, TreeNode q) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        if(p == null) {
-        	return q == null;
+        if(p == null && q != null) {
+            return false;
         }
-        if(q == null) {
-        	return p == null;
+        if(p != null && q == null) {
+            return false;
         }
-        //now p and q are not null
+        if(p == null && q == null) {
+            return true;
+        }
+        //not null cases
         if(p.val != q.val) {
-        	return false;
+            return false;
         }
-        if(p.left != null) {
-        	if(q.left == null) {
-        		return false;
-        	}
-        	if(!this.isSameTree(p.left, q.left)) {
-        		return false;
-        	}
-        }
-        if(p.right != null) {
-        	if(q.right == null) {
-        		return false;
-        	}
-        	if(!this.isSameTree(p.right, q.right)) {
-        		return false;
-        	}
-        }
-        return true;
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
 }

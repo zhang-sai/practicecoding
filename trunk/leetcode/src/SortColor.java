@@ -13,73 +13,50 @@ You are not suppose to use the library's sort function for this problem.
  * */
 public class SortColor {
 	
-	public static void main(String[] args) {
-		SortColor sc = new SortColor();
-		int[] a = new int[]{1, 0};
-		sc.sortColors_one_pass(a);
-		for(int i : a) {
-			System.out.println(i);
-		}
-	}
-	
-	public void sortColors_one_pass(int[] a) {
-		if(a.length < 2) {
-			return;
-		}
-		int pos0 = 0;
-		int pos1 = a.length - 1;
-		int pos2 = a.length - 1;
-		while(pos0 < pos2) {
-			if(a[pos0] == 0) {
-				pos0++;
-			} else if (a[pos0] == 1) {
-				if(pos0 < pos1) {
-					swap(a, pos0, pos1);
-					pos1 --; //move back
-				} else {
-					pos0++;
-				}
-			} else {
-				//a[pos0] == 2
-				swap(a, pos0, pos2);
-				pos2 --;
-				if(pos1 > pos2) {
-					pos1 = pos2; //1 must be before 2
-				}
-			}
-		}
-	}
-	
-	private void swap(int[] a, int index1, int index2) {
-		int tmp = a[index1];
-		a[index1] = a[index2];
-		a[index2] = tmp;
-	}
-	
 	public void sortColors(int[] a) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        // how to use in-place sort
-		if(a.length == 0) {
-			return;
-		}
-		int red = 0;
-		int white = 0;
-		int blue = 0;
-		for(int i : a) {
-			if(i == 0) red++;
-			if(i == 1) white++;
-			if(i == 2) blue++;
-		}
-		for(int i = 0; i < a.length; i++) {
-			if(i < red) {
-				a[i] = 0;
-			} else if ( i < red + white) {
-				a[i] = 1;
-			} else {
-				a[i] = 2;
-			}
-		}
-		
+        if(a.length <= 1) {
+            return;
+        }
+        int red = 0;
+        int blue = a.length - 1;
+        while(red < a.length && a[red] == 0) { //do not miss check
+            red++;
+        }
+        while(blue >= 0 && a[blue] == 2) {
+            blue--;
+        }
+        //check condition
+        if(red == a.length || blue == -1) {
+            return;
+        }
+        //now red and blue are in the first place of non-read, non-blue, respectively
+        int j = red;
+        while(j < blue) {
+            if(a[j] == 1) {
+                j++;
+            }
+            if(a[j] == 2) {
+                swap(a, j, blue);
+                blue--;
+            }
+            if(a[j] == 0) {
+                swap(a, j, red);
+                if(j == red) {
+                    j++;
+                }
+                red++;
+            }
+        }
+    }
+    
+    //a helper method for swapping
+    void swap(int[] a, int i, int j) {
+        if(i!=j) {
+            int tmp = a[i];
+            a[i] = a[j];
+            a[j] = tmp;
+        }
     }
 }

@@ -20,9 +20,8 @@ Water: 0 0 1 0 1 2 1 0 0 1 0 0
  * */
 public class TappingRainWaters {
 	public int trap(int[] a) {
-		// Start typing your Java solution below
-		// DO NOT write main() function
-		int res = 0;
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        int res = 0;
 		if (a.length < 3) {
 			return res;
 		}
@@ -41,7 +40,7 @@ public class TappingRainWaters {
 		}
 
 		return res;
-	}
+    }
 	
 	public static void main(String[] args) {
 		TappingRainWaters trw = new TappingRainWaters();

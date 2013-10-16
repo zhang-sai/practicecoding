@@ -34,9 +34,7 @@ Return
         //then search for partitions
         List<Character> stack = new LinkedList<Character>();
         for(int i = 0; i < s.length(); i++) {
-//        	System.out.println("i: " + i);
         	if(i == 0) {
-        		stack.add(s.charAt(i));
         		ArrayList<ArrayList<String>> rList = this.partition(s.substring(i + 1));
         		for(ArrayList<String> aList : rList) {
         			ArrayList<String> bList = new ArrayList<String>();
@@ -45,13 +43,6 @@ Return
         			list.add(bList);
         		}
         	} else {
-        		int size = stack.size();
-        		if(!stack.isEmpty() && stack.get(0) == s.charAt(i)) {
-        			stack.remove(0);
-        		} else {
-        			stack.add(s.charAt(i));
-        		}
-//        		System.out.println(stack);
         		if(this.isP(s.substring(0, i+1))) {
         			if(i < s.length() - 1) {
         			    ArrayList<ArrayList<String>> rList = this.partition(s.substring(i + 1));
@@ -97,55 +88,33 @@ Return the minimum cuts needed for a palindrome partitioning of s.
 For example, given s = "aab",
 Return 1 since the palindrome partitioning ["aa","b"] could be produced using 1 cut.
 	 * */
-	//https://sites.google.com/site/mytechnicalcollection/algorithms/dynamic-programming/palindrome-partitioning
-//	XXX use dynamic programming
-	public int minCut(String s) {
-        int length = s.length();
-        if(length == 0 || length == 1) {
-        	return 0;
-        }
-		//create two array
-        boolean[][] isP = new boolean[length][length];
-        int[][] mCuts = new int[length][length];
-        
-        for(int i = 0; i < length; i++) {
-        	isP[i][i] = true;
-        	mCuts[i][i] = 0;
+
+	int minCut(String s) {  
+        int len = s.length();  
+        //store the number of palindrome
+        int[] D = new int[len+1];  
+        //check if P[i][j] is a palindrome
+        boolean[][] P = new boolean[len][len];
+        //the worst case is cutting by each char  
+        for(int i = 0; i <= len; i++) {
+            D[i] = len-i;  
         }
         
-        //XXX iterate by string length, this is the key point
-        for(int sl = 2; sl <= length; sl++) {
-        	for(int startPoint = 0; startPoint < length - sl + 1; startPoint++) {
-        		int i = startPoint;
-        		int j = startPoint + sl - 1;
-        		if(sl == 2) {
-        			isP[i][j] = s.charAt(i) == s.charAt(j) ? true : false;
-        			mCuts[i][j] = isP[i][j] ? 0 : 1;
-        		} else {
-        			System.out.println(i + ",  " + j);
-        			isP[i][j] = (s.charAt(i) == s.charAt(j) && isP[i+1][j-1]) ? true : false;
-        			System.out.println(isP[i][j]);
-        			if(isP[i][j]) {
-        				
-        				mCuts[i][j] = 0;
-        			} else {
-        				//check the internal
-        				int min = Integer.MAX_VALUE;
-        				for(int k = i; k < j; k++) {
-        					System.out.println("k: " + k);
-        					if(mCuts[i][k] + mCuts[k+1][j] < min) {
-        						min = mCuts[i][k] + mCuts[k+1][j] + 1; //XXX do not forget + 1
-        						System.out.println("min : " + min);
-        					}
-        				}
-        				mCuts[i][j] = min;
-        			}
-        		}
-        	}
+        for(int i = 0; i < len; i++) { 
+            for(int j = 0; j < len; j++)  {
+                P[i][j] = false;  
+            }
         }
-        
-        return mCuts[0][length-1];
-    }
+        for(int i = len-1; i >= 0; i--){  
+             for(int j = i; j < len; j++){  
+                  if(s.charAt(i) == s.charAt(j) && (j-i<2 || P[i+1][j-1])){  
+                       P[i][j] = true;  
+                       D[i] = Math.min(D[i],D[j+1]+1);  
+                  }  
+             }  
+        }  
+        return D[0]-1;  
+   } 
 	
 	public static void main(String[] args) {
 		ParlindromePartitions1and2 p = new ParlindromePartitions1and2();

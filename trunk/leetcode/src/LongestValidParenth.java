@@ -21,10 +21,10 @@ public class LongestValidParenth {
 		System.out.println(lvp.longestValidParentheses("()(()"));
 	}
 	
-	 public int longestValidParentheses(String s) {
-	        // Start typing your Java solution below
-	        // DO NOT write main() function
-		 char[] cs = s.toCharArray();
+	public int longestValidParentheses(String s) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        char[] cs = s.toCharArray();
 		 char left = '(';
 		 char right = ')';
 		 
@@ -63,6 +63,5 @@ public class LongestValidParenth {
 		 }
 		 
 		 return maxLength;
-	        
-	 }
+    }
 }

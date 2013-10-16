@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 
@@ -26,44 +27,66 @@ If S = [1,2,2], a solution is:
 //did not read but SHOULD
 public class Subsets2 {
 
-	public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] s) {
-		// Start typing your Java solution below
-        // DO NOT write main() function
-		ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
-		list.add(new ArrayList<Integer>());
-        int size = s.length;
-        if(size == 0) {
-        	return list;
-        }
-        //number of possible non-empty subsets
-        int num = (int)Math.pow(2.0d, (double)size) - 1;
-        
-        for(int k = 1; k <= num; k++) {
-        	//convert it into an arraylist
-        	ArrayList<Integer> set  = new ArrayList<Integer>();
-        	int value = k;
-        	int index = 0;
-        	int mod = value%2;
-        	if(mod == 1) {
-        		set.add(s[index]);
-        	}
-        	while(value/2 != 0) {
-        		index++;
-        		value = value/2;
-        		mod = value%2;
-        		if(mod == 1) {
-            		set.add(s[index]);
-            	}
-        	}
-        	
-        	Collections.sort(set);
-        	if(!list.contains(set)) { //XXXcheck for duplication
-        	    list.add(set);
-        	}
-        }
-        
-        return list;
-    }
+	public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] num) {
+	       ArrayList<ArrayList<Integer>> results=new ArrayList<ArrayList<Integer>>();
+	       if(num.length<1) {
+	           return results;
+	       }
+	       Arrays.sort(num);
+	     
+	       //store unique numbers
+	       ArrayList<Integer> number=new ArrayList<Integer>();
+	       //store the apprearance of each  number
+	       ArrayList<Integer> times=new ArrayList<Integer>();   
+	       
+	       for(int i = 0; i < num.length; i++) {
+	         //check repetition
+	         if(number.isEmpty() || number.get(number.size()-1)!=num[i]) {
+	             number.add(num[i]);
+	             times.add(1);
+	         } else {
+	             int count=times.get(times.size()-1);
+	             times.set(times.size()-1,count+1);
+	         }
+	       }
+	       ArrayList<Integer> out=new ArrayList<Integer>();
+	       generateSubsets(number, times, out, results,0);
+	       return results;   
+	    }
+	    
+	 public void generateSubsets(ArrayList<Integer> number, ArrayList<Integer> times,
+	         ArrayList<Integer> out, ArrayList<ArrayList<Integer>>results, int pos) {
+	     //reach out of the boundary
+	     if(pos == number.size()) {
+	         ArrayList<Integer> temp=new ArrayList<Integer>(out);
+	         results.add(temp);
+	         return;
+	     }         
+	     
+	     //essentially, consider 2 possibilities: 0 --- max number of the current number
+	     //then do backtracking
+	        
+	     //do not select the number at current pos
+	     //generate subsets recursively from the next position
+	     generateSubsets(number, times, out, results, pos + 1);   
+	     
+	     //get the appearance times of the number at this position
+	     int count=times.get(pos);
+	     //select the number at current pos from 1 to appearance times
+	     for(int i = 0; i < count; i++) {
+	         //add the current number
+	         out.add(number.get(pos));
+	         //proceed to the next number recursively
+	         generateSubsets(number, times, out, results, pos + 1);
+	     }
+	     
+	     //remove all appearances of the current number
+	     //backtracking
+	     int size=out.size();
+	     for(int i=size-1;i>=size-count;i--) {
+	         out.remove(i);
+	     }
+	 }
 	
 	public static void main(String[] args) {
 		Subsets as = new Subsets();

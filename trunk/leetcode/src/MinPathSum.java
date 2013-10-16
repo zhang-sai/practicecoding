@@ -11,26 +11,29 @@ public class MinPathSum {
         // Start typing your Java solution below
         // DO NOT write main() function
         if(grid.length == 0) {
-        	return 0;
+            return 0;
         }
-        if(grid[0].length == 0) {
-        	return 0;
+        int rows = grid.length;
+        int cols = grid[0].length;
+        int[][] paths = new int[rows][cols];
+        
+        paths[0][0] = grid[0][0];
+        for(int i = 1; i < rows; i++) {
+            paths[i][0] = paths[i-1][0] + grid[i][0];
         }
-        int[][] costs = new int[grid.length][grid[0].length];
-        for(int i = 0; i < grid[0].length; i++) { //XXX be aware of grid[0], not grid
-        	costs[0][i] = i==0 ? grid[0][i] : costs[0][i-1] + grid[0][i];
-        }
-        for(int i = 0; i < grid.length; i++) {
-        	costs[i][0] = i == 0? grid[i][0] : costs[i-1][0] + grid[i][0];
-        }
-        //compute each cost
-        for(int i = 1; i < grid.length; i++) {
-        	for(int j = 1; j < grid[0].length; j++) {
-        		costs[i][j] = Math.min(costs[i-1][j], costs[i][j-1]) + grid[i][j];
-        	}
+        for(int i = 1; i < cols; i++) {
+            paths[0][i] = paths[0][i-1] + grid[0][i];
         }
         
-        return costs[grid.length - 1][grid[0].length - 1];
+        //use dp
+        for(int i = 1; i < rows; i++) {
+            for(int j = 1; j < cols; j++) {
+                paths[i][j] = Math.min(paths[i-1][j], paths[i][j-1]) + grid[i][j];
+            }
+        }
+        
+        
+        return paths[rows-1][cols-1];
     }
 	
 	public static void main(String[] args) {

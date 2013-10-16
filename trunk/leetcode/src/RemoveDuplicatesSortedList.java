@@ -9,26 +9,29 @@ Given 1->1->2, return 1->2.
 Given 1->1->2->3->3, return 1->2->3.
 	 * */
 	public ListNode deleteDuplicates(ListNode head) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        if(head == null) {
-        	return head;
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        if(head == null || head.next == null) {
+            return head;
         }
-        ListNode curr = head;
-        ListNode next = curr.next;
-        while(next != null) {
-            while(next != null && next.val == curr.val) {
-        	    next = next.next;
-            }
-            //link next to curr
-            curr.next = next;
-            curr = next;
-            if(next != null) { //XXX must add this check
-                next = next.next;
+        ListNode newHead = new ListNode(-1);
+        newHead.next = head;
+        
+        ListNode curr = newHead.next;
+        ListNode forward = curr.next;
+        while(forward != null) {
+            if(forward.val == curr.val) {
+                if(forward.next == null) {
+                    curr.next = null; //end
+                }
+                forward = forward.next;
+            } else {
+                curr.next = forward;
+                curr = forward;
+                forward = curr.next;
             }
         }
         
-        return head;
+        return newHead.next;
     }
 	
 	/**

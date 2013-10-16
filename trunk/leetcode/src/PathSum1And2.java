@@ -21,20 +21,35 @@ return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
         // Start typing your Java solution below
         // DO NOT write main() function
         if(root == null) {
-        	return false;
+            return false;
         }
-        if(root.left == null && root.right == null && root.val == sum) {
-        	return true;
+        return hasPathSumInternal(root, sum);
+    }
+    
+    public boolean hasPathSumInternal(TreeNode root, int sum) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(root.left == null && root.right == null) {
+            if(sum == root.val) {
+                return true;
+            } else {
+                return false;
+            }
         }
+        //this is wrong
+        // return hasPathSumInternal(root.left, sum - root.val) || hasPathSumInternal(root.right, sum - root.val);
+        boolean left = false;
         if(root.left != null) {
-        	if(this.hasPathSum(root.left, sum - root.val)) {
-        		return true;
-        	}
+            left = hasPathSumInternal(root.left, sum - root.val);
         }
+        if(left) {
+            return true;
+        }
+        boolean right = false;
         if(root.right != null) {
-        	return this.hasPathSum(root.right, sum - root.val);
+            right = hasPathSumInternal(root.right, sum - root.val);
         }
-        return false;
+        return right;
     }
 	
 	/**
@@ -55,34 +70,39 @@ return
    [5,8,4,5]
 ]
 	 * */
-	public ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
+    public ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
         // Start typing your Java solution below
         // DO NOT write main() function
+        ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
         if(root == null) {
-        	return new ArrayList<ArrayList<Integer>>();
+            return results;
         }
-        ArrayList<ArrayList<Integer>> allPaths = new ArrayList<ArrayList<Integer>>();
-        this.pathSum(root, sum, new ArrayList<Integer>(), allPaths);
-        return allPaths;
+        ArrayList<Integer> currList = new ArrayList<Integer>();
+        findPathSum(results, currList, root, sum);
+         return results;
     }
-	
-	public void pathSum(TreeNode root, int sum, ArrayList<Integer> currPath,
-			ArrayList<ArrayList<Integer>> allPaths) {
-		if(root.left == null && root.right == null && root.val == sum) {
-			ArrayList<Integer> list = (ArrayList<Integer>) currPath.clone();
-			list.add(root.val);
-			allPaths.add(list);
-		} else {
-			if(root.left != null) {
-				ArrayList<Integer> list = (ArrayList<Integer>) currPath.clone();
-				list.add(root.val);
-				this.pathSum(root.left, sum - root.val, list, allPaths);
-			}
-			if(root.right != null) {
-				ArrayList<Integer> list = (ArrayList<Integer>) currPath.clone();
-				list.add(root.val);
-				this.pathSum(root.right, sum - root.val, list, allPaths);
-			}
-		}
-	}
+    
+    public void findPathSum(ArrayList<ArrayList<Integer>> results, ArrayList<Integer> currentList, TreeNode node, int sum) {
+        if(node.left == null && node.right == null) {
+            if(sum == node.val) {
+                ArrayList<Integer> list = new ArrayList<Integer>();
+                list.addAll(currentList);
+                list.add(node.val);
+                results.add(list);
+            }
+            return;
+        }
+        if(node.left != null) {
+            ArrayList<Integer> list = new ArrayList<Integer>();
+            list.addAll(currentList);
+            list.add(node.val);
+            findPathSum(results, list, node.left, sum - node.val);
+        }
+        if(node.right != null) {
+            ArrayList<Integer> list = new ArrayList<Integer>();
+            list.addAll(currentList);
+            list.add(node.val);
+            findPathSum(results, list, node.right, sum - node.val);
+        }
+    }
 }

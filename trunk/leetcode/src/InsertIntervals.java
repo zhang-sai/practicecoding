@@ -19,9 +19,9 @@ public class InsertIntervals {
 	public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
         // Start typing your Java solution below
         // DO NOT write main() function
-		
-		ArrayList<Interval> retList = new ArrayList<Interval>();
-		boolean flag =  false;
+        ArrayList<Interval> retList = new ArrayList<Interval>();
+        
+		boolean flag =  false; //a flag to indicate whether the interval has been inserted or not
 		for(Interval interval : intervals) {
 			//[start, end] [new.start, new.end]  , did not reach the newInterval yet
 			if(interval.end < newInterval.start) {
@@ -38,6 +38,7 @@ public class InsertIntervals {
 				continue;
 			}
 			//other cases, there must be some intersection
+			//change the new interval.
 			newInterval.start = Math.min(newInterval.start, interval.start);
 			newInterval.end = Math.max(newInterval.end, interval.end);
 		}
@@ -46,7 +47,6 @@ public class InsertIntervals {
 		if(!flag) {
 			retList.add(newInterval);
 		}
-        
 		return retList;
     }
 	

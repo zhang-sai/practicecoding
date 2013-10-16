@@ -25,71 +25,37 @@ A solution set is:
 	//pass both tests
 	//other ppl's answer: https://gist.github.com/eclipse9614/4983552
 	//this version is not good, it uses set, the second implementation is better!
-	 public ArrayList<ArrayList<Integer>> combinationSum(int[] num, int target) {
-	        // Start typing your Java solution below
-	        // DO NOT write main() function
-	        Arrays.sort(num);
-	        
-	        if(target < num[0]) {
-	        	return new ArrayList<ArrayList<Integer>>();
-	        }
-	        
-	        Set<ArrayList<Integer>> all = new HashSet<ArrayList<Integer>>();
-	        
-	        for(int n : num) {
-//	        	System.out.println("n: " + n + ", target: " + target);
-	        	if (n == target) {
-	        		ArrayList<Integer> l = new ArrayList<Integer>();
-	        		l.add(n);
-	        		all.add(l);
-	        	} else if(n < target) {
-	        	    ArrayList<ArrayList<Integer>> remainList = combinationSum(num, target - n);
-//	        	    if(remainList.isEmpty()) {
-//	        	    	continue;
-//	        	    }
-	        	    for(ArrayList<Integer> l : remainList) {
-	        	    	ArrayList<Integer> exl = new ArrayList<Integer>(l);
-	        	    	exl.add(n);
-	        	    	Collections.sort(exl);
-	        	    	all.add(exl);
-	        	    }
-	        	} else {
-//	        		System.out.println("set: " + all);
-	        		return new ArrayList<ArrayList<Integer>>(all);
-	        	}
-	        }
-//	        System.out.println("set: " + all);
-	        return new ArrayList<ArrayList<Integer>>(all);
-	    }
-	 
-	 //====================another version of combination sum of duplications=======
-	 //this version seems better
-	 public ArrayList<ArrayList<Integer>> combinationSum_(int[] num, int target) {
-		 Arrays.sort(num);
-		 ArrayList<Integer> currResult = new ArrayList<Integer>();
-		 ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
-		 this.solve(num, target, results, 0, currResult);
-		 return results;
-	 }
-	 
-	 public void solve(int[] num, int target, ArrayList<ArrayList<Integer>> results, int curr, ArrayList<Integer> currResult) {
-		 if(target < 0) {
-			 return;
-		 } else if (target == 0) {
-			 ArrayList<Integer> result = new ArrayList<Integer>(currResult);
-			 results.add(result);
-			 return;
-		 }
-		 
-		 for(int i = curr; i < num.length; i++) {
-			 currResult.add(num[i]);
-			 this.solve(num, target - num[i], results, i, /**XXX THe most important part, use i*/ currResult); //you can never track back
-			 //such as 2, 3, 5, 7 ==> 7
-			 //you would only produce: 2, 2, 3 once
-			 currResult.remove(currResult.size() - 1);
-		 }
-	 }
-	 //=============================================================================
+	public ArrayList<ArrayList<Integer>> combinationSum(int[] num, int target) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        Arrays.sort(num);
+        
+        if(target < num[0]) {
+        	return new ArrayList<ArrayList<Integer>>();
+        }
+        
+        Set<ArrayList<Integer>> all = new HashSet<ArrayList<Integer>>();
+        
+        for(int n : num) {
+        	if (n == target) {
+        		ArrayList<Integer> l = new ArrayList<Integer>();
+        		l.add(n);
+        		all.add(l);
+        	} else if(n < target) {
+        	    //when doing the recursion, keep the num set the same
+        	    ArrayList<ArrayList<Integer>> remainList = combinationSum(num, target - n);
+        	    for(ArrayList<Integer> l : remainList) {
+        	    	ArrayList<Integer> exl = new ArrayList<Integer>(l);
+        	    	exl.add(n);
+        	    	Collections.sort(exl);
+        	    	all.add(exl);
+        	    }
+        	} else {
+                    break; //do nothing, stop traversing
+        	}
+        }
+        return new ArrayList<ArrayList<Integer>>(all);
+    }
 	 
 	 /**
 	  * Given a collection of candidate numbers (C) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.
@@ -109,57 +75,54 @@ A solution set is:
 	  * */
 	//a sample solution:
 	//http://tianrunhe.wordpress.com/2012/07/12/finding-all-combinations-of-numbers-sum-up-to-a-number-combination-sum-ii/
-	 public ArrayList<ArrayList<Integer>> combinationSum2(int[] num, int target) {
-	        // Start typing your Java solution below
+	public ArrayList<ArrayList<Integer>> combinationSum2(int[] num, int target) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        // Start typing your Java solution below
 	        // DO NOT write main() function
-		 Arrays.sort(num);
-	
-		 ArrayList<Integer> numList = new ArrayList<Integer>();
-		 for(int i : num) {
-			 if(i > target) {
-				 continue;
-			 }
-			 numList.add(i);
-		 }
-		 
-		 return this.findCombinations(numList, 0, target);
-	 }
-	 
-	 private ArrayList<ArrayList<Integer>> findCombinations(ArrayList<Integer> numList, int startIndex, int target) {
-		 System.out.println(numList + ",  " + startIndex + ",  " + target);
-		 ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
-		 if(numList.isEmpty()) {
-			 return ret; //XXX do not forget this condition 
-		 }
-		 if(target < numList.get(startIndex)) {
-			 return ret;
-		 }
-		 
-		 
-		 if(startIndex == numList.size() - 1) {
-			 if(numList.get(startIndex) == target) {
-				 ArrayList<Integer> l = new ArrayList<Integer>();
-				 l.add(target);
-				 ret.add(l); //XXX donot forget this
-				 return ret;
-			 } else {
-				 return ret;//empty
-			 }
-		 }
-		 
-		 //two possibilititis
-		 ArrayList<ArrayList<Integer>> remainList1 = this.findCombinations(numList, startIndex + 1, target - numList.get(startIndex));
-		 for(ArrayList<Integer> l : remainList1) {
-			 l.add(0, numList.get(startIndex));
-			 ret.add(l);
-		 }
-		 
-		 ArrayList<ArrayList<Integer>> remainList2 = this.findCombinations(numList, startIndex + 1, target);
-		 ret.addAll(remainList2);
-		 
-		 return ret;
-		 
-	 }
+	        Arrays.sort(num);
+	        
+	        if(target < num[0]) {
+	        	return new ArrayList<ArrayList<Integer>>();
+	        }
+	        
+	        int sum = 0;
+	        for(int v : num) {
+	            sum = sum + v;
+	        }
+	        if(sum < target) {
+	            return new ArrayList<ArrayList<Integer>>();
+	        }
+	        
+	        Set<ArrayList<Integer>> all = new HashSet<ArrayList<Integer>>();
+	        
+	        for(int i = 0; i < num.length; i++) {
+	            int n = num[i];
+	        	if (n == target) {
+	        		ArrayList<Integer> l = new ArrayList<Integer>();
+	        		l.add(n);
+	        		all.add(l);
+	        	} else if(n < target) {
+	        	    //when doing the recursion, keep the num set the same
+	        	    int[] restNum = new int[num.length - 1];
+	        	    int index = 0;
+	        	    for(int j = 0; j < num.length; j++ ) {
+	        	        if(j != i) {
+	        	            restNum[index++] = num[j];
+	        	        }
+	        	    }
+	        	    ArrayList<ArrayList<Integer>> remainList = combinationSum2(restNum, target - n);
+	        	    for(ArrayList<Integer> l : remainList) {
+	        	    	ArrayList<Integer> exl = new ArrayList<Integer>(l);
+	        	    	exl.add(n);
+	        	    	Collections.sort(exl);
+	        	    	all.add(exl);
+	        	    }
+	        	} else {
+	                    break; //do nothing, stop traversing
+	        	}
+	        }
+	        return new ArrayList<ArrayList<Integer>>(all);
+	    }
 	 
 	 public static void main(String[] args) {
 		 CombinationsSum1And2 c = new CombinationsSum1And2();

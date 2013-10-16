@@ -19,9 +19,7 @@ public class SubstringWithAllWords {
 	
 	//it is all word connecting without space
 	public ArrayList<Integer> findSubstring(String s, String[] ls) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		
+        // Note: The Solution object is instantiated only once and is reused by each test case.
         ArrayList<Integer> indices = new ArrayList<Integer>();
         if(ls.length == 0 || s.length() < ls.length*ls[0].length()) {
         	return indices;
@@ -38,15 +36,13 @@ public class SubstringWithAllWords {
         }
         
         int wordLength = ls[0].length();
-        //now start searching
         
         Map<String, Integer> foundCount = new HashMap<String, Integer>();
         
         for(int start = 0; start < s.length() - ls.length * wordLength + 1/**XXX donot forget +1*/; start++) {
-//        	System.out.println("start: " + start );
         	//check the occurance of each word
         	boolean matched = true;
-        	foundCount.clear(); //XXX donot forget clear it
+        	foundCount.clear(); //donot forget clear it
         	for(int i = 0; i < ls.length; i++) {
         		String w = s.substring(start + i*wordLength,  start + (i+1)*wordLength);
         		if(!wordCount.containsKey(w)) {

@@ -19,49 +19,23 @@ A = [2,3,1,1,4], return true.
 A = [3,2,1,0,4], return false.
  * */
 public class JumpGame1and2 {
-	public boolean canJump(int[] a) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        if(a.length == 0 || a.length == 1) {
-        	return true;
+	public boolean canJump(int[] A) {
+        //do in a reverse way, avoiding perform search
+        //in which you do not know which index to expand next
+        boolean[] table = new boolean[A.length];
+        table[A.length-1] = true;
+        int start = A.length - 2;
+        while(start >= 0) {
+            table[start] = false;
+            for(int j = start + 1; j < A.length; ++j) {
+                if(table[j] && j - start <= A[start]) {
+                    table[start] = true;
+                    break;
+                }
+            }
+            start--;
         }
-        //construct a graph
-        Map<Integer, List<Integer>> edgeMap = new HashMap<Integer, List<Integer>>();
-        for(int i = 0; i < a.length; i++) {
-        	Integer currentEle = i;
-        	int maxStep = a[i];
-        	for(int step = 1; step <= maxStep && currentEle + step < a.length; step++ ) {
-        		if(!edgeMap.containsKey(currentEle)) {
-        			edgeMap.put(currentEle, new LinkedList<Integer>());
-        		}
-        		edgeMap.get(currentEle).add(currentEle + step);
-        	}
-        }
-        //then start search
-        Integer start = 0;
-        Integer target = a.length - 1;
-        List<Integer> queue = new LinkedList<Integer>();
-        queue.add(start);
-        Set<Integer> visited = new HashSet<Integer>();
-        
-        while(!queue.isEmpty()) {
-        	Integer top = queue.remove(0);
-        	if(top == target) {
-        		return true;
-        	} else {
-        		if(visited.contains(top)) {
-        			continue;
-        		}
-        		List<Integer> nexts = edgeMap.get(top);
-        		if(nexts != null) {
-        		    for(Integer n : nexts) {
-        			    queue.add(n);
-        		    }
-        		}
-        	}
-        }
-        
-        return false;
+        return table[0];
     }
 	
 	//return minimum number of jumps

@@ -40,7 +40,7 @@ We say that "rgtae" is a scrambled string of "great".
 Given two strings s1 and s2 of the same length, determine if s2 is a scrambled string of s1.
  * */
 //http://blog.unieagle.net/2012/10/23/leetcode%E9%A2%98%E7%9B%AE%EF%BC%9Ascramble-string%EF%BC%8C%E4%B8%89%E7%BB%B4%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/
-xxx
+//xxx
 public class ScrambleString {
 	public static void main(String[] args) {
 		ScrambleString ss = new ScrambleString();
@@ -48,8 +48,8 @@ public class ScrambleString {
 	}
 	
 	//adapt from: http://codekevin.blogspot.com/2013/03/scramble-string.html
-	public boolean isScramble_dp(String s1, String s2) {
-		if (s1.length() != s2.length())
+	public boolean isScramble(String s1, String s2) {
+        if (s1.length() != s2.length())
 			return false;
 		if (s1.length() == 0 && s1.length() == 0)
 			return true;
@@ -76,8 +76,7 @@ public class ScrambleString {
 		}
 
 		return scramble[0][0][s1.length() - 1];
-
-	}
+    }
 	
 	//use the same string as pruning can pass all tests
 	 public boolean isScramble_recursive(String s1, String s2) {

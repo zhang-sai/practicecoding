@@ -28,7 +28,7 @@ public class FlattenBinaryTreeToList {
         // Start typing your Java solution below
         // DO NOT write main() function
         if(root == null) {
-        	return;
+            return;
         }
         if(root.left == null) {
         	this.flatten(root.right);

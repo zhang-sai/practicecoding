@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 
 /**
@@ -14,45 +15,32 @@ public class SimplifyPaths {
 	public String simplifyPath(String path) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        if(path == null) {
-        	return "";
+        String slash = "/";
+        String[] splits = path.split(slash);
+        Stack<String> stack = new Stack<String>();
+        for(String split : splits) {
+            if(split.equals("")) {
+                continue;
+            }
+            if(split.equals("..")) {
+                if(!stack.isEmpty()) {
+                    stack.pop();
+                }
+            } else if (split.equals(".")) {
+                continue;
+            } else {
+                stack.push(split);
+            }
         }
-        if(path.length() == 0) {
-        	return path;
+        String result = "";
+        while(!stack.isEmpty()) {
+            String p = stack.pop();
+            result = "/" +  p + result;
         }
-        String[] pathsElements = path.split("/");
-        
-        List<String> paths = new LinkedList<String>();
-        for(String p : pathsElements) {
-        	if(p.length() == 0) {
-        		continue;
-        	}
-        	if(p.equals(".")) {
-        		continue;
-        	} else if(p.equals("..")) {
-        		if(paths.isEmpty()) {
-        			continue; //XXX there is no illegal path
-        			//if the path cannot be lifted, just do nothing
-        		} else {
-        		    paths.remove(paths.size() - 1);
-        		}
-        	} else {
-        		paths.add(p);
-        	}
+        if(result.length() ==  0) {
+            return "/";
         }
-        
-        StringBuilder sb = new StringBuilder();
-        
-        for(String p : paths) {
-        	sb.append("/");
-        	sb.append(p);
-        }
-        
-        if(sb.length() == 0) {
-        	sb.append("/");
-        }
-        
-        return sb.toString();
+        return result;
     }
 	
 	public static void main(String[] args) {

@@ -15,7 +15,7 @@ public class ReverseInteger {
 	public int reverse(int x) {
         // Start typing your Java solution below
         // DO NOT write main() function
-		if(x == 0) {
+        if(x == 0) {
 			return x;
 		}
 		boolean flag = x > 0 ? true : false;

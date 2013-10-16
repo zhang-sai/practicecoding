@@ -6,37 +6,35 @@ Returns a pointer to the first occurrence of needle in haystack, or null if need
  * */
 public class StrStr {
 	public String strStr(String haystack, String needle) {
-		if(needle.length() == 0) {
-			return haystack;
-		}
-		if(needle.length() > haystack.length()) {
-			return null;
-		}
         // Start typing your Java solution below
         // DO NOT write main() function
-		char[] n_chars = needle.toCharArray();
-		char[] h_chars = haystack.toCharArray();
-		
-		for(int i = 0; i < h_chars.length; i++) {
-			int current = i;
-			boolean matched = true;
-			for(int j = 0; j < n_chars.length; j++) {
-				if(current + j >= h_chars.length) {
-					matched = false;
-					break;
-				}
-				if(h_chars[current + j] != n_chars[j]) {
-					matched = false;
-					break;
-				}
-			}
-			if(matched) {
-				return haystack.substring(current);
-			}
-		}
-		
-		return null;
+        if(needle.length() > haystack.length()) {
+            return null;
+        }
+        int index = -1;
         
+        char[] needleChars = needle.toCharArray();
+        char[] haystackChars = haystack.toCharArray();
+        
+        for(int i = 0; i < haystackChars.length - needleChars.length + 1; i++) {
+            boolean matched = true;
+            for(int j = 0; j < needleChars.length; j++) {
+                if(needleChars[j] != haystackChars[i + j]) {
+                    matched = false;
+                    break;
+                }
+            }
+            if(matched) {
+                index = i;
+                break;
+            }
+        }
+        
+        if(index == -1) {
+            return null;
+        } else {
+            return haystack.substring(index);
+        }
     }
 	
 	//a better

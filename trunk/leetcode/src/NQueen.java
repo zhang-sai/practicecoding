@@ -30,7 +30,8 @@ public class NQueen {
 	public ArrayList<String[]> solveNQueens(int n) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        int[] board = new int[n+1];
+        int[] board = new int[n+1]; //columns
+        //board[i] = j  i is column, row is j
         
         ArrayList<String[]> solutions = new ArrayList<String[]>();
         
@@ -40,6 +41,7 @@ public class NQueen {
         return solutions;
     }
 	
+	//place queue on row, column is safe or not
 	boolean safe(int row, int column, int[] board) {
 		//is board[column] = row a safe configuration
 		for(int j = 1; j < column; j++) {
@@ -86,6 +88,31 @@ public class NQueen {
 
 Now, instead outputting board configurations, return the total number of distinct solutions.
 	 * */
+	
+	public int totalNQueens_short(int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        assert(n>0);
+        return countSolution(1,new int[n]);
+    }
+    
+    public int countSolution(int k, int[] pattern){
+        int n= pattern.length;
+        assert(k<=n);
+        int res = 0;
+        main:
+        for(int i=0;i<n;i++){
+            for(int j=0;j<k-1;j++){
+                if(pattern[j]==i||Math.abs(j-k+1)==Math.abs(pattern[j]-i))
+                continue main;
+            }
+            pattern[k-1]=i;
+            if(k==n) return 1;
+            else res+=countSolution(k+1,pattern);
+        }
+        return res;
+    }
+	
 	//public int totalSol = 0;
 	public int totalNQueens(int n) {
         // Start typing your Java solution below

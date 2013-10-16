@@ -34,65 +34,51 @@ When s3 = "aadbbbaccc", return false.
 public class StringInterleaving {
 	
 	public boolean isInterleave(String s1, String s2, String s3) {
-		if(s1 == null || s2 == null || s3 == null) {
-			return false;
-		}
-		if(s1.length() + s2.length() != s3.length()) {
-			return false;
-		}
-		if(s1.isEmpty() || s2.isEmpty()) {
-			return s3.equals(s1 + s2);
-		}
-		//then use dynamic programming to solve this
-		boolean[][] matrix = new boolean[s1.length() + 1][s2.length() + 1];
-		matrix[0][0] = true; //it is ok to be true
-		for(int i = 1; i <= s2.length(); i++) {
-			boolean prevCell = i == 1 ? true : matrix[0][i-1];
-			if(prevCell && s3.charAt(i - 1) == s2.charAt(i - 1)) {
-				matrix[0][i] = true;
-			}
-		}
-		
-		for(int i = 1; i <= s1.length(); i++) {
-			boolean prevCell = i == 1 ? true : matrix[i-1][0];
-			if(prevCell && s3.charAt(i - 1) == s1.charAt(i - 1)) {
-				matrix[i][0] = true;
-			}
-		}
-		
-		//start to compute each cell
-//		System.out.println("s1 length: " + s1.length());
-//		System.out.println("s2 length: " + s2.length());
-		for(int i = 1; i <= s1.length(); i++) {
-			for(int j = 1; j <= s2.length(); j++) {
-				//two possibilities
-				//1. matrix[i-1][j] = true && s3[i + j -1] == s1[i-1]
-				//2. matrix[i][j-1] = true && s3[i+j - 1] = s2[j-1]
-				
-				char s3char = s3.charAt(i + j - 1);
-				char s1char = s1.charAt(i - 1);
-				char s2char = s2.charAt(j - 1);
-//				System.out.println(i + ", " + j + ", matrix size: "
-//						+ matrix.length + ", " + matrix[0].length
-//						+ " s1char: " + s1char + ", s2char: " + s2char + ", s3 char: " + s3char
-//						+ "  last two cells: " + matrix[i-1][j] + ", and " + matrix[i][j-1]);
-				if(matrix[i-1][j] && s3char == s1char) {
-					matrix[i][j] = true;
-				} else if (matrix[i][j-1] && s3char == s2char) {
-					matrix[i][j] = true;
-				}
-			}
-		}
-		
-//		for(int i = 0; i < s1.length() + 1; i++) {
-//			for(int j = 0; j < s2.length() + 1; j++) {
-//				System.out.print(matrix[i][j] + "  ");
-//			}
-//			System.out.println();
-//		}
-		
-		return matrix[s1.length()][s2.length()];
-	}
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        int l1 = s1.length();
+        int l2 = s2.length();
+        int l3 = s3.length();
+        if(l3 != l1 + l2) {
+            return false;
+        }
+        if(l1 == 0 || l2 == 0) {
+            return s3.equals(s1 + s2);
+        }
+        //use dynamic programming
+        boolean[][] matches = new boolean[l1 + 1][l2 + 1];
+        
+        //compute each columns
+        matches[0][0]= true;
+        for(int i = 0; i < l1; i++) {
+            if(s3.startsWith(s1.substring(0, i+1))) {
+                matches[i+1][0] = true;
+            } else {
+                matches[i+1][0] = false;
+            }
+        }
+        for(int i = 0; i < l2; i++) {
+            if(s3.startsWith(s2.substring(0, i+1))) {
+                matches[0][i+1] = true;
+            } else {
+                matches[0][i+1] = false;
+            }
+        }
+        //compute the rest
+        for(int i = 1; i < l1 + 1; i++) {
+            for(int j = 1; j < l2 + 1; j++) {
+                if(s1.charAt(i-1) == s3.charAt(i - 1 + j - 1 + 1)) {
+                    matches[i][j] = matches[i-1][j];
+                } 
+                
+                if(!matches[i][j])  //need check here
+                    if (s2.charAt(j-1) == s3.charAt(i - 1 + j - 1 + 1)) {
+                        matches[i][j] = matches[i][j-1];
+                    } 
+            }
+        }
+        
+        return matches[l1][l2];
+    }
 	
 	
 	

@@ -10,91 +10,26 @@ import java.util.Arrays;
  * */
 public class NextPermutation {
 
-	// a good explaination is in:
-	// http://www.tsechung.com/wordpress/tag/permutation/
-
-//	public static void main(String[] args) {
-//		NextPermutation np = new NextPermutation();
-//		Integer[] num = new Integer[] {1, 1, 2};
-//		int count = 0;
-//		System.out.println(Arrays.asList(num));
-//		count++;
-//		Integer[] nextNum = np.nextPermutation(num);
-//		while(nextNum != null) {
-//			System.out.println(Arrays.asList(num));
-//			nextNum = np.nextPermutation(num);
-//			count++;
-//		}
-//		System.out.println("total : " + count);
-//		np.nextPermutation(num);
-//		System.out.println(Arrays.asList(num));
-//		np.nextPermutation(num);
-//		System.out.println(Arrays.asList(num));
-//		np.nextPermutation(num);
-//		System.out.println(Arrays.asList(num));
-//		np.nextPermutation(num);
-//		System.out.println(Arrays.asList(num));
-//		np.nextPermutation(num);
-//		System.out.println(Arrays.asList(num));
-//		np.nextPermutation(num);
-//		System.out.println(Arrays.asList(num));
-//		np.nextPermutation(num);
-//		System.out.println(Arrays.asList(num));
-//		np.nextPermutation(num);
-//		System.out.println(Arrays.asList(num));
-//		np.nextPermutation(num);
-//		System.out.println(Arrays.asList(num));
-//		np.nextPermutation(num);
-//		System.out.println(Arrays.asList(num));
-//		np.nextPermutation(num);
-//		System.out.println(Arrays.asList(num));
-//		np.nextPermutation(num);
-//		System.out.println(Arrays.asList(num));
-//		np.nextPermutation(num);
-//		System.out.println(Arrays.asList(num));
-//		np.nextPermutation(num);
-//		System.out.println(Arrays.asList(num));
-//	}
-	
-	ArrayList<Integer> toList(int[] num) {
-		ArrayList<Integer> list = new ArrayList<Integer>();
-		for(int i : num) {
-			list.add(i);
-		}
-		return list;
-	}
-	
-	public ArrayList<ArrayList<Integer>> permuteUnique(int[] num) {
-		ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
-		Arrays.sort(num);
-		NextPermutation np = new NextPermutation();
-		
-		ret.add(toList(num));
-		int[] nextNum = np.nextPermutation(num);
-		while(nextNum != null) {
-			ret.add(toList(nextNum));
-			nextNum = np.nextPermutation(nextNum);
-		}
-		return ret;
-	}
-	
-	public int[] nextPermutation(int[] num) {
-		// Start typing your Java solution below
-		// DO NOT write main() function
-		if (num.length == 1)
-			return null;
+	public void nextPermutation(int[] num) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        if (num.length == 1)
+			return;
 		
 		int leastIndexToBeChanged = -1, swapIndex = -1;
 		for (int i = num.length - 1; i > 0; i--) {
+		    //find the first index i, that num[i] < num[i+1]
 			if (num[i - 1] < num[i]) {
 				leastIndexToBeChanged = i - 1;
 				break;
-			} else if (i == 1) {
-				Arrays.sort(num);
-				return null;
 			}
 		}
+		
+		if(leastIndexToBeChanged == -1) {
+		    Arrays.sort(num);
+		    return;
+		}
 
+        //find the last index that is great than the leastIndexToBeChanged
 		for (int i = num.length - 1; i > 0; i--) {
 			if (num[i] > num[leastIndexToBeChanged]) {
 				swapIndex = i;
@@ -106,14 +41,32 @@ public class NextPermutation {
 		num[swapIndex] = num[leastIndexToBeChanged];
 		num[leastIndexToBeChanged] = tmp;
 
-		//XXX this step
+		//this step is critical
+		//swap the location of the remaining array
+		//e.g.,   1, 2, 3, 4
+		// =>   1, 2, 4, 3
+		// =>   1, 3, 4, 2    ==>  1, 3, 2, 4 (this step)
+		// => 1, 3, 4, 2
+		// => 1, 4, 3, 2   ==>  1, 4, 2, 3 (this step)
+		// => 1, 4, 3, 2
 		for (int i = 0; i < (num.length - 1 - leastIndexToBeChanged) / 2; i++) {
 			tmp = num[leastIndexToBeChanged + 1 + i];
 			num[leastIndexToBeChanged + 1 + i] = num[num.length - 1 - i];
 			num[num.length - 1 - i] = tmp;
 		}
 		
-		return num;
-	}
+		return;
+    }
 
+	public static void main(String[] args) {
+		NextPermutation np = new NextPermutation();
+		int[] num = new int[]{1, 2, 3, 4};
+		for(int i = 0; i < 20; i++) {
+			for(int n : num) {
+				System.out.print(n + "  ");
+			}
+			System.out.println();
+		   // num =np.nextPermutation(num);
+		}
+	}
 }

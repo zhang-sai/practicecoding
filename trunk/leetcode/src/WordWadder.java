@@ -57,97 +57,48 @@ public class WordWadder {
 	
 	public int ladderLength(String start, String end, HashSet<String> dict) {
         // Start typing your Java solution below
-        // DO NOT write main() function
-        if(start.length() != end.length()) {
-        	return 0;
+        // DO NOT write main() function      
+        
+        //like the visited set in BFS/DFS
+        HashSet<String> dedupSet = new HashSet<String>();
+        
+        //like a fringe in BFS/DFS
+        List<String> fromList = new ArrayList<String>();
+        fromList.add(start);
+        
+        //the length
+        int res = 1;
+        while(fromList.size() != 0){
+            List<String> toList = new ArrayList<String>();
+            //find the next level
+            for(String from : fromList){
+                if(from.equals(end)) {
+                    return res; //find it
+                }
+                char[] arr = from.toCharArray();
+                //for each word in the from list
+                for(int i = 0; i < arr.length; i++){
+                    char base = arr[i];
+                    for(char c = 'a'; c < 'z'; c++){
+                        if(c == base) { 
+                            continue;
+                        }
+                        arr[i] = c;
+                        String s = new String(arr);
+                        if(dict.contains(s) && !dedupSet.contains(s)){
+                            toList.add(s);
+                            dedupSet.add(s);
+                        }
+                    }
+                    arr[i] = base;
+                }
+            } 
+            fromList.clear();
+            fromList = toList;
+            res ++; //just record the levels
         }
-        
-        //construct a graph
-        HashSet<String> allWords = new HashSet<String>();
-        allWords.addAll(dict);
-        allWords.add(start);
-        allWords.add(end);
-        
-//        System.out.println(allWords);
-        Map<String, Set<String>> paths = new HashMap<String, Set<String>>();
-        for(String w1 : allWords) {
-        	for(String w2 : allWords) {
-        		if(w1.equals(w2)) {
-        			continue;
-        		}
-        		if(w1.length() == w2.length()) {
-        			//if w1 and w2 only differ in 1 character?
-        			int diff = 0;
-        			for(int i = 0; i < w1.length(); i++) {
-        				if(w1.charAt(i) != w2.charAt(i)) {
-        					diff++;
-        				}
-        			}
-        			if(diff == 1) {
-        				if(!paths.containsKey(w1)) {
-        					paths.put(w1, new HashSet<String>());
-        				}
-        				paths.get(w1).add(w2);
-        				if(!paths.containsKey(w2)) {
-        					paths.put(w2, new HashSet<String>());
-        				}
-        				paths.get(w2).add(w1);
-        			}
-        		}
-        	}
-        }
-        
-//        System.out.println(paths);
-        
-        //start to perform a BFS
-        Set<String> visited = new HashSet<String>();
-//        visited.add(start);
-        List<String> queue = new LinkedList<String>();
-        queue.add(start);
-        
-        
-        Map<String, String> backTracking = new HashMap<String, String>();
-        
-        while(!queue.isEmpty()) {
-        	String top = queue.remove(0);
-        	if(top.equals(end)) {
-//        		System.out.println(backTracking);
-        		//do back tracking
-        		int count = 1;
-        		String s = backTracking.get(top);
-        		while(!s.equals(start)) {
-        			s = backTracking.get(s);
-        			count++;
-        		}
-        		return count + 1;
-        	} else {
-        		if(visited.contains(top)) {
-        			continue;
-        		} else {
-        			//
-        			visited.add(top);
-        			Set<String> nexts = paths.get(top);
-//        			System.out.println(visited + " -- " + nexts);
-        			if(nexts != null) {
-        				for(String next : nexts) {
-        					if(visited.contains(next)) {
-        						continue;
-        					}
-        				     queue.add(next);
-        				     if(!backTracking.containsKey(next)) { //XXX This is critical to avoid overlap
-        				         backTracking.put(next, top);
-        				     }
-//        				     System.out.println("put: " + next + "  " + top);
-        				}
-        			}
-        			
-        		}
-        	}
-        }
-        
         return 0;
     }
-	
 	
 	/**
 	 * find all wadders
@@ -196,7 +147,7 @@ public class WordWadder {
         //
         ArrayList<ArrayList<String>> ladders = new ArrayList<ArrayList<String>>();
         
-        xx
+        
         //my previous code:
         //https://code.google.com/p/guierrordetector/source/browse/trunk/GUIErrorDetector/tests/edu/washington/cs/detector/experiments/search/ExhaustiveSearcher.java
         

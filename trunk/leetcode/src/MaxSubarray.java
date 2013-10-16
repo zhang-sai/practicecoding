@@ -13,23 +13,25 @@ http://en.wikipedia.org/wiki/Maximum_subarray_problem
  * */
 public class MaxSubarray {
 	public int maxSubArray(int[] numbers) {
-		int max_so_far  = numbers[0], max_ending_here = numbers[0];
-        for(int i = 1; i < numbers.length; i++)
-        {
-                // calculate max_ending_here
-                max_ending_here += numbers[i];
-                if(numbers[i] > max_ending_here) //XXX this part is critical
-                {
-                        max_ending_here = numbers[i];
-                }
-                // calculate max_so_far
-                if(max_ending_here > max_so_far )
-                {
-                        max_so_far  = max_ending_here;
-                }
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        if(numbers.length == 0) {
+            return -1;
         }
-        // return max_so_far 
-        return max_so_far ;
+        int  max_so_far = numbers[0];
+		int maxSum = max_so_far;
+		for(int i = 1; i < numbers.length; i++) {
+			int v = numbers[i];
+			if(max_so_far + v < v) {
+				max_so_far = v;
+			} else {
+				max_so_far = max_so_far + v;
+			}
+			if(max_so_far > maxSum) {
+				maxSum = max_so_far;
+			}
+		}
+		
+		return maxSum;
     }
 	
 	public static void main(String[] args) {
