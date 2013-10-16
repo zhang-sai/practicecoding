@@ -39,61 +39,35 @@ public class JumpGame1and2 {
     }
 	
 	//return minimum number of jumps
-	public int jump(int[] a) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		// Start typing your Java solution below
-        // DO NOT write main() function
-        if(a.length == 0 || a.length == 1) {
-        	return 0;
-        }
-        //construct a graph
-        Map<Integer, List<Integer>> edgeMap = new HashMap<Integer, List<Integer>>();
-        for(int i = 0; i < a.length; i++) {
-        	Integer currentEle = i;
-        	int maxStep = a[i];
-        	for(int step = 1; step <= maxStep && currentEle + step < a.length; step++ ) {
-        		if(!edgeMap.containsKey(currentEle)) {
-        			edgeMap.put(currentEle, new LinkedList<Integer>());
-        		}
-        		edgeMap.get(currentEle).add(currentEle + step);
-        	}
-        }
-        //then start search
-        Integer start = 0;
-        Integer target = a.length - 1;
-        List<Integer> queue = new LinkedList<Integer>();
-        queue.add(start);
-        Set<Integer> visited = new HashSet<Integer>();
-        
-        Map<Integer, Integer> backTracking = new HashMap<Integer, Integer>();
-        
-        while(!queue.isEmpty()) {
-        	Integer top = queue.remove(0);
-        	if(top == target) {
-        		//query the backtracking
-        		int count = 0;
-        		while(!top.equals(start)) {
-        			count++;
-        			top = backTracking.get(top);
-        		}
-        		return count;
-        	} else {
-        		if(visited.contains(top)) {
-        			continue;
-        		}
-        		List<Integer> nexts = edgeMap.get(top);
-        		if(nexts != null) {
-        		    for(Integer n : nexts) {
-        		    	if(!backTracking.containsKey(n)) {
-        		    		backTracking.put(n, top);
-        		    	}
-        			    queue.add(n);
-        		    }
-        		}
-        	}
-        }
-        
-        return -1;
-    }
+	//credit goes to: http://fisherlei.blogspot.com/2012/12/leetcode-jump-ii.html
+    int jump(int A[]) {  
+      int n = A.length;
+      if(n == 1) {
+          return 0;  
+      }
+      
+      //the interval of jump.
+      //for n-step, it can jump to [start, end]
+      //increment start by 1 every time, and increase end by the number of jumps
+      int start = 0;  
+      int end = 0;  
+      int count =0; //the number of jumps
+      while(end < n) {  
+        int max = 0;  
+        count++;  
+        for(int i =start; i<= end ; i++ ) {   
+          if(A[i] + i >= n-1) {            
+            return count;  
+          }  
+          if(A[i]+ i > max) {  
+            max = A[i]+i;  
+          }
+        }  
+        start = end + 1;  
+        end = max;        
+      }  
+      
+      //cannnot jump
+      return Integer.MAX_VALUE;
+    } 
 }
