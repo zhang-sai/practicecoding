@@ -16,34 +16,40 @@ Given m, n satisfy the following condition:
 	//a sample answer: http://gongxuns.blogspot.com/2012/12/leetcode-reverse-linked-list-ii.html
 	//a general linked list reverse
 	public ListNode reverseBetween(ListNode head, int m, int n) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        if(head == null || m == n) { //special cases
-        	return head;
+        if(m == n) {
+            return head;
         }
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        ListNode newhead = new ListNode(-1);
+        newhead.next = head;
         
-        //XXX a good trick is to use a tmp node before head
-        ListNode tmp = new ListNode(-1);
-        tmp.next = head;
-        
-        ListNode prev = tmp;
+        //find two points
+        ListNode start = newhead;
         for(int i = 0; i < m - 1; i++) {
-        	prev = prev.next;
+            start = start.next;  //go before the starting point
         }
-        //now, prev is just before [m...]
+        ListNode end = newhead;
+        for(int i = 0; i < n; i++) {
+            end = end.next;
+        }
+        end = end.next; //go after the ending point
         
-        ListNode node = prev.next; //pointing to the first node to swap
-        int k = n - m;
-        while(k > 0 /**&& node.next != null /** no need for this check */) {
-        	ListNode currNode = node.next;
-        	node.next = currNode.next;
-        	
-        	currNode.next = prev.next;
-        	prev.next = currNode;
-        	k--;
+        //start to
+        ListNode prev = start;
+        ListNode curr = start.next;
+        ListNode firstNode = curr;
+        while(curr != end) {
+            ListNode tmp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = tmp;
         }
         
-        return tmp.next;
+        //re-organize the linked list
+        start.next = prev;
+        firstNode.next = end;
+        
+        return newhead.next;
     }
 	
 	/**

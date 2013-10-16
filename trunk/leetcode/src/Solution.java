@@ -902,6 +902,52 @@ int currentMax = Integer.MIN_VALUE;
         return numbers[0][0];
     }
     
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        if(m == n) {
+            return head;
+        }
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        ListNode newhead = new ListNode(-1);
+        newhead.next = head;
+        
+        //find two points
+        ListNode start = newhead;
+        for(int i = 0; i < m - 1; i++) {
+            start = start.next;  //go before the starting point
+        }
+        ListNode end = newhead;
+        for(int i = 0; i < n; i++) {
+            end = end.next;
+        }
+        end = end.next; //go after the ending point
+        
+        System.out.println("start: " + start.val);
+        System.out.println("end: " + (end != null ? end.val : " null "));
+        
+        //start to
+        ListNode curr = start.next;
+        while(curr != end) {
+        	System.out.println("curr: " + curr.val);
+            if(start.next == curr) {
+                curr = curr.next;
+                continue;
+            }
+            ListNode nextNode = curr.next;
+            //change the pointer
+            curr.next = start.next;
+            start.next = curr;
+            curr = nextNode;
+        }
+        
+        while(start.next != null) {
+//        	System.out.println(start.val);
+            start = start.next;
+        }
+        start.next = end;
+        
+        return newhead.next;
+    }
+    
     public static void main(String[] args) {
     	Solution s = new Solution();
 //    	System.out.println(s.restoreIpAddresses("2736786374048"));
@@ -961,7 +1007,11 @@ int currentMax = Integer.MIN_VALUE;
     	
 //    	System.out.println(s.canJump(new int[]{2, 3, 1, 1, 4}));
 //    	System.out.println(s.convert("ABCDE", 3));
-    	System.out.println(s.numDistinct("CCC", "C"));
+//    	System.out.println(s.numDistinct("CCC", "C"));
+    	ListNode head = new ListNode(3);
+    	ListNode next = new ListNode(5);
+    	head.next = next;
+    	s.reverseBetween(head, 1, 2);
     	
     }
     
