@@ -15,12 +15,44 @@ Note:
 You may assume that duplicates do not exist in the tree.
 	 * */
 	//http://leetcode.com/2011/04/construct-binary-tree-from-inorder-and-preorder-postorder-traversal.html
-	public TreeNode buildTree1(int[] inorder, int[] postorder) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        return null;
-        //trivial to extend
+	public TreeNode buildTree_in_post(int[] inorder, int[] postorder) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        if(inorder.length == 0) {
+            return null;
+        }
+        return this.createBinaryTree_post(postorder, 0, postorder.length - 1, inorder, 0, inorder.length - 1);
     }
+	 
+	 TreeNode createBinaryTree_post(int[] postorder, int poststart, int postend, int[] inorder, int instart, int inend) {
+	     
+		 int pivot = postorder[postend];
+		 TreeNode node = new TreeNode(pivot);
+		 int pivotIndex = -1;
+		 for(int i = 0; i < inorder.length; i++) {
+		     if(inorder[i] == pivot) {
+		         pivotIndex = i;
+		         break;
+		     }
+		 }
+		 
+		 int leftSize = pivotIndex - instart; //1, 2, 3
+		 if(leftSize > 0) {
+			 //has left
+			 TreeNode left
+			     = this.createBinaryTree(postorder, poststart, poststart + leftSize - 1,
+			    		 inorder, instart,  instart + leftSize - 1);
+			 node.left = left;
+		 }
+		 if(pivotIndex < inend) {
+			 //has right
+			 TreeNode right
+			     = this.createBinaryTree(postorder, poststart + leftSize, postend - 1,
+			    		 inorder, pivotIndex + 1, inend);
+			 node.right = right;
+		 }
+		 
+		 return node;
+	 }
 	
 	/**
 	 * Given preorder and inorder traversal of a tree, construct the binary tree.
@@ -33,43 +65,39 @@ preorder = {7,10,4,3,1,2,8,11} //7 is the first element
 inorder = {4,10,3,1,7,11,8,2}
 
 	 * */
-	 public TreeNode buildTree(int[] preorder, int[] inorder) {
+	public TreeNode buildTree(int[] preorder, int[] inorder) {
 		 if(preorder.length == 0) {
 			 return null;
 		 }
-	        // Start typing your Java solution below
-	        // DO NOT write main() function
-	     List<Integer> preorderList = new ArrayList<Integer>();
-	     List<Integer> inorderList = new ArrayList<Integer>();
-	     for(int i = 0 ; i < preorder.length; i++) {
-	    	 preorderList.add(preorder[i]);
-	    	 inorderList.add(inorder[i]);
-	     }
 		 //build the tree recursively
-		 return this.createBinaryTree(preorderList, inorderList);
+		 return this.createBinaryTree(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
 	 }
 	 
-	 TreeNode createBinaryTree(List<Integer> preorder, List<Integer> inorder) {
-		 if(preorder.size() != inorder.size() || preorder.size() == 0) {
-			 throw new Error("size : " + preorder.size() + ", inorder size: " + inorder.size());
-		 }
-		 int pivot = preorder.get(0);
+	 TreeNode createBinaryTree(int[] preorder, int prestart, int preend, int[] inorder, int instart, int inend) {
+	     
+		 int pivot = preorder[prestart];
 		 TreeNode node = new TreeNode(pivot);
-		 int pivotIndex = inorder.indexOf(pivot);
+		 int pivotIndex = -1;
+		 for(int i = 0; i < inorder.length; i++) {
+		     if(inorder[i] == pivot) {
+		         pivotIndex = i;
+		         break;
+		     }
+		 }
 		 
-		 int leftSize = pivotIndex;
-		 if(pivotIndex > 0) {
+		 int leftSize = pivotIndex - instart; //1, 2, 3
+		 if(leftSize > 0) {
 			 //has left
 			 TreeNode left
-			     = this.createBinaryTree(preorder.subList(1, leftSize + 1),
-			    		 inorder.subList(0, pivotIndex));
+			     = this.createBinaryTree(preorder, prestart + 1, prestart + leftSize,
+			    		 inorder, instart,  instart + leftSize - 1);
 			 node.left = left;
 		 }
-		 if(pivotIndex < inorder.size() - 1) {
+		 if(pivotIndex < inend) {
 			 //has right
 			 TreeNode right
-			     = this.createBinaryTree(preorder.subList(pivotIndex + 1, preorder.size()),
-			    		 inorder.subList(pivotIndex+1, inorder.size()));
+			     = this.createBinaryTree(preorder, prestart + leftSize + 1, preend, // p.subList(pivotIndex + 1, preorder.size()),
+			    		 inorder, pivotIndex + 1, inend);
 			 node.right = right;
 		 }
 		 
