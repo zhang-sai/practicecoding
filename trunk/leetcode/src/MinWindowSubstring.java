@@ -21,62 +21,58 @@ If there is no such window in S that covers all characters in T, return the emtp
 If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S.
  * */
 //XXX note that t may have some repetition
-xx
+
 //http://computationalpuzzles.wordpress.com/2011/11/17/substring-with-concatenation-of-all-words-in-a-list/
 public class MinWindowSubstring {
 	public String minWindow(String s, String t) {
-		if(s == null || t == null) {
-			return "";
-		}
-		if(s.isEmpty() || t.isEmpty()) {
-			return "";
-		}
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		Set<Character> set = new HashSet<Character>();
-        List<Character> tset = new ArrayList<Character>();
-        for(char c : t.toCharArray()) {
-        	tset.add(c);
-        	set.add(c);
+        int sLen = s.length();
+        int tLen = t.length();
+        int[] needToFind = new int[256];
+        for(int i = 0; i < tLen; i++) {
+            needToFind[t.charAt(i)]++;
         }
-        //two indices
-        int i = 0;
-        while(i < s.length() && !tset.contains(s.charAt(i))) {
-        	i++;
-        }
-        if(i >= s.length()) {
-        	return "";
-        }
-        tset.remove((Character)s.charAt(i));
-        int j = i + 1;
-        String minLenStr = null;
-        while(j < s.length()) {
-        	//exclusive j
-        	if(tset.isEmpty()) {
-        		minLenStr = minLenStr == null
-        		    ? s.substring(i, j)
-        		    : (j - i < minLenStr.length() ? s.substring(i, j) : minLenStr);
-        		tset.add(s.charAt(i));
-        		i ++;//XXX move i to the next matched
-        		while(i < s.length() && !set.contains(s.charAt(i))) {
-        			i++;
-        		}
-        		if(i >= s.length()) {
-        			return minLenStr == null ? "" : minLenStr;
-        		}
-        		j ++;
-        	} else {
-        		tset.remove((Character)s.charAt(j));
-        		j++;
-        	}
-        }
-        if(tset.isEmpty()) {
-    		minLenStr = minLenStr == null
-    		    ? s.substring(i, j)
-    		    : (j - i < minLenStr.length() ? s.substring(i, j) : minLenStr);
-    		
-    	}
-        return minLenStr == null ? "" : minLenStr;
+        
+        int minWindowBegin = -1;
+        int minWindowEnd = -1;
+        int minWindowLen = Integer.MAX_VALUE;
+        
+        
+        int[] hasFound = new int[256];
+        int count = 0;
+        
+        for (int begin = 0, end = 0; end < sLen; end++) {
+            // skip characters not in T
+            if (needToFind[s.charAt(end)] == 0) {
+                continue;
+            }
+            hasFound[s.charAt(end)]++;
+            if (hasFound[s.charAt(end)] <= needToFind[s.charAt(end)]) {
+              count++;
+            }
+ 
+            // if window constraint is satisfied
+            if (count == tLen) {
+               // advance begin index as far right as possible,
+               // stop when advancing breaks window constraint.
+               while (needToFind[s.charAt(begin)] == 0 ||
+                    hasFound[s.charAt(begin)] > needToFind[s.charAt(begin)]) {
+                    if (hasFound[s.charAt(begin)] > needToFind[s.charAt(begin)]) {
+                         hasFound[s.charAt(begin)]--;
+                    }
+                    begin++;
+              }
+ 
+               // update minWindow if a minimum length is met
+               int windowLen = end - begin + 1;
+               if (windowLen < minWindowLen) { 
+                   minWindowBegin = begin;
+                   minWindowEnd = end;
+                   minWindowLen = windowLen;
+               } // end if
+            } // end if
+         } // end for
+ 
+         return (count == tLen) ? s.substring(minWindowBegin, minWindowEnd + 1) : "";
     }
 	
 	public static void main(String[] args) {
