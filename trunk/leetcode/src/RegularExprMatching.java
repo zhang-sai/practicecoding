@@ -23,7 +23,7 @@ public class RegularExprMatching {
 	}
 	//Note p.charAt(0) != *
 	public boolean isMatch(String s, String p) {
-		System.out.println("matching: " + s + ",  " + p);
+        // Note: The Solution object is instantiated only once and is reused by each test case.
 		if(s == null || p == null) {
 			return false;
 		}
@@ -35,10 +35,9 @@ public class RegularExprMatching {
 		if(p.length() == 1) { //cannot be just a *, two possibilities
 			
 			boolean r = s.length() == 1 && (p.charAt(0) == s.charAt(0) || p.charAt(0) == '.');
-			System.out.println("  match: " + s + ", " + p + " -> " + r);
 			return r;
 		}
-		//need to take care of *
+		//need to take care of * which is the next character
 		if(p.charAt(1) != '*') {
 			if(s.isEmpty()) {
 				return false;
@@ -56,7 +55,6 @@ public class RegularExprMatching {
 				//it can match 0 or many 
 				for(int i = 0; i < s.length(); i++) {
 					if(s.charAt(i) == p.charAt(0) || p.charAt(0) == '.') {
-						System.out.println(" recusive matching: " + s.substring(i + 1) + "  with " + p.substring(2));
 						if(this.isMatch(s.substring(i + 1), p.substring(2))) {
 							return true;
 						}
@@ -67,8 +65,9 @@ public class RegularExprMatching {
 			}
 		}
 		
+		//if the next is start, but matches nothing
+		//like  bbb  .*bbb, then just jump to the next chars of p
 		return this.isMatch(s, p.substring(2)); 
-		//XXX return match nothing of s
     }
 }
 
