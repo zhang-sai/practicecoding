@@ -88,7 +88,8 @@ public class WildcardMatching {
 	
 	//XXX fail on large set
 	public boolean isMatch(String s, String regex) {
-		//first remove all successive starts
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        //first remove all successive starts
 		int slen = s.length();
 		//count the number of no stars
 		int lengthOfNoStar = 0;
@@ -173,6 +174,7 @@ public class WildcardMatching {
 		//fill in the matrix
 		for(int i = 1; i < matrix.length; i++) {
 			
+			//the matched last columns
 			Set<Integer> matchedColumns = new HashSet<Integer>();
 			for(int j = 0; j < matrix[i-1].length; j++) {
 				if(matrix[i-1][j]) {
@@ -188,57 +190,76 @@ public class WildcardMatching {
 				} else if (regexChar == '?') {
 					matrix[i][j] = matchedColumns.contains(j-1) ? true : false;
 				} else {
-					matrix[i][j] = cChar == regexChar && matchedColumns.contains(j-1) ? true : false;
+					matrix[i][j] = (cChar == regexChar) && matchedColumns.contains(j-1) ? true : false;
 				}
 			}
 		}
 		
 		//print the matrix
-		for(int i = 0; i < matrix.length; i++) {
-			for(int j = 0; j < matrix[i].length; j++) {
-				System.out.print(matrix[i][j] + "  ");
-			}
-			System.out.println();
-		}
+// 		for(int i = 0; i < matrix.length; i++) {
+// 			for(int j = 0; j < matrix[i].length; j++) {
+// 				System.out.print(matrix[i][j] + "  ");
+// 			}
+// 			System.out.println();
+// 		}
 		
 		return matrix[regex.length() - 1][s.length() - 1];
-	}
+    }
 	
-	//XXX a dynamic programming algorithm
+	//this passes on the large test
 	public boolean isMatch_others(String s, String regex) {
 		// without this optimization, it will fail for large data set
+		// without this optimization, it will fail for large data set
 	    int plenNoStar = 0;
-	    for (char c : regex.toCharArray())
-	        if (c != '*') plenNoStar++;
-	    if (plenNoStar > s.length()) return false;
+	    for (char c : regex.toCharArray()) {
+	        if (c != '*') {
+	            plenNoStar++;
+	        }
+	    }
+	    if (plenNoStar > s.length()) {
+	        return false;
+	    }
 
+        //add a special space before s and regex
 	    s = " " + s;
 	    regex = " " + regex;
 	    int slen = s.length();
 	    int plen = regex.length();
 
+        //did the regex match up to the i-th string
 	    boolean[] dp = new boolean[slen];
 	    TreeSet<Integer> firstTrueSet = new TreeSet<Integer>();
 	    firstTrueSet.add(0);
 	    dp[0] = true;
 
-	    boolean allStar = true;
+	    boolean allStar = true; //if any non-star character has been seen
 	    for (int pi = 1; pi < plen; pi++) {
-	        if (regex.charAt(pi) != '*')
+	        if (regex.charAt(pi) != '*') {
 	            allStar = false;
+	        }
 	        for (int si = slen - 1; si >= 0; si--) {
-	            if (si == 0) {
+	            if (si == 0) { //zero is an inserted symbol, canonly be matched through all star
 	                dp[si] = allStar ? true : false;
 	            } else if (regex.charAt(pi) != '*') {
-	                if (s.charAt(si) == regex.charAt(pi) || regex.charAt(pi) == '?') dp[si] = dp[si-1];
-	                else dp[si] = false;
-	            } else {
-	                int firstTruePos = firstTrueSet.isEmpty() ? Integer.MAX_VALUE : firstTrueSet.first();
-	                if (si >= firstTruePos) dp[si] = true;
-	                else dp[si] = false;
+	                if (s.charAt(si) == regex.charAt(pi) || regex.charAt(pi) == '?') {
+	                    dp[si] = dp[si-1];
+	                } else {
+	                    dp[si] = false;
+	                }
+	            } else { //if it is star
+	                int firstTruePos = firstTrueSet.isEmpty() ? Integer.MAX_VALUE : firstTrueSet.first();//the minimual one
+	                if (si >= firstTruePos) {
+	                    dp[si] = true;
+	                }
+	                else {
+	                    dp[si] = false;
+	                }
 	            }
-	            if (dp[si]) firstTrueSet.add(si);
-	            else firstTrueSet.remove(si);
+	            if (dp[si]) {
+	                firstTrueSet.add(si);
+	            } else {
+	                firstTrueSet.remove(si);
+	            }
 	        }
 	    }
 	    return dp[slen - 1];
