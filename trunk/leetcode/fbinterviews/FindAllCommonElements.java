@@ -10,6 +10,7 @@ import java.util.PriorityQueue;
  *  
  *  output: [2, 4]
  * */
+//Find intersection of two sorted array A, B
 public class FindAllCommonElements {
 
 	public List<Integer> findAllCommons(List<List<Integer>> lists) {
