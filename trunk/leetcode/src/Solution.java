@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -948,6 +950,148 @@ int currentMax = Integer.MIN_VALUE;
         return newhead.next;
     }
     
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+		 if(preorder.length == 0) {
+			 return null;
+		 }
+		 //build the tree recursively
+		 return this.createBinaryTree(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
+	 }
+	 
+	 TreeNode createBinaryTree(int[] preorder, int prestart, int preend, int[] inorder, int instart, int inend) {
+	     
+		 int pivot = preorder[prestart];
+		 TreeNode node = new TreeNode(pivot);
+		 int pivotIndex = -1;
+		 for(int i = 0; i < inorder.length; i++) {
+		     if(inorder[i] == pivot) {
+		         pivotIndex = i;
+		         break;
+		     }
+		 }
+		 
+		 int leftSize = pivotIndex - instart; //1, 2, 3
+		 if(leftSize > 0) {
+			 //has left
+			 TreeNode left
+			     = this.createBinaryTree(preorder, prestart + 1, prestart + leftSize,
+			    		 inorder, instart,  instart + leftSize - 1);
+			 node.left = left;
+		 }
+		 
+		 System.out.println(pivotIndex + ",  " + inend);
+		 
+		 if(pivotIndex < inend) {
+			 //has right
+			 TreeNode right
+			     = this.createBinaryTree(preorder, prestart + leftSize + 1, preend, // p.subList(pivotIndex + 1, preorder.size()),
+			    		 inorder, pivotIndex + 1, inend);
+			 node.right = right;
+		 }
+		 
+		 return node;
+	 }
+	 
+	 public String minWindow(String s, String t) {
+	        if(t.length() == 0 || s.length() == 0) {
+	            return "";
+	        }
+	        // Note: The Solution object is instantiated only once and is reused by each test case.
+	        char[] ss = s.toCharArray();
+	        //the need to find
+	        char[] ts = t.toCharArray();
+//	        ts[s.charAt(0)] = 'a';
+	        Map<Character, Integer> allChars = new HashMap<Character, Integer>();
+	        Map<Character, Integer> needToFind = new HashMap<Character, Integer>();
+	        for(char c : ts) {
+	            if(!needToFind.containsKey(c)) {
+	                needToFind.put(c, 0);
+	                allChars.put(c, 0);
+	            }
+	            needToFind.put(c, needToFind.get(c) + 1);
+	            allChars.put(c, needToFind.get(c) + 1);
+	        }
+	        //check the already found character and the their numbers
+	        Map<Character, Integer> hasFound = new HashMap<Character, Integer>();
+	        
+	        String minWin = null;
+	        int start = 0;
+	        int end = 0;
+	        while(end < ss.length) {
+	        	System.out.println("start: " + start + ", end: " + end);
+	            char c = ss[end];
+	            if(!allChars.containsKey(c)) {
+	                end++;
+	                continue;
+	            }
+	            if(!hasFound.containsKey(c)) {
+	                hasFound.put(c, 0);
+	            }
+	            hasFound.put(c, hasFound.get(c) + 1);
+	            if(needToFind.containsKey(c) && needToFind.get(c) == 0) {
+	                needToFind.remove(c);
+	            } else {
+	                if(needToFind.containsKey(c)) {
+	                    needToFind.put(c, needToFind.get(c) - 1);
+	                }
+	            }
+	            //check if every character has been included
+	            if(needToFind.isEmpty()) {
+	                
+	                //adjust the start index
+	                while(start < end) {
+	                    if(!allChars.containsKey(ss[start])) {
+	                        start++;
+	                        continue;
+	                    }
+	                    if(hasFound.get(ss[start]) > allChars.get(ss[start])) {
+	                        hasFound.put(ss[start], hasFound.get(ss[start]) -1);
+	                        start++;
+	                    } else {
+	                        break;
+	                    }
+	                }
+	                
+	                String tmpMax = s.substring(start, end + 1);
+	                System.out.println("tmpMax: " + tmpMax);
+	                if(minWin == null) {
+	                    minWin = tmpMax;
+	                } else {
+	                    if(tmpMax.length() < minWin.length()) {
+	                        minWin = tmpMax;
+	                    }
+	                }
+	            }
+	            end++;
+	        }
+	        
+	        //move the start as far as it can
+	        if(needToFind.isEmpty()) {
+	            while(start < end) {
+	                if(!allChars.containsKey(ss[start])) {
+	                    start++;
+	                    continue;
+	                }
+	                if(hasFound.get(ss[start]) > allChars.get(ss[start])) {
+	                    hasFound.put(ss[start], hasFound.get(ss[start]) -1);
+	                    start++;
+	                } else {
+	                    break;
+	                }
+	            }
+	            String tmpMax = s.substring(start, end); //not end + 1 here
+	            if(minWin == null) {
+	                minWin = tmpMax;
+	            } else {
+	                if(tmpMax.length() < minWin.length()) {
+	                    minWin = tmpMax;
+	                }
+	            }
+	        }
+	        
+	        return minWin == null ? "" : minWin;
+	    }
+    
     public static void main(String[] args) {
     	Solution s = new Solution();
 //    	System.out.println(s.restoreIpAddresses("2736786374048"));
@@ -1008,10 +1152,13 @@ int currentMax = Integer.MIN_VALUE;
 //    	System.out.println(s.canJump(new int[]{2, 3, 1, 1, 4}));
 //    	System.out.println(s.convert("ABCDE", 3));
 //    	System.out.println(s.numDistinct("CCC", "C"));
-    	ListNode head = new ListNode(3);
-    	ListNode next = new ListNode(5);
-    	head.next = next;
-    	s.reverseBetween(head, 1, 2);
+//    	ListNode head = new ListNode(3);
+//    	ListNode next = new ListNode(5);
+//    	head.next = next;
+//    	s.reverseBetween(head, 1, 2);
+    	
+//    	s.buildTree(new int[]{1}, new int[]{1});
+    	System.out.println(s.minWindow("bdab", "ab"));
     	
     }
     
