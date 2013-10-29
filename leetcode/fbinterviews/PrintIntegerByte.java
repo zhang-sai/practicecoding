@@ -11,6 +11,8 @@
     return result;
     }
  * */
+
+@Deprecated
 public class PrintIntegerByte {
 
 }
