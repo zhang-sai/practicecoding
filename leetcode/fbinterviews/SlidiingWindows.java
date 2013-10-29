@@ -53,6 +53,7 @@ public class SlidiingWindows {
 			}
 		}
 		
+		//XXX do not forget this!!!
 		b[a.length-w] = a[queue.getFirst()];
 		
 	}
