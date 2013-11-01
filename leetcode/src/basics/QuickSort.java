@@ -4,6 +4,10 @@ import java.util.Random;
 //http://www.vogella.com/articles/JavaAlgorithmsQuicksort/article.html#quicksort
 public class QuickSort {
 	
+//	public static void main(String[] args) {
+//		
+//	}
+	
 	public void quicksort(int[] values) {
 		if(values == null || values.length == 0) {
 			return;
@@ -11,7 +15,11 @@ public class QuickSort {
 		this.quicksort(0, values.length -1, values);
 	}
 	
+	xx
 	public void quicksort(int low, int high, int[] values) {
+		if(low == high) {
+			return;
+		}
 		int pivot = values[low + (high - low)/2];
 		int i = low;
 		int j = high;
@@ -39,10 +47,6 @@ public class QuickSort {
 			this.quicksort(low, i, values);
 		}
 	}
-	
-	XXX
-	
-	what about exchange two nodes in a linked list?
 	
 	
 	
