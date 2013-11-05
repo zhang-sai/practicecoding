@@ -8,4 +8,6 @@
  * */
 public class AddLinkedListReverse {
 
+	//first perform an in-place reverse, then add it in the normal order
+	
 }
