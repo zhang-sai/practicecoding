@@ -7,6 +7,7 @@
  * 
  * two ways: 1^((0|0)|1)  and 1^(0|(0|1)) 
  * */
+x
 public class BooleanExpressionParenthensis {
 
 }
