@@ -1,6 +1,17 @@
 /**
  * http://zhedahht.blog.163.com/blog/static/25411174200725319627/
  * */
+
+/**
+ * 
+ * Given an array, to check whether it is the result of a post-traversal of of a BST
+ *       8
+       /  \
+      6    10
+    / \    / \
+   5   7   9  11
+ * 
+ * */
 public class ValidityOfPostTraversal {
 
 	public boolean isPostTraversal(int[] vals) {
