@@ -6,4 +6,6 @@ costs to paint in different colors,
  * */
 public class HourseMinimization {
 
+	x
+	
 }
