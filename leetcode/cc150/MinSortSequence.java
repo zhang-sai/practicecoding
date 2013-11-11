@@ -1,6 +1,6 @@
 //find a min sequence that m - n is min,
 //that if n ~ m is sorted, the whole array is sorted
-xx
+xxx
 public class MinSortSequence {
 	
 	//example: 1, 2, 4, 7, 10, 9, 11
