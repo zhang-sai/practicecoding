@@ -1,13 +1,15 @@
+import util.Utils;
+
 //find a min sequence that m - n is min,
 //that if n ~ m is sorted, the whole array is sorted
-xxx
+//xxx
 public class MinSortSequence {
 	
 	//example: 1, 2, 4, 7, 10, 9, 11
 	//sort: 10, 9
 	//eg, 1 2 4 7 10 11 7 12 6 7 16 18 19
 	//divide it into 3 parts, and then shrink the left and right parts
-	public static void findMinSeq(int[] array) {
+	public static void findMinSeq(Integer[] array) {
 		if(array.length < 2) {
 			return;
 		}
@@ -39,21 +41,27 @@ public class MinSortSequence {
 		int currMax = Integer.MIN_VALUE;
 		int currMin = Integer.MAX_VALUE;
 		
-		for(int i = startIndex; i <= endIndex; i++) {
-			if(array[i] > currMax) {
-				currMax = array[i];
-			}
+		//MUST go to the rest of the array XXXX
+		for(int i = startIndex; i < array.length; i++) {
 			if(array[i] < currMin) {
 				currMin = array[i];
 			}
 		}
+		//MUST go to the beginning of the array XXX
+		for(int i = 0; i <= endIndex; i++) {
+			if(array[i] > currMax) {
+				currMax = array[i];
+			}
+		}
 		
 		//start to expand
+		int start = -1;
 		if(startIndex > 0 ) {
 		    for(int i = startIndex - 1; i >=0; i--) {
 			    int v = array[i];
 			    if(v <= currMin) {
 				    System.out.println("start index: " + (i+1));
+				    start = i+1;
 				    break;
 			    } else {
 			    	if(v > currMax) {
@@ -63,11 +71,13 @@ public class MinSortSequence {
 		    }
 		}
 		
+		int end = -1;
 		if(endIndex < array.length) {
 			for(int i = endIndex + 1; i < array.length; i++) {
 				int v = array[i];
 				if(v >= currMax) {
 					System.out.println("end index: " + (i-1));
+					end = i - 1;
 				    break;
 				} else {
 			    	if(v < currMin) {
@@ -76,10 +86,15 @@ public class MinSortSequence {
 			    }
 			} 
 		}
+		
+		for(int i = start; i <= end; i++) {
+			System.out.print(array[i] + "  ");
+		}
 	}
 	
 	public static void main(String[] ags) {
-		int[] array = new int[]{1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19};
+		Integer[] array = new Integer[]{1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19};
+		System.out.println(Utils.dumpArray(array));
 		findMinSeq(array);
 	}
 
