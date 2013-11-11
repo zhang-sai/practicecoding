@@ -1,7 +1,7 @@
 //a[i] = i
 //in a sorted array, which may contain duplications
 //9.3
-xx
+//xx
 public class SearchMagicNumber {
 
 	//start, end, is inclusive
@@ -17,8 +17,20 @@ public class SearchMagicNumber {
 		if(a[mid] == mid) {
 			System.out.println("mid index: " + mid + ", value: " + a[mid]);
 		}
-		searchForMagicNumber(a, start, mid - 1);
-		searchForMagicNumber(a, mid + 1, end);
+		
+		//a little bit optimizations here
+		/**
+		 *  value: -10 -5 2  2  2  *3*  4  7  9  12
+		 *  index:  0  1  2  3  4  *5*  6  7  8  9
+		 *  
+		 *  Suppose the current mid index is: 5
+		 *  so that any index which is bigger than 3 is NOT possible!
+		 * */
+		int leftIndex = Math.min(mid - 1, a[mid]);
+		searchForMagicNumber(a, start, /*mid - 1*/ leftIndex);
+		
+		int rightIndex = Math.max(mid + 1, a[mid]);
+		searchForMagicNumber(a, /*mid + 1*/ rightIndex, end);
 	}
 	
 	public static void main(String[] args) {
