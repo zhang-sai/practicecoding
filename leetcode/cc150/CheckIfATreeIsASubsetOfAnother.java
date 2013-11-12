@@ -1,36 +1,15 @@
-x
+
 /**
  * T1 is a huge tree, T2 is a small tree
  * check whether T2 is a subtree of T1
  * */
 public class CheckIfATreeIsASubsetOfAnother {
 
-	//do a rough processing to check the number of decscends
-	//then do the exact match
+	//two techniques: (1) check whether pre-order and in-order
+	// is a substring of the whole tree. Note that replace null
+	//with a special value for matching
 	
-	public static TreeNode isSubset(TreeNode lt, TreeNode st) {
-		return null;
-	}
+	// (2) if the current value of the node equals to the root, then
+	//     check the rest of the tree, otherwise, goes to the child.
 	
-	public static boolean isIdentical(TreeNode n1, TreeNode n2) {
-		
-	}
-	
-	public static int getNumberOfNodes(TreeNode n) {
-		if(n == null) {
-			return 0;
-		}
-		int count = 1;
-		if(n.left != null) {
-			count += getNumberOfNodes(n.left);
-		}
-		if(n.right != null) {
-			count += getNumberOfNodes(n.right);
-		}
-		return count;
-	}
-	
-	public static void main(String[] args) {
-		
-	}
 }
