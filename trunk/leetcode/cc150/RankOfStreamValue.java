@@ -97,7 +97,7 @@ public class RankOfStreamValue {
 		printTree(root, 0);
 	}
 	
-	static void printTree(TNode t, int indent) {
+	public static void printTree(TNode t, int indent) {
 		if(t == null) {
 			return;
 		}
