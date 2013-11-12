@@ -5,6 +5,7 @@
  * */
 public class MissingNumbers {
 
-	xx
-	
+	//using the xor
+	//see the hhtblog package of finding single occurance
+	//for k numbers just solve equations
 }
