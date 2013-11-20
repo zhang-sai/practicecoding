@@ -3,5 +3,5 @@
 //select word from dictionary
 public class LargestWordPuzzle {
 
-	xx
+	//ignore, too complex
 }
