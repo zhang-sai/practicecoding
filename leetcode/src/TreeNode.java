@@ -9,4 +9,5 @@ public class TreeNode {
      public String toString() {return val + ""; }
      
      int elem = 0;
+     TreeNode parent;
 }
