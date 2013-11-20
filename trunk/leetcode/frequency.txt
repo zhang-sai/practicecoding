@@ -1,0 +1,76 @@
+3) Print all the paths from root to every leaf in a binary tree.
+
+4) Print the sum of all the numbers at every vertical level in a binary tree
+
+5) Given a set of n jobs with [start time, end time, cost] find a subset so 
+that no 2 jobs overlap and the cost is maximum ?
+
+6) Given 1 trillion messages on fb and each message has at max 10 words, how
+do you build the index table and how many machines do you need on the 
+cluster to store the index table ?
+total data = 1 trillion * 10 words * 6 bytes / word = 60TB = one small 
+NetApp box
+index by hashed userid ; will distribute traffic effectively across servers 
+; cache active users recent messages in memory
+
+mapreduce
+
+return the value of a roman number given in a string
+
+Given two string representations of binary numbers (e.g. "1001", "10") write
+a function that adds them and returns the result as a string as well (e.g. 
+"1011").
+
+a) first, write a function to calculate the hamming distance between two 
+binary numbers
+(b) write a function that takes a list of binary numbers and returns the sum
+of the hamming distances for each pair
+O(n) solution is recore each position how many 1 and how many 0, and 
+multiply them for each position and add together
+
+combination
+
+FB Check In services
+
+Getting maximum and minimun number was not difficult but getting less than n
+comparison was tricky
+sorted? bucket? radix?
+
+BFS
+
+strstr()
+
+
+The second problem was another classic DP problem. Finding the sum of 1's in
+a submatrix. I went on to describe the recurring relation for the 
+subproblem in the linear case. She didn't want me to do that and she quickly
+said the solution to the 2D case was a generalization of the 1D case.
+seems is find the max sum submatrix, time O(n^3), space O(n^2) 2D version of
+Kadane's
+
+Given a binary search tree, write an algorithm to find the kth smallest 
+element 
+inorder seach
+
+binary search on a shifted array, find the offset (2) in log n
+find the beginning of the array, if (right - left  <= 1) then return min(
+left,right);
+
+design newsfeed
+
+Given a vector of Nodes, each of which contain the start and end time of a 
+meeting, find the maximum number of rooms one would have to book for the day
+. 
+seems is the max overlap: 1) sort based on start time 2) scan meeting one by
+one, insert new meeting, and then scan the meetings in linked list, if they
+stil valid for the new start time, then max++, otherwise clear them out
+time should be O(n^2)
+
+How would you query for all the Places near a given coordinate? The focus is
+on how to scale this to a large number of places while keeping response 
+time to within acceptable user expectacions.  
+
+bubble sort
+
+given an array, find out the max sum of a set that each elements are non-
+: ajacent
