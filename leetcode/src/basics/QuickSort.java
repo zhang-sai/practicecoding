@@ -1,138 +1,46 @@
 package basics;
+
 import java.util.Random;
 
 //http://www.vogella.com/articles/JavaAlgorithmsQuicksort/article.html#quicksort
 public class QuickSort {
-	
-//	public static void main(String[] args) {
-//		
-//	}
-	
-	public void quicksort(int[] values) {
-		if(values == null || values.length == 0) {
-			return;
+
+	public static void quickSort(int[] a, int low, int high) {
+		if (low < high) {
+			int q = partition(a, low, high);
+			quickSort(a, low, q);
+			quickSort(a, q + 1, high);
 		}
-		this.quicksort(0, values.length -1, values);
 	}
-	
-	xx
-	public void quicksort(int low, int high, int[] values) {
-		if(low == high) {
-			return;
-		}
-		int pivot = values[low + (high - low)/2];
-		int i = low;
-		int j = high;
-		while(i < j) {
-			while(values[i] < pivot) {
-				i++;
-			}
-			while(values[j] > pivot) {
+
+	public static int partition(int[] a, int low, int high) {
+		// Print(A,p,r);
+
+		int x = a[low];
+		int i = low - 1;
+		int j = high + 1;
+		while (i < j) {
+//			System.out.println("low: " + low + ", high: " + high  + ", i: " + i + ", j: "
+//					+ j + ", a[i]: " + a[i] + ", a[j]: " + a[j]);
+			do {
 				j--;
-			}
+			} while (a[j] > x);
 			
-			if(i < j) {
-				//exchange
-				int tmp = values[i];
-				values[i] = values[j];
-				values[j] = tmp;
+			do {
 				i++;
-				j--;
+			} while (a[i] < x) ;
+			
+			if (i < j) {
+				exchange(a, i, j);
 			}
 		}
-		if(j < high) {
-			this.quicksort(j, high, values);
-		}
-		if( i > low) {
-			this.quicksort(low, i, values);
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	private int[] numbers;
-	private int number;
-
-	public void sort(int[] values) {
-		// Check for empty or null array
-		if (values == null || values.length == 0) {
-			return;
-		}
-		this.numbers = values;
-		number = values.length;
-		quicksort(0, number - 1);
+		return j;
 	}
 
-	private void quicksort(int low, int high) {
-		int i = low, j = high;
-		// Get the pivot element from the middle of the list
-		int pivot = numbers[low + (high - low) / 2];
-
-		// Divide into two lists
-		while (i <= j) {
-			// If the current value from the left list is smaller then the pivot
-			// element then get the next element from the left list
-			while (numbers[i] < pivot) {
-				i++;
-			}
-			// If the current value from the right list is larger then the pivot
-			// element then get the next element from the right list
-			while (numbers[j] > pivot) {
-				j--;
-			}
-
-			// If we have found a values in the left list which is larger then
-			// the pivot element and if we have found a value in the right list
-			// which is smaller then the pivot element then we exchange the
-			// values.
-			// As we are done we can increase i and j
-			if (i <= j) {
-				exchange(i, j);
-				i++;
-				j--;
-			}
-		}
-		// Recursion
-		if (low < j)
-			quicksort(low, j);
-		if (i < high)
-			quicksort(i, high);
-	}
-
-	private void exchange(int i, int j) {
-		int temp = numbers[i];
-		numbers[i] = numbers[j];
-		numbers[j] = temp;
-	}
-
-	public static boolean isSorted(int[] a) {
-		for (int i = 0; i < a.length - 1; i++) {
-			if (a[i] > a[i + 1]) {
-				return false;
-			}
-		}
-		return true;
+	public static void exchange(int[] a, int i, int j) {
+		int temp = a[i];
+		a[i] = a[j];
+		a[j] = temp;
 	}
 
 	public static void main(String[] args) {
@@ -142,12 +50,40 @@ public class QuickSort {
 			for (int i = 0; i < a.length; i++) {
 				a[i] = r.nextInt(500);
 			}
-			QuickSort sort = new QuickSort();
-			sort.quicksort(a);
+			
+//			 a = new int[]{3, 2, 4, 1,  4, 5};
+//			for(int k : a) {
+//				System.out.print(k + "  ");
+//			}
+			
+			System.out.println("working on: " + num);
+			quickSort(a, 0, a.length - 1);
 			if (!isSorted(a)) {
 				System.out.println("failed");
 			}
+			
+//			for(int k : a) {
+//				System.out.print(k + "  ");
+//			}
 		}
+	}
+	
+	public static boolean isSorted(int[] a) {
+		for (int i = 0; i < a.length - 1; i++) {
+			if (a[i] > a[i + 1]) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static boolean isSortedAsc(int[] a) {
+		for (int i = 0; i < a.length - 1; i++) {
+			if (a[i] < a[i + 1]) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
