@@ -1,18 +1,17 @@
 
 
 public class InOrderTraverseParentNode {
-xx
 	//some basic ideas
 	public TreeNode getNext(TreeNode node) {
 		
-		if(node.left != null) {
-			TreeNode n = node;
+		//note that the code has already traverse to that particular node
+	//so no need to go left
+		if(node.right != null) {
+			TreeNode n = node.right;
 			while(n.left != null) {
 				n = n.left;
 			}
 			return n;
-		} else if(node.right != null) {
-			return getNext(node.right);
 		} else {
 			//go up until node.parent.left = node
 			TreeNode parent = node.parent;
