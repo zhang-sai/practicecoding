@@ -1,6 +1,6 @@
 
 //given a sequence number, one number appears more than half, find it out
-//what about 1/3
+//what about 1/3??
 
 public class FindHalfOccuranceIds {
 
