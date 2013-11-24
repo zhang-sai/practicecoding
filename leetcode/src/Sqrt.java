@@ -20,6 +20,7 @@ public class Sqrt {
         while(low < high) {
             int sq = mid*mid;
             int sq2 = (mid+1)*(mid + 1);
+            
             if(sq == x || (sq < x && sq2 > x)) {
                 break;
             } 
