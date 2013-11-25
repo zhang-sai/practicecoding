@@ -13,6 +13,7 @@ public class QuickSort {
 		}
 	}
 
+	//look the kth largest number
 	public static int partition(int[] a, int low, int high) {
 		// Print(A,p,r);
 
