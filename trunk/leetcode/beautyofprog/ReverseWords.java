@@ -33,6 +33,7 @@ public class ReverseWords {
 				end = start + 1;
 			} else if(end == chars.length - 1) {
 				//still reverse
+				//XXX be aware of this case
 				reverse(chars, start, end);
 			}
 			end++;
