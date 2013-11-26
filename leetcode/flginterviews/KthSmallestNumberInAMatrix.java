@@ -47,7 +47,7 @@ class Node {
 	}
 }
 
-public class KthSmallestNumber {
+public class KthSmallestNumberInAMatrix {
 	
 
 	public int findKthSmallest(int[][] m, int k) {
@@ -101,7 +101,7 @@ public class KthSmallestNumber {
 	}
 	
 	public static void main(String[] args) {
-		KthSmallestNumber k = new KthSmallestNumber();
+		KthSmallestNumberInAMatrix k = new KthSmallestNumberInAMatrix();
 		int[][] m = new int[][]{
 				new int[]{1, 3, 4, 5},
 				new int[]{2, 4, 7, 8},
