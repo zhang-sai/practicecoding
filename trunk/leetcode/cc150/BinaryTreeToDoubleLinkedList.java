@@ -1,6 +1,7 @@
 
 //a binary tree to a double linked list
 
+//duplicate to hht
 class BiNode {
 	BiNode left, right;
 	public int data;

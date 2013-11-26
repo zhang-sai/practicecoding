@@ -6,7 +6,7 @@ public class ContiguousArrayWithMaxSum {
 	//
 	public static int findMaxSubarray(int[] array) {
 		int max = Integer.MIN_VALUE;
-		int index = 0;
+//		int index = 0;
 		int currMax = 0;
 		for(int v : array) {
 			currMax += v;
