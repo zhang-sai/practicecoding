@@ -85,6 +85,7 @@ class Producer extends Thread {
     }
   }
 
+
 class Consumer extends Thread {
   	private int n;
   	private Buffer consBuf;
