@@ -102,9 +102,16 @@ public class MergeIntervals {
 class Interval {
 	     int start;
 	     int end;
-	     Interval() { start = 0; end = 0; }
-	      Interval(int s, int e) { start = s; end = e; }
+	     int cost;
+	     
+	     Interval() { start = 0; end = 0; cost = 0;}
+	     Interval(int s, int e) { start = s; end = e; cost = 0;}
+	     Interval(int s, int e, int c) { start = s; end = e; cost = c; }
+	     public int hashCode() {
+	    	 return start + 99*end + 101*cost;
+	     }
 	     public String toString() {
-	    	 return "(" + start + ", " + end + ")";
+	    	 return "(" + start + ", " + end + 
+	    	     (cost != 0 ? ", (cost: " + cost + ")" : "") + ")";
 	     }
 }
