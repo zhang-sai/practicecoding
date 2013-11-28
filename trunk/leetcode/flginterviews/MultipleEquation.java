@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,48 +19,52 @@ print:
 2 * 1 = 2 * 1
 2 * 2 = 2 * 2
  * */
-x
+//x
 public class MultipleEquation {
 	
 	public static void main(String[] args) {
 		MultipleEquation me = new MultipleEquation();
+		me.print(24);
 //		me.printN(2);
 	}
-
-//	void printN(int n) {
-//        for (int i = 1; i < n; i++) {
-//            for (int j = 1; j < n; j++) {
-//                Set<Pair> pairSet = getPairSet(i * j);
-//                for (Pair pair : pairSet) {
-//                    System.out.println(i + "*" + j + "=" + pair.i + "*" + 
-//pair.j);
-//                }
-//            }
-//        }
-//    }
-//
-//    Map<Integer, Set<Pair>> map = new HashMap<Integer, Set<Pair>>();
-//
-//    Set<Pair> getPairSet(int product) {
-//        if (map.containsKey(new Integer(product)))
-//            return map.get(new Integer(product));
-//        Set<Pair> pairSet = new HashSet<Pair>();
-//        for (int i = 1; i < product; i++) {
-//            if (product % i == 0)
-//                pairSet.add(new Pair(i, product / i));
-//        }
-//        map.put(new Integer(product), pairSet);
-//        return map.get(new Integer(product));
-//    }
-//
-//    class Pair {
-//        int i;
-//        int j;
-//
-//        public Pair(int i, int j) {
-//            this.i = i;
-//            this.j = j;
-//        }
-//    }
+	
+	public void print(int number) {
+		int max = number;
+		List<Integer> num = new ArrayList<Integer>();
+		for(int i = 2; i <= number/2; i++) {
+			while(max%i == 0) {
+				num.add(i);
+				max = max/i;
+			}
+		}
+		
+		//no we have a list
+		System.out.println(num);
+		
+		//then enumerate all possible subset of the the list
+		printSubset(num.toArray(new Integer[0]), new boolean[num.size()], 0);
+	}
+	
+	public void printSubset(Integer[] a, boolean[] c, int index) {
+		if(index == a.length) {
+			for(int i = 0; i < a.length; i++) {
+				if(c[i]) {
+					System.out.print(a[i] + "  ");
+				}
+			}
+			System.out.println();
+		} else {
+			printSubset(a, c, index + 1);
+			
+			//or choose the current
+			c[index] = true;
+			printSubset(a, c, index + 1);
+			c[index] = false;
+		}
+	}
+	
+	//use factorization
+	//max number = N*N
+	//factorize that number into a sequence of primes, and then do the combiantion
 	
 }
