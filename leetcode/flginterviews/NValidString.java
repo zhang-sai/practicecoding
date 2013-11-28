@@ -35,6 +35,7 @@ public class NValidString {
 					nextPoss[chars[curr - 1] - 'A'] = true;
 				}
 				generateString(chars, nextPoss, curr + 1, length);
+				
 				chars[curr] = '\u0000';
 			}
 		}
