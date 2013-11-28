@@ -27,7 +27,7 @@ public class MultipleEquation {
 		me.print(24);
 //		me.printN(2);
 	}
-	
+
 	public void print(int number) {
 		int max = number;
 		List<Integer> num = new ArrayList<Integer>();
