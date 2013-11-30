@@ -15,4 +15,17 @@
 @Deprecated
 public class PrintIntegerByte {
 
+	public static void main(String[] args) {
+		
+		//the byte in java is signed
+		int i =132;
+		byte b =(byte)i;
+		System.out.println(b);
+		
+		byte signedByte = -1;
+		int unsignedByte = signedByte & (0xff);
+
+		System.out.println("Signed: " + signedByte + " Unsigned: " + unsignedByte);
+	}
+	
 }
