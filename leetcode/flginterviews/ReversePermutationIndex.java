@@ -8,6 +8,8 @@ import java.util.Map;
  * for example:
  * 1, 2, 3 is the first permutation of [1,2,3]
  * */
+
+//the same as PermutationSequence
 public class ReversePermutationIndex {
 	
 	public static void main(String[] args) {
