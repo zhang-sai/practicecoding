@@ -8,4 +8,7 @@
 xx
 public class IntervalTreeAndQueryStream {
 
+	//self adjust
+	//avl and balance tree
+	
 }
