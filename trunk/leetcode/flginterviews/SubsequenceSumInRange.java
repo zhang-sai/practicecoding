@@ -4,7 +4,10 @@
  * continuous subsequence in that range, and the sum
  * of each subsequence is in that range.
  * */
-x
+@Deprecated
+//the problem is not clearly enough
 public class SubsequenceSumInRange {
 
+	
+	
 }
