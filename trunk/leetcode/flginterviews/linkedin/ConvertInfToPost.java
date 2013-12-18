@@ -11,89 +11,100 @@ import java.util.Stack;
  * => 124*5/+7-36/+
  * */
 
-
-
+/**
+ * if it is a digit, put to the output
+ * if it is (, push to the stack
+ * if it is ), pop the stack until the (, and also pop out (
+ * 
+ * */
 class InToPost {
-	private Stack<Character> theStack;
-	private String input;
-	private String output = "";
+	public static String infixToPostfix(String expr) {
+		StringBuilder postfix = new StringBuilder();
+		Stack<Character> stack = new Stack<Character>();
 
-	public InToPost(String in) {
-		input = in;
-		theStack = new Stack<Character>();
-	}
-
-	public String doTrans() {
-		for (char ch : input.toCharArray()) {
-			switch (ch) {
-			case '+':
-			case '-':
-				gotOper(ch, 1);
-				break;
-			case '*':
-			case '/':
-				gotOper(ch, 2);
-				break;
-			case '(':
-				theStack.push(ch);
-				break;
-			case ')':
-				gotParen(ch);
-				break;
-			default:
-				output = output + ch;
-				break;
-			}
-			
-			System.out.println(output + "    " + theStack);
-		}
-//		System.out.println(theStack);
-		while (!theStack.isEmpty()) {
-			output = output + theStack.pop();
-		}
-		System.out.println(output);
-		return output;
-	}
-
-	public void gotOper(char opThis, int prec1) {
-		while (!theStack.isEmpty()) {
-			char opTop = theStack.pop();
-			if (opTop == '(') {
-				theStack.push(opTop);
-				break;
+		// read in tokens
+		for (char c : expr.toCharArray()) {
+			if (isDigit(c)) {
+				postfix.append(c);
+			} else if (isOp(c)) {
+				while (isLeftAssociative(c) && !stack.isEmpty()
+						&& getPreced(stack.peek()) >= getPreced(c)) {
+					postfix.append(stack.pop());
+				}
+				stack.push(c);
+			} else if (c == '(') {
+				stack.push(c);
+			} else if (c == ')') {
+				while (!stack.isEmpty() && stack.peek() != '(') {
+					postfix.append(stack.pop());
+				}
+				if (stack.isEmpty()) {
+					throw new IllegalArgumentException(
+							"mismatched parentheses.");
+				}
+				stack.pop(); // pop '(' without adding to output
+			} else if (c == ' ') {
+				// do nothing
 			} else {
-				int prec2;
-				if (opTop == '+' || opTop == '-')
-					prec2 = 1;
-				else
-					prec2 = 2;
-				if (prec2 < prec1) {
-					theStack.push(opTop);
-					break;
-				} else
-					output = output + opTop;
+				throw new IllegalArgumentException("Invalid input.");
 			}
 		}
-		theStack.push(opThis);
+
+		// empty stack
+		while (!stack.isEmpty()) {
+			char c = stack.pop();
+			if (c == '(') {
+				throw new IllegalArgumentException("mismatched parentheses.");
+			}
+			postfix.append(c);
+		}
+
+		return postfix.toString();
 	}
 
-	public void gotParen(char ch) {
-		while (!theStack.isEmpty()) {
-			char chx = theStack.pop();
-			if (chx == '(')
-				break;
-			else
-				output = output + chx;
+	private static boolean isLeftAssociative(char op) {
+		if(op == '+' || op == '-' || op == '*' || op == '/') {
+			return true;
+		} else if (op == '^') {
+			return false;
 		}
+		throw new IllegalArgumentException("Invalid input.");
+	}
+
+	private static int getPreced(char op) {
+		if(op == '+' || op == '-') {
+			return 1;
+		} else if (op == '*' || op == '/') {
+			return 2;
+		} else if (op == '^') {
+			return 3;
+		} else if (op == '(' || op == ')') {
+			return -1;
+		}
+		throw new IllegalArgumentException("Invalid input.");
+	}
+
+	private static boolean isDigit(char c) {
+		return (c >= '0' && c <= '9');
+	}
+
+	private static boolean isOp(char c) {
+		if(c == '+' || c == '-' || c == '*' || c == '/' || c == '^') {
+			return true;
+		}
+		return false;
 	}
 
 	public static void main(String[] args) throws IOException {
 		String input = "1+2*4/5-7+3/6";
-		String output;
-		InToPost theTrans = new InToPost(input);
-		output = theTrans.doTrans();
+		String output = InToPost.infixToPostfix(input);
+		/**
+		 * 
+		 * "3 + 4 - 5" -> "34+5-"    // pop '+' before '-' since they have the same precedence
+"3 + 4 * 5" -> "345*+"    // didn't pop '+' until '*' get popped since '*' has higher precedence than '+'
+"3^2^2+4" -> "322^^4+"    // didn't pop '^' until '+' comes in since '^' is right-associative
+		 * */
 		System.out.println("Postfix is " + output + '\n');
 	}
 
-	
 }
