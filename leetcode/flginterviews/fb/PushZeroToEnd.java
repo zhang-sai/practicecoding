@@ -9,10 +9,9 @@ import util.Utils;
  * http://www.careercup.com/question?id=12986664
  * */
 public class PushZeroToEnd {
+	
+	public static void pushZero(Integer[] array) {
 
-	public static void main(String[] args) {
-		
-		Integer[] array = new Integer[]{1, 2, 0, 4, 0, 0, 0, 8};
 		
 		int pos = 0;
 		for(int i = 0; i < array.length; i++) {
@@ -29,6 +28,32 @@ public class PushZeroToEnd {
 		}
 		
 		System.out.println(Utils.dumpArray(array));
+	}
+	
+	/**
+	 * similarly
+	 * 
+	 * http://www.careercup.com/question?id=5690879515820032
+	 * */
+
+	public static void elimnateDup(Integer[] array) {
+		boolean[] flags = new boolean[10];
+		int pos = 0;
+		for(int i = 0; i < array.length; i++) {
+			//did not see it, keep it
+			if(!flags[array[i]]) {
+				array[pos++] = array[i];
+				flags[array[i]] = true;
+			}
+		}
+		System.out.println(Utils.dumpArray(array));
+	}
+	
+	public static void main(String[] args) {
+		Integer[] array = new Integer[]{1, 2, 0, 4, 0, 0, 0, 8};
+		pushZero(array);
+		array = new Integer[]{1, 2, 4, 2, 0, 0, 0, 8, 5, 8, 2};
+		elimnateDup(array);
 	}
 	
 }
