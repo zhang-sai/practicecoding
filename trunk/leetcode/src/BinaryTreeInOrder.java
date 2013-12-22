@@ -3,6 +3,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
+//iterator:
+//http://n00tc0d3r.blogspot.com/2013/08/implement-iterator-for-binarytree-i-in.html
+
 /**
  * Given a binary tree, return the inorder traversal of its nodes' values.
 
@@ -70,7 +73,7 @@ public class BinaryTreeInOrder {
 	
 	//XXX a non-recursive version
 	//http://leetcode.com/2010/04/binary-search-tree-in-order-traversal.html
-	public ArrayList<Integer> inorderTraversal(TreeNode root) {
+	public static ArrayList<Integer> inorderTraversal(TreeNode root) {
         // Start typing your Java solution below
         // DO NOT write main() function
         

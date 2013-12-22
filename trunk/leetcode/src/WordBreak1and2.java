@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -45,6 +46,29 @@ Return true because "leetcode" can be segmented as "leet code".
         
         return results[0][s.length() -1];
 	}
+	
+	public static boolean isSegmented(String s, HashSet<String> dict) {  
+		   int n = s.length();  
+		   if (n < 1) return false;  
+		   
+		   // T[i] == true iff s[0..i) is segmentable  
+		   boolean[] seg = new boolean[n];  
+		   for (int i=0; i<n; ++i) {  
+		     seg[i] = (seg[i] || dict.contains(s.substring(0, i+1)));
+		     // if seg[i] is false, check the current prefix  
+		     if (!seg[i])  continue;  
+		   
+		     // now seg[i] is true, update remaining elements  
+		     for (int j=i+1; j<n; ++j) {  
+		       seg[j] = (seg[j] || dict.contains(s.substring(i+1, j+1)));  
+		     }  
+		   
+		     // fast return  
+		     if (seg[n-1]) return true;  
+		   }  
+		   
+		   return false;  
+		 }  
 	/**
 	 * Given a string s and a dictionary of words dict, add spaces in s to construct a sentence where each word is a valid dictionary word.
 

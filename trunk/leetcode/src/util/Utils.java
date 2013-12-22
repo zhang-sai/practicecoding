@@ -22,6 +22,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -32,6 +33,8 @@ import java.util.zip.ZipFile;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import linkedin.TreeNode;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -39,6 +42,31 @@ import org.xml.sax.helpers.DefaultHandler;
 
 
 public class Utils {
+	
+       public static String serialize(TreeNode node) {
+		
+		if(node == null) {
+			return "#";
+		}
+		
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+//		queue.
+		queue.add(node);
+		
+		String s = "";
+		while(!queue.isEmpty()) {
+			TreeNode n = queue.poll();
+			if(n == null) {
+				s = s + "#";
+			} else {
+				s = s + n.val;
+				queue.add(n.left);
+				queue.add(n.right);
+			}
+		}
+		
+		return s;
+	}
 	
 	public static void fail(String message) {
 		checkNotNull(null, message);

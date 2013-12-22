@@ -26,15 +26,4 @@ public class DFS_BFS_Path_Recover {
 //	}
 }
 
-class GraphNode {
-	static int count = 0;
-	public final int nodeId;
-	int val;
-	GraphNode[] nextNodes;
-	GraphNode(int v, GraphNode[] nodes) {
-		nodeId = count;
-		count = count+ 1;
-		val = v;
-		nextNodes = nodes;
-	}
-}
+
