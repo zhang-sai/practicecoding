@@ -19,4 +19,8 @@ public class GraphNode {
 		val = v;
 		nextNodes.addAll(Arrays.asList(nodes));
 	}
+	
+	public String toString() {
+		return " " + val + " ";
+	}
 }
