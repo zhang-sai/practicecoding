@@ -62,7 +62,7 @@ class InToPost {
 		return postfix.toString();
 	}
 
-	private static boolean isLeftAssociative(char op) {
+	static boolean isLeftAssociative(char op) {
 		if(op == '+' || op == '-' || op == '*' || op == '/') {
 			return true;
 		} else if (op == '^') {
@@ -71,7 +71,7 @@ class InToPost {
 		throw new IllegalArgumentException("Invalid input.");
 	}
 
-	private static int getPreced(char op) {
+	static int getPreced(char op) {
 		if(op == '+' || op == '-') {
 			return 1;
 		} else if (op == '*' || op == '/') {
@@ -84,11 +84,11 @@ class InToPost {
 		throw new IllegalArgumentException("Invalid input.");
 	}
 
-	private static boolean isDigit(char c) {
+	static boolean isDigit(char c) {
 		return (c >= '0' && c <= '9');
 	}
 
-	private static boolean isOp(char c) {
+	static boolean isOp(char c) {
 		if(c == '+' || c == '-' || c == '*' || c == '/' || c == '^') {
 			return true;
 		}

@@ -11,10 +11,8 @@ import java.util.Stack;
 
 what about empty list? such as {1, 2, {}, 3}
  * */
-
 xx
 public class DeepIterator {
-	
 	
 	static class DeepListNode {
 		int val;
@@ -80,16 +78,18 @@ public class DeepIterator {
 
 		@Override
 		public DeepListNode next() {
-			// TODO Auto-generated method stub
-			Object currObj = currIter.next();
-			
+			return getNextElement(this.currIter);
+		}
+		
+		private DeepListNode getNextElement(Iterator iter) {
+             Object currObj = iter.next();
 			if(currObj instanceof DeepListNode) {
 				return (DeepListNode)currObj;
 			} else if (currObj instanceof List) {
-				iterStack.push(currIter);
-				currIter = new DeepIter((List)currObj);
+				iterStack.push(iter);
+				DeepIter nextIter = new DeepIter((List)currObj);
 //				while(currIter.)
-				return (DeepListNode)currIter.next();
+				return getNextElement(nextIter);
 			}
 				
 			return null;
@@ -133,6 +133,8 @@ public class DeepIterator {
 		all.add(n3);
 		all.add(l3);
 		all.add(l4);
+		
+		//{0,  {1,2},  3 ,  {4,{5, 6}},  {}}
 		
 		DeepIter iter = new DeepIter(all);
 		

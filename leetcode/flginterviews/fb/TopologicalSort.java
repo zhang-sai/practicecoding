@@ -2,9 +2,12 @@ package fb;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Scanner;
+
+import basics.GraphNode;
 
 /**
  * http://n00tc0d3r.blogspot.com/2013/09/topological-sort.html
@@ -30,6 +33,10 @@ import java.util.Scanner;
  * Example 2 Input: 2 2 1 2 2 1 Output: Sandro fails.
  * */
 public class TopologicalSort {
+	
+	public static void toposort_graph(Collection<GraphNode> nodes) {
+		xx
+	}
 
 	//the next nodes of each node
 	//the number of incoming edges for each node

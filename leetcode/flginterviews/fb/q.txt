@@ -1,25 +1,52 @@
-http://www.careercup.com/question?id=4798365246160896
+TAKEN - http://www.careercup.com/question?id=4798365246160896
 
-http://www.careercup.com/question?id=5309537623998464
+DOONE http://www.careercup.com/question?id=5309537623998464
 
-http://www.careercup.com/question?id=5978392075698176
+TAKEN http://www.careercup.com/question?id=5978392075698176
 
-http://www.careercup.com/question?id=5399897561890816
+TAKEN http://www.careercup.com/question?id=5399897561890816
 
-http://www.careercup.com/question?id=6287528252407808
+TAKEN http://www.careercup.com/question?id=6287528252407808
 
-http://www.careercup.com/question?id=5172027535130624
+TAKEN http://www.careercup.com/question?id=5172027535130624
 
-http://www.careercup.com/question?id=23869663
+TAKEN http://www.careercup.com/question?id=23869663
 
-http://www.careercup.com/question?id=15856737
+TAKEN http://www.careercup.com/question?id=15856737
 
-http://www.careercup.com/question?id=16381662
+TAKEN http://www.careercup.com/question?id=16381662
 
-http://www.careercup.com/question?id=15503949
+TAKEN http://www.careercup.com/question?id=15503949
+ - the celebrity
 
-http://www.careercup.com/question?id=15468738
+TAKEN http://www.careercup.com/question?id=15468738
 
-http://www.careercup.com/question?id=15466752
+TAKEN http://www.careercup.com/question?id=15466752
 
-http://www.careercup.com/question?id=14469817
+TAKEN http://www.careercup.com/question?id=14469817
+
+//---
+
+http://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion-and-without-stack/
+
+http://www.glassdoor.com/Interview/1-Count-the-number-of-positive-integers-less-than-N-that-does-not-contains-digit-4-2-Design-a-data-structure-that-can-d-QTN_499877.htm
+
+OK http://www.geeksforgeeks.org/given-a-string-find-its-first-non-repeating-character/
+
+http://www.geeksforgeeks.org/reservoir-sampling/
+
+http://www.geeksforgeeks.org/dynamic-programming-set-31-optimal-strategy-for-a-game/
+
+OK http://www.geeksforgeeks.org/maximum-sum-such-that-no-two-elements-are-adjacent/
+
+http://www.geeksforgeeks.org/counting-inversions/
+
+OK http://www.geeksforgeeks.org/find-the-element-that-appears-once/
+
+OK http://n00tc0d3r.blogspot.com/2013/04/summary-counting-and-probability.html
+
+OK http://n00tc0d3r.blogspot.com/2013/03/longest-consecutive-sequence.html
+
+OK http://n00tc0d3r.blogspot.com/2013/03/word-segment.html
+
+OK http://n00tc0d3r.blogspot.com/2013/03/probability-of-alive-on-island.html
