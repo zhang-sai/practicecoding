@@ -20,6 +20,7 @@ import java.util.Stack;
 class InToPost {
 	public static String infixToPostfix(String expr) {
 		StringBuilder postfix = new StringBuilder();
+		//only store the operation sign
 		Stack<Character> stack = new Stack<Character>();
 
 		// read in tokens
@@ -105,6 +106,12 @@ class InToPost {
 "3^2^2+4" -> "322^^4+"    // didn't pop '^' until '+' comes in since '^' is right-associative
 		 * */
 		System.out.println("Postfix is " + output + '\n');
+		
+		output = InToPost.infixToPostfix("1*(2+3)");
+		System.out.println("Postfix is " + output + '\n');
+		output = InToPost.infixToPostfix("1*2+3");
+		System.out.println("Postfix is " + output + '\n');
+
 	}
 
 }
