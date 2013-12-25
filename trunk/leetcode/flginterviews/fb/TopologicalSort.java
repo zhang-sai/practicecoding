@@ -3,9 +3,15 @@ package fb;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.Set;
 
 import basics.GraphNode;
 
@@ -35,11 +41,64 @@ import basics.GraphNode;
 public class TopologicalSort {
 	
 	public static void toposort_graph(Collection<GraphNode> nodes) {
-		xx
+		Map<GraphNode, Integer> inedges = new HashMap<GraphNode, Integer>();
+		
+		//or use a priority queue to always fetch the smaller task
+		Queue<GraphNode> queue = new LinkedList<GraphNode>();
+		Set<GraphNode> visited = new HashSet<GraphNode>();
+		
+		List<GraphNode> res = new LinkedList<GraphNode>();
+		
+		//count the incoming edges
+		for(GraphNode node : nodes) {
+			if(!inedges.containsKey(node)) {
+				inedges.put(node, 0);
+			}
+			//increase the incoming
+			for(GraphNode nextNode : node.nextNodes) {
+				if(!inedges.containsKey(nextNode)) {
+					inedges.put(nextNode, 1);
+				} else {
+					inedges.put(nextNode, inedges.get(nextNode) + 1);
+				}
+			}
+		}
+		
+		//push to the queue
+		for(GraphNode n : inedges.keySet()) {
+			if(inedges.get(n) == 0) {
+				queue.add(n);
+			}
+		}
+		
+		while(!queue.isEmpty()) {
+			GraphNode node = queue.poll();
+			//add to the result
+			res.add(node);
+			visited.add(node);
+			//check its neighboring nodes
+			for(GraphNode nextNode : node.nextNodes) {
+				if(visited.contains(nextNode)) {
+					break;
+				}
+				inedges.put(nextNode, inedges.get(nextNode) - 1);
+				if(inedges.get(nextNode) == 0) {
+					queue.add(nextNode);
+				}
+			}
+		}
+		
+		if(res.size() == nodes.size()) {
+			System.out.println(res);
+		} else {
+			System.out.println("size: " + res.size());
+			System.out.println("fail");
+		}
 	}
 
 	//the next nodes of each node
 	//the number of incoming edges for each node
+	@Deprecated
 	public static void toposort(ArrayList<ArrayList<Integer>> graph,
 			int[] indegs) {
 		int n = indegs.length;
@@ -82,15 +141,31 @@ public class TopologicalSort {
 			System.out.println(res);
 		}
 	}
+	
+	public static void testGraph() {
+		GraphNode n0 = new GraphNode(0);
+		GraphNode n1 = new GraphNode(1);
+		GraphNode n2 = new GraphNode(2);
+		GraphNode n3 = new GraphNode(3);
+		GraphNode n4 = new GraphNode(4);
+		GraphNode n5 = new GraphNode(5);
+		GraphNode n6 = new GraphNode(6);
+		GraphNode n7 = new GraphNode(7);
+		
+		n7.nextNodes.add(n1);
+		n7.nextNodes.add(n2);
+		n5.nextNodes.add(n1);
+		n3.nextNodes.add(n2);
+		n3.nextNodes.add(n0);
+		n1.nextNodes.add(n4);
+		n1.nextNodes.add(n6);
+		n1.nextNodes.add(n0);
+		n2.nextNodes.add(n6);
+		
+		toposort_graph(Arrays.asList(n0, n1, n2, n3, n4, n5, n6, n7));
+	}
 
 	public static void main(String[] args) {
-		
-		int n = 8;
-		// initial graph
-		ArrayList<ArrayList<Integer>> graph
-		    = new ArrayList<ArrayList<Integer>>(n);
-		int[] indegs = new int[n];
-		
 		/**
 		 *     7   5    3
 		 *     \ \/    / |
@@ -102,6 +177,15 @@ public class TopologicalSort {
 		 * 
 		 * 
 		 * */
+		testGraph();
+		
+		int n = 8;
+		// initial graph
+		ArrayList<ArrayList<Integer>> graph
+		    = new ArrayList<ArrayList<Integer>>(n);
+		int[] indegs = new int[n];
+		
+		
 		graph.add(new ArrayList<Integer>());
 		graph.add(new ArrayList<Integer>(Arrays.asList(0, 4, 6)));
 		graph.add(new ArrayList<Integer>(Arrays.asList(6)));
