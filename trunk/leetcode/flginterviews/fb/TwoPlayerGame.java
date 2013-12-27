@@ -54,5 +54,7 @@ public class TwoPlayerGame {
 		
 		//set the nth bit to zero
 		
+		//set the nth bit to oone, use ~
+		
 	}
 }
