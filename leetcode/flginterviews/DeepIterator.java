@@ -11,88 +11,72 @@ import java.util.Stack;
 
 what about empty list? such as {1, 2, {}, 3}
  * */
-xx
+
 public class DeepIterator {
 	
-	static class DeepListNode {
-		int val;
-		DeepListNode(int v) {val = v;}
-		
-	}
 	
-	static class DeepList {
-		List content = new LinkedList();
-		public void add(DeepListNode o) {
-			content.add(o);
-		}
-		public void add(DeepList list) {
-			content.add(list);
-		}
-		
-		//recursive printing
-		public void printAll() {
-			for(Object o : content) {
-				if(o instanceof DeepListNode) {
-					System.out.println(((DeepListNode)o).val);
-				} else if (o instanceof DeepList) {
-					((DeepList)o).printAll();
-				}
-			}
-		}
-	}
-
-	
-    static class DeepIter implements Iterator<DeepListNode> {
-
-    	final List list;
-    	DeepListNode nextElem = null;
+    static class DeepIter implements Iterator {
+    	//the input
+    	final List list;;
     	
+    	//not empty iterator
+    	Object currObj = null;
     	Iterator currIter = null;
-    	Stack<Iterator> iterStack = new Stack<Iterator>();
+    	Stack<Iterator> iterStack = null;
     	
     	public DeepIter(List list) {
 			this.list = list;
 			currIter = list.iterator();
+			this.fetchNextValue(); //fetch next object
 		}
     	
 		@Override
 		public boolean hasNext() {
-//			currElem != null;
-			
-			//need to jump to a valid element
-			if(currIter.hasNext()) {
-				return true; //
-			}
-			
-			if(iterStack.isEmpty()) {
-				return false;
-			}
-			
-//			currIter = iterStack.pop();
-			while(!currIter.hasNext() && !iterStack.isEmpty()) {
-				currIter = iterStack.pop();
-			}
-			
-			return currIter.hasNext();
+			//check if the current object is not null
+			return currObj != null;
 		}
 
 		@Override
-		public DeepListNode next() {
-			return getNextElement(this.currIter);
+		public Object next() {
+			Object retObj = currObj;
+			fetchNextValue();
+			return retObj;
 		}
 		
-		private DeepListNode getNextElement(Iterator iter) {
-             Object currObj = iter.next();
-			if(currObj instanceof DeepListNode) {
-				return (DeepListNode)currObj;
-			} else if (currObj instanceof List) {
-				iterStack.push(iter);
-				DeepIter nextIter = new DeepIter((List)currObj);
-//				while(currIter.)
-				return getNextElement(nextIter);
+		private void fetchNextValue() {
+			//do initialization
+			if(iterStack == null) {
+				iterStack = new Stack<Iterator>();
+				currIter = this.list.iterator();
 			}
-				
-			return null;
+			while(!currIter.hasNext()) {
+				//pop up the rest
+				//no more iterator, just return
+				if(iterStack.isEmpty()) {
+					currObj = null;
+					return;
+				} else {
+				    currIter = iterStack.pop();
+				}
+			}
+			//find an iterator that has at least one element
+			Object nextObj = currIter.next();
+			while(nextObj instanceof List) {
+				//push the current iterator to the stack
+				iterStack.push(currIter);
+				currIter = ((List)nextObj).iterator();
+				while(!currIter.hasNext()) {
+					if(iterStack.isEmpty()) {
+						currObj = null;
+						return;
+					} else {
+					    currIter = iterStack.pop();
+					}
+				}
+				nextObj = currIter.next();
+			}
+			//the next obj is
+			currObj = nextObj;
 		}
 
 		@Override
@@ -105,13 +89,13 @@ public class DeepIterator {
 	
 	public static void main(String[] args) {
 		
-		DeepListNode n0 = new DeepListNode(0);
-		DeepListNode n1 = new DeepListNode(1);
-		DeepListNode n2 = new DeepListNode(2);
-		DeepListNode n3 = new DeepListNode(3);
-		DeepListNode n4 = new DeepListNode(4);
-		DeepListNode n5 = new DeepListNode(5);
-		DeepListNode n6 = new DeepListNode(6);
+		Object n0 = 0;
+		Object n1 = 1;
+		Object n2 = 3;
+		Object n3 = 3;
+		Object n4 = 4;
+		Object n5 = 5;
+		Object n6 = 6;
 		
 		List l1 = new LinkedList();
 		l1.add(n1);
@@ -127,20 +111,39 @@ public class DeepIterator {
 		
 		List l4 = new LinkedList(); //this is an empty iterator
 		
+		List l5 = new LinkedList();
+		l5.add(new LinkedList());
+		l5.add(new LinkedList());
+		
+		List l6 = new LinkedList();
+		l6.add(7);
+		l6.add(8);
+		
 		List all = new LinkedList();
 		all.add(n0);
 		all.add(l1);
 		all.add(n3);
 		all.add(l3);
 		all.add(l4);
+		all.add(l6);
+		all.add(9);
+		all.add(10);
 		
-		//{0,  {1,2},  3 ,  {4,{5, 6}},  {}}
+		//{0,  {1,2},  3 ,  {4,{5, 6}},  {}, {{},{}}, {7, 8}, 9, 10}
 		
 		DeepIter iter = new DeepIter(all);
 		
 		while(iter.hasNext()) {
-			DeepListNode node = iter.next();
-			System.out.println(node.val);
+			Object node = iter.next();
+			System.out.println(node);
+		}
+		
+		all = new LinkedList();
+        iter = new DeepIter(all);
+		
+		while(iter.hasNext()) {
+			Object node = iter.next();
+			System.out.println(node);
 		}
 		
 	}
