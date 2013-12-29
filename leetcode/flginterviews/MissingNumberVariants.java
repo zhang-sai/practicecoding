@@ -1,6 +1,6 @@
 //http://www.mitbbs.com/article_t/JobHunting/32586021.html
 
-xx
+//the missing number is between 1 - 9999
 public class MissingNumberVariants {
 
 	//123456891011  ==> 7
@@ -11,49 +11,57 @@ public class MissingNumberVariants {
 		if(length < 1) {
 			return -1;
 		}
-		for(int i = 1; i <= str.length(); i++) {
-			String value = str.substring(0, i);
-			Integer v = Integer.parseInt(value);
-			int found = findMissingNumber(0, i, str, v);
-			if(found != -1) {
-				return found;
+		for(int num = 1; num <=4; num++) {
+			int missingNum = findMissingNumber(str, num);
+			if(missingNum != -1) {
+				return missingNum;
 			}
 		}
-		return -1;
+		throw new Error("String: " + str + " is not valid.");
 	}
 	
-	public static int findMissingNumber(int start, int end, String str, int expected) {
-		if(start >= str.length() || end > str.length()) {
-			return expected;
-		}
-		String value = str.substring(start, end);
-		Integer v = Integer.parseInt(value);
-		if(v == expected) {
-			//get the next
-			int nextNum = v + 1;
-			String nextNumStr = nextNum + "";
-			int found = findMissingNumber(end, end + nextNumStr.length(), str, nextNum);
-			if(found != -1) {
-				return found;
-			}
-		} else {
-			//double check
-			//check the next one
-			if(end == str.length()) {
-				return expected; //the last one
-			}
-			String nextNextNumStr = (v+ 2) + "";
+	//the starting digit number
+	private static int findMissingNumber(String str, int num) {
+		int firstNum = Integer.parseInt(str.substring(0, num));
+		int nextNum = firstNum + 1;
+		String nextNumStr = String.valueOf(nextNum);
+		
+		int startIndex = num;
+		int missingNum = -1;
+		boolean findMissingNum = false;
+		
+		while(startIndex + nextNumStr.length() <= str.length()) {
 			
-			int found = findMissingNumber(start, start + nextNextNumStr.length(), str, v + 2 );
-			if(found != -1) {
-			    return expected; //missing this
+			String substr = str.substring(startIndex, startIndex + nextNumStr.length());
+			System.out.println("start index: " + startIndex
+					+ ", expected num: " + nextNumStr + ", sub str: " + substr);
+			if(substr.equals(nextNumStr)) {
+				startIndex = startIndex + nextNumStr.length();
+				nextNum ++;
+				nextNumStr = String.valueOf(nextNum);
 			} else {
-				return -1;
+				if(findMissingNum) {
+					return -1; //illegal combinations
+				}
+				//suppose we find the missing number
+				missingNum = Integer.parseInt(nextNumStr);
+				findMissingNum = true;
+				nextNum = nextNum + 1;
+				nextNumStr = String.valueOf(nextNum);
 			}
 		}
 		
-		return -1;
+		//illegal 
+		if(startIndex != str.length()) {
+			return -1;
+		}
+		
+		return missingNum;
+		
 	}
+	
+	
+	
 	
 	public static void main(String[] args) {
 		System.out.println(findMissingNumber("123456891011"));
