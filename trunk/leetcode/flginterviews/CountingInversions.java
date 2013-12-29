@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * Given an integer array, count the number of inversions.
 
@@ -12,7 +14,7 @@ http://n00tc0d3r.blogspot.com/search?q=inversions
 /**
  * two elements a[i] and a[j] form an inversion if a[i] > a[j] and i < j
  * */
-xx
+
 public class CountingInversions {
 
 	public static long countInversion_bruteforce(int[] a) {
@@ -82,15 +84,29 @@ public class CountingInversions {
 	   return count;  
 	 }  
 	 
-	public static void printInversions(int[] a) {
+	public static long printInversions(int[] a) {
 		long c = countInversion(a, 0, a.length, new int[a.length]);
 		System.out.println("sort count: " + c);
+		return c;
 	}
 
 	public static void main(String[] args) {
 		int[] a = new int[] { 22, 48, 12, 35, 57 };
 		System.out.println("brute force: " + countInversion_bruteforce(a));
 		printInversions(a);
+		
+		Random r = new Random();
+		for(int i = 0; i < 100; i++) {
+			int[] array = new int[r.nextInt(100) + 1];
+			for(int j = 0; j < array.length; j++) {
+				array[j] = r.nextInt(10*array.length);
+			}
+			long r_bf = countInversion_bruteforce(array);
+			long r_r = printInversions(array);
+			if(r_bf != r_r) {
+				throw new Error();
+			}
+		}
 	}
 
 }
