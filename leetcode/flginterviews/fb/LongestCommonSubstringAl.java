@@ -6,7 +6,17 @@ package fb;
  * 
  * http://www.careercup.com/question?id=16381662
  * */
-xx
+
+
+/**
+ * build a generalized suffix trie, and mark each internal node
+ * with string id.
+ * 
+ * then, traverse the suffix trie and collect deepest internal nodes
+ * with all string ids.
+ * 
+ * */
+
 public class LongestCommonSubstringAl {
 
 }
