@@ -5,7 +5,9 @@
  Q: where is the size 50, return the 6th
  http://www.dgp.utoronto.ca/people/JamesStewart/378notes/22intervals/
  * */
-xx
+
+//Difficult
+
 public class IntervalTreeAndQueryStream {
 
 	//self adjust
