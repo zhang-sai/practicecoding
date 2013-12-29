@@ -2,13 +2,20 @@ package basics;
 
 import util.Utils;
 import linkedin.TreeNode;
-xx
+
 /**
  * Construct a threaded BST and do traversal
  * 
  * if there is no left, make the left point to the previous vsitied ones
  * if there is no right, make the right point to the next node
+ * 
+ * http://stackoverflow.com/questions/5502916/explain-morris-inorder-tree-traversal-without-using-stacks-or-recursion
  * */
+
+/**
+ * difficult to achieve constant time and space.
+ * */
+
 public class ThreadedBST {
 
 	
@@ -26,6 +33,11 @@ public class ThreadedBST {
 			  *    1
 			  *     \
 			  *      2
+			  *      
+			  *      
+			  *      0
+			  *     /
+			  *    1
 			  * */
 		     while(iter.right != null && iter.right != leftPrev) {
 		            iter = iter.right;
@@ -46,17 +58,35 @@ public class ThreadedBST {
 	    return root;
 	}
 	
+	public static void resetRightmost(TreeNode root) {
+		TreeNode node = root;
+		while(node.right != root) {
+			node = node.right;
+		}
+		node.right = null;
+	}
+	
 	public static void traverse_in_order(TreeNode root) {
 		System.out.println("Start traversal.");
-		
+		//go to the first node
 		TreeNode node = root;
-		while(node != null) {
-		    while(node.left != null) {
-			    node = node.left;
-		    }
-		    System.out.println(node.val + "   ");
-		    node = node.right;
+		while(node.left != null) {
+		    node = node.left;
 		}
+		while(node != null) {
+//			System.out.println(node.val);
+//			node = getNextNode(node);
+//			if(node.left == null) {
+//				System.out.println(node.val);
+//				node = node.right;
+//			} else {
+//				node = node.left;
+//			}
+		}
+	}
+	
+	private static TreeNode getNextNode(TreeNode node) {
+		return null;
 	}
 	
 	public static void main(String[] args) {
@@ -94,11 +124,14 @@ public class ThreadedBST {
 		System.out.println();
 		
 		buildThreadedBST(root);
-		System.out.println(n0.left + ", " + n0.right);
-		System.out.println(n2.left + ", " + n2.right);
-		System.out.println(n6.left + ", " + n6.right);
-		System.out.println(n4.left + ", " + n4.right);
-		System.out.println(n5.left + ", " + n5.right);
+		resetRightmost(root);
+		
+		
+		System.out.println("n0: " + n0.left + ", " + n0.right);
+		System.out.println("n2: " + n2.left + ", " + n2.right);
+		System.out.println("n6: " + n6.left + ", " + n6.right);
+		System.out.println("n4: " + n4.left + ", " + n4.right);
+		System.out.println("n5: " + n5.left + ", " + n5.right);
 		
 		
 		traverse_in_order(root);
