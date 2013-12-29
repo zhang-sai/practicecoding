@@ -33,8 +33,8 @@ public class MissingNumberVariants {
 		while(startIndex + nextNumStr.length() <= str.length()) {
 			
 			String substr = str.substring(startIndex, startIndex + nextNumStr.length());
-			System.out.println("start index: " + startIndex
-					+ ", expected num: " + nextNumStr + ", sub str: " + substr);
+//			System.out.println("start index: " + startIndex
+//					+ ", expected num: " + nextNumStr + ", sub str: " + substr);
 			if(substr.equals(nextNumStr)) {
 				startIndex = startIndex + nextNumStr.length();
 				nextNum ++;
