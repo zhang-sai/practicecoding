@@ -1,5 +1,7 @@
 package linkedin;
 
+import java.util.Stack;
+
 /**
  * Consider this string representation for binary trees. Each node
  * is of the form (lr), where l represents the left child and r represents
@@ -32,9 +34,68 @@ find_depth('(0p)') -> -1
 
 http://www.careercup.com/question?id=13262681
  * */
+
+/**
+ *    t -> (00)
+ *    N -> t | (N0) | (NN)
+ *    
+ *    check whether a string is a valid representation
+ * 
+ * */
 public class ParsingTreeDepth {
 
+	public static boolean isValidTree(String str) {
+		//illegal case
+		if(str == null || str.length() < 2) {
+			return false;
+		}
+		//check the boundary
+		if(!str.startsWith("(") || !str.endsWith(")")) {
+			return false;
+		}
+		String rest = str.substring(1, str.length() - 1);
+		if(rest.startsWith("0")) {
+			rest = rest.substring(1);
+			if(rest.equals("0")) {
+				return true;  //the 00 case
+			} else {
+				return isValidTree(rest);
+			}
+		} else if (rest.startsWith("(")) {
+			//use a stack to find the matching )
+			Stack<Character> stack = new Stack<Character>();
+			StringBuilder left = new StringBuilder();
+			for(char c : rest.toCharArray()) {
+				left.append(c);
+				if(c == '(') {
+					stack.push(c);
+				}
+				if(c == ')') {
+					if(stack.isEmpty()) {
+						return false;
+					} else {
+						stack.pop();
+						if(stack.isEmpty()) {
+							break;
+						}
+					}
+				}
+			}
+			String leftPart = left.toString();
+			String right = rest.substring(leftPart.length());
+			boolean isLeftValid = isValidTree(leftPart);
+			boolean isRightValid = right.equals("0") || isValidTree(right);
+			return isLeftValid && isRightValid;
+		} else {
+			return false;
+		}
+	}
+	
 	public static int parseTreeDepth(String str) {
+		return parseTreeDepthInternal(str);
+	}
+	
+	public static int parseTreeDepthInternal(String str) {
 		//illegal case
 		if(str == null || str.length() < 2) {
 			return -1;
@@ -44,42 +105,83 @@ public class ParsingTreeDepth {
 			return -1;
 		}
 		String rest = str.substring(1, str.length() - 1);
-		x
-		return -1;
+		if(rest.startsWith("0")) {
+			rest = rest.substring(1);
+			if(rest.equals("0")) {
+				return 1;
+			} else {
+				int treeDepth = parseTreeDepthInternal(rest);
+				return treeDepth == - 1? -1 : 1 + treeDepth;
+			}
+		} else if (rest.startsWith("(")) {
+			//use a stack to find the matching )
+			Stack<Character> stack = new Stack<Character>();
+			StringBuilder left = new StringBuilder();
+			for(char c : rest.toCharArray()) {
+				left.append(c);
+				if(c == '(') {
+					stack.push(c);
+				}
+				if(c == ')') {
+					if(stack.isEmpty()) {
+						return -1;
+					} else {
+						stack.pop();
+						if(stack.isEmpty()) {
+							break;
+						}
+					}
+				}
+			}
+			String leftPart = left.toString();
+			String right = rest.substring(leftPart.length());
+			int leftDepth = parseTreeDepthInternal(leftPart);
+			int rightDepth = right.equals("0") ? 0 : parseTreeDepthInternal(right);
+			return 1 + Math.max(leftDepth, rightDepth);
+		} else {
+			return -1;
+		}
 	}
 	
 	public static void main(String[] args) {
 		String str = "(00)";
-		System.out.println(parseTreeDepth(str));
+		System.out.println(str + " valid? " + isValidTree(str) + ", depth: " + parseTreeDepth(str));
+		
 		
 		str = "((00)0)";
-		System.out.println(parseTreeDepth(str));
+		System.out.println(str + " valid? " + isValidTree(str) + ", depth: " + parseTreeDepth(str));
 		
 		str = "((00)(00))";
-		System.out.println(parseTreeDepth(str));
+		System.out.println(str + " valid? " + isValidTree(str) + ", depth: " + parseTreeDepth(str));
 		
 		str = "((00)(0(00)))";
-		System.out.println(parseTreeDepth(str));
+		System.out.println(str + " valid? " + isValidTree(str) + ", depth: " + parseTreeDepth(str));
 		
 		str = "((00)(0(0(00))))";
-		System.out.println(parseTreeDepth(str));
+		System.out.println(str + " valid? " + isValidTree(str) + ", depth: " + parseTreeDepth(str));
 		
 		str = "x";
-		System.out.println(parseTreeDepth(str));
+		System.out.println(str + " valid? " + isValidTree(str) + ", depth: " + parseTreeDepth(str));
 		
 		str = "0";
-		System.out.println(parseTreeDepth(str));
+		System.out.println(str + " valid? " + isValidTree(str) + ", depth: " + parseTreeDepth(str));
 		
 		str = "()";
-		System.out.println(parseTreeDepth(str));
+		System.out.println(str + " valid? " + isValidTree(str) + ", depth: " + parseTreeDepth(str));
 		
 		str = "(0)";
-		System.out.println(parseTreeDepth(str));
+		System.out.println(str + " valid? " + isValidTree(str) + ", depth: " + parseTreeDepth(str));
 		
 		str = "(0p)";
-		System.out.println(parseTreeDepth(str));
+		System.out.println(str + " valid? " + isValidTree(str) + ", depth: " + parseTreeDepth(str));
 		
 		str = "(00)x";
-		System.out.println(parseTreeDepth(str));
+		System.out.println(str + " valid? " + isValidTree(str) + ", depth: " + parseTreeDepth(str));
+		
+		str = "(00)(00)(00)";
+		System.out.println(str + " valid? " + isValidTree(str) + ", depth: " + parseTreeDepth(str));
+		
+		str = "(00)(00)";
+		System.out.println(str + " valid? " + isValidTree(str) + ", depth: " + parseTreeDepth(str));
 	}
 }
