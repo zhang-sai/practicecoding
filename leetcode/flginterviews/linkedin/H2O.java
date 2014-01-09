@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
-x
+
 public class H2O {
 
 	List<Object> hlist = new LinkedList<Object>();
@@ -28,11 +28,12 @@ public class H2O {
 		try {
 			hlist.add("H");
 			System.out.println("H");
-			if(hlist.size() >= 2) {
+			if(hlist.size() >= 2 && !olist.isEmpty()) {
 				
-//				h2olock.lockInterruptibly();
-				hc.signal();
-//				h2olock.unlock();
+				h2olock.lockInterruptibly();
+//				hc.signal();
+				c.signal();
+				h2olock.unlock();
 			}
 			
 		} finally {
@@ -49,9 +50,14 @@ public class H2O {
 		try {
 			olist.add("O");
 			System.out.println("O");
-//			h2olock.lockInterruptibly();
-			oc.signal();
-//			h2olock.unlock();
+			h2olock.lockInterruptibly();
+//			oc.signal();
+			
+			if(hlist.size() >= 2) {
+				c.signal();
+			}
+			
+			h2olock.unlock();
 		} finally {
 			onumber++;
 			System.out.println("O: " + onumber);
@@ -62,31 +68,32 @@ public class H2O {
 	static int h2onumber = 0;
 	
 	public void generateH2O() throws InterruptedException {
-//		h2olock.lockInterruptibly();
-		hlock.lockInterruptibly();
-		olock.lockInterruptibly();
+		h2olock.lockInterruptibly();
+//		hlock.lockInterruptibly();
+//		olock.lockInterruptibly();
 		try {
 			while(hlist.size() < 2 || olist.isEmpty()) {
-//				c.await();
-				hc.await();
-				oc.await();
+				c.await();
+//				hc.await();
+//				oc.await();
 			}
-//			hlock.lockInterruptibly();
-//			olock.lockInterruptibly();
+			hlock.lockInterruptibly();
+			olock.lockInterruptibly();
 			
 			hlist.remove(0);
 			hlist.remove(0);
 			olist.remove(0);
 			System.out.println("Generate H2O");
 			
-//			hlock.unlock();
-//			olock.unlock();
-		} finally {
-//			h2olock.unlock();
-			h2onumber++;
-			System.out.println("H2O number: " + h2onumber);
 			hlock.unlock();
 			olock.unlock();
+		} finally {
+			
+			h2onumber++;
+			System.out.println("H2O number: " + h2onumber);
+			h2olock.unlock();
+//			hlock.unlock();
+//			olock.unlock();
 		}
 	}
 	
