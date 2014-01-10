@@ -2,108 +2,47 @@ package linkedin;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class H2O {
 
-	List<Object> hlist = new LinkedList<Object>();
-	List<Object> olist = new LinkedList<Object>();
 	
+	Semaphore hs = new Semaphore(2);
+	Semaphore os = new Semaphore(1);
 	
-	private final ReentrantLock hlock = new ReentrantLock();
-	private final ReentrantLock olock = new ReentrantLock();
-	
-	private final ReentrantLock h2olock = new ReentrantLock();
-	
-	private final Condition hc = hlock.newCondition();
-	private final Condition oc = olock.newCondition();
-	
-	private final Condition c = h2olock.newCondition();
-	
-	static int hnumber = 0;
 	
 	public void generateH() throws InterruptedException {
-		hlock.lockInterruptibly();
-		try {
-			hlist.add("H");
-			System.out.println("H");
-			if(hlist.size() >= 2 && !olist.isEmpty()) {
-				
-				h2olock.lockInterruptibly();
-//				hc.signal();
-				c.signal();
-				h2olock.unlock();
-			}
-			
-		} finally {
-			hnumber++;
-			System.out.println("H: " + hnumber);
-			hlock.unlock();
-		}
+		System.out.println("calling: generate h");
+		hs.acquire();
+		System.out.println("H");
 	}
-	
-	static int onumber = 0;
 	
 	public void generateO() throws InterruptedException {
-		olock.lockInterruptibly();
-		try {
-			olist.add("O");
-			System.out.println("O");
-			h2olock.lockInterruptibly();
-//			oc.signal();
-			
-			if(hlist.size() >= 2) {
-				c.signal();
-			}
-			
-			h2olock.unlock();
-		} finally {
-			onumber++;
-			System.out.println("O: " + onumber);
-			olock.unlock();
-		}
+		System.out.println("calling: generate o");
+		os.acquire();
+		System.out.println("O");
 	}
 	
-	static int h2onumber = 0;
+	static int hnum = 0;
 	
 	public void generateH2O() throws InterruptedException {
-		h2olock.lockInterruptibly();
-//		hlock.lockInterruptibly();
-//		olock.lockInterruptibly();
-		try {
-			while(hlist.size() < 2 || olist.isEmpty()) {
-				c.await();
-//				hc.await();
-//				oc.await();
-			}
-			hlock.lockInterruptibly();
-			olock.lockInterruptibly();
-			
-			hlist.remove(0);
-			hlist.remove(0);
-			olist.remove(0);
-			System.out.println("Generate H2O");
-			
-			hlock.unlock();
-			olock.unlock();
-		} finally {
-			
-			h2onumber++;
-			System.out.println("H2O number: " + h2onumber);
-			h2olock.unlock();
-//			hlock.unlock();
-//			olock.unlock();
-		}
+		System.out.println("calling: generate h2o");
+		hs.release(2);
+		os.release();
+		
+		System.out.println("H2O");
+		hnum++;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		final H2O h = new H2O();
-		for(int i = 0; i < 10; i++) {
+//		for(int i = 0; i < 10; i++) {
 			Thread th = new Thread(new Runnable() {
 				@Override
 				public void run() {
-					for(int j = 0; j < 100; j++) {
+					for(int j = 0; j < 400; j++) {
 					    try {
 							h.generateH();
 						} catch (InterruptedException e) {
@@ -111,13 +50,14 @@ public class H2O {
 							e.printStackTrace();
 						}
 					}
+//					System.exit(1);
 				}
 			});
 			th.start();
 			Thread to = new Thread(new Runnable() {
 				@Override
 				public void run() {
-					for(int j = 0; j < 100; j++) {
+					for(int j = 0; j < 200; j++) {
 					    try {
 							h.generateO();
 						} catch (InterruptedException e) {
@@ -125,13 +65,14 @@ public class H2O {
 							e.printStackTrace();
 						}
 					}
+//					System.exit(1);
 				}
 			});
 			to.start();
 			Thread h2o = new Thread(new Runnable() {
 				@Override
 				public void run() {
-					for(int j = 0; j < 100; j++) {
+					for(int j = 0; j < 200; j++) {
 					    try {
 							h.generateH2O();
 						} catch (InterruptedException e) {
@@ -139,10 +80,18 @@ public class H2O {
 							e.printStackTrace();
 						}
 					}
+//					System.exit(1);
 				}
 			});
 			h2o.start();
-		}
+			
+			//kill all thread
+			th.join();
+			to.join();
+			h2o.join();
+			
+			System.out.println("Number of waters: " + hnum);
+//		}
 		
 	}
 }
