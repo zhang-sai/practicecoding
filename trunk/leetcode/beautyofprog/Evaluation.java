@@ -1,5 +1,9 @@
 
 /**
+ * It should be elevation:
+ *   design the place that an evaluation should stop, which minimize the number of floors that each employee
+ *   should climb.
+ * 
  * Stop the evaluation on a certain flow, to minimize the steps every one need to take
  * */
 public class Evaluation {
@@ -27,6 +31,8 @@ public class Evaluation {
 		for(int i = 2; i < persons.length; i++) {
 			if(n1 + n2 < n3) {
 				
+				//since n1 + n2 is keep increasing
+				//there must be some point that n1 + n2 > n3
 				targetFloor = i;
 				minFloor = (n1 + n2 - n3);
 				n2 = persons[i];
