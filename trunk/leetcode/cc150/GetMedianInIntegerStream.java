@@ -26,7 +26,9 @@ public class GetMedianInIntegerStream {
 			
 		}
 		
+		//return the smallest one by peek
 		PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(); //values above the median
+		//return the largest one by peek
 		PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>(10, new MinComparator());  //values below the median
 		
 		//here is the algorithm
@@ -40,11 +42,13 @@ public class GetMedianInIntegerStream {
 //				System.out.println("max: " + maxHeap + ",  min: " + minHeap);
 				if(maxHeap.size() == minHeap.size()) {
 					System.out.println( "max: " + maxHeap.peek() + ", min: "
-							+ minHeap.peek() + ", median: " + (double)(maxHeap.peek() + minHeap.size())/2 );
+							+ minHeap.peek() + ", median: " + (double)(maxHeap.peek() + minHeap.peek())/2 );
 				} else {
+					//return the smallest one
 					System.out.println(maxHeap.peek());
 				}
 				//then insert the value v
+				//peek returns the largest one
 				if(maxHeap.size() == minHeap.size()) {
 					if(minHeap.peek() <= v) {
 						maxHeap.offer(v);
