@@ -31,6 +31,10 @@ public class DeleteNodeInBinaryTree {
 	 *  if the node has right subtree, then get the smallest one in the right tree
 	 *  as the node
 	 *  
+	 *  three possibilities:
+	 *  1. has no children
+	 *  2. has 1 child
+	 *  3. has two children
 	 *  
 	 * 
 	 * */
@@ -64,6 +68,7 @@ public class DeleteNodeInBinaryTree {
 				parent.right = null;
 			}
 		} else if (node.left == null || node.right == null) {	
+			//if the node has 1 child
 			if(parent == null) {
 				//delete the root
 				root = node.left == null ? node.right : node.left;
@@ -74,7 +79,7 @@ public class DeleteNodeInBinaryTree {
 				parent.right = node.left == null ? node.right : node.left;
 			}
 		} else {
-			//if the node has two
+			//if the node has two children
 			int min = findMin(node.right);
 			delete(root, min);
 			node.val = min;

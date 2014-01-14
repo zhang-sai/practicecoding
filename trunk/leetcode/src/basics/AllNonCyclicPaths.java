@@ -35,6 +35,7 @@ public class AllNonCyclicPaths {
 		for(GraphNode n : currNode.nextNodes) {
 		    expandPaths(n, dest, path, visited);	
 		}
+		//must do this for backtracking
 		path.remove(currNode);
 		visited.remove(currNode);
 	}
