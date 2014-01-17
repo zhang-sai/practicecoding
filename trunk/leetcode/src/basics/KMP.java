@@ -4,7 +4,7 @@ public class KMP {
 
 	//its application of search a small str in a large amount of text
 	//http://algs4.cs.princeton.edu/53substring/KMP.java.html
-	xx
+	
 	public static boolean kmp(char[] haystack, char[] needle) {
 		return true;
 	}
@@ -53,6 +53,10 @@ public class KMP {
 		searchInALargeChunck("abcdefghijklmnopqst", "fgh");
 		searchInALargeChunck("sfafbgjljlfslfjihsxljxflsfj", "fgh");
 		searchInALargeChunck("sfafbgjljlfslfjihsxljxflsfj", "fslfjihs"); //larger than the buffer
+		
+		System.out.println(kmp("abcdefghijklmnopqst".toCharArray(), "fgh".toCharArray()));
+		System.out.println(kmp("sfafbgjljlfslfjihsxljxflsfj".toCharArray(), "fgh".toCharArray()));
+		System.out.println(kmp("sfafbgjljlfslfjihsxljxflsfj".toCharArray(), "fslfjihs".toCharArray()));
 	}
 	
 }
