@@ -41,6 +41,7 @@ int currentMax = Integer.MIN_VALUE;
          
         currentMax = Math.max(currentMax,m);
         
+        //just include this node, and go up
         if (Math.max(l,r)>0) {
             return (Math.max(l,r)+root.val);
         }
