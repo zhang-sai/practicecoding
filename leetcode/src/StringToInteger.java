@@ -14,6 +14,8 @@ If the first sequence of non-whitespace characters in str is not a valid integra
 
 If no valid conversion could be performed, a zero value is returned. If the correct value is out of the range of representable values, INT_MAX (2147483647) or INT_MIN (-2147483648) is returned.
  * */
+
+
 public class StringToInteger {
 	//1. overflow
 	//+2, -2
@@ -26,6 +28,22 @@ public class StringToInteger {
         // Note: The Solution object is instantiated only once and is reused by each test case.
         // Start typing your Java solution below
         // DO NOT write main() function
+		
+		/**
+		 * Many cases to consider:
+		 * 1. str with 0-length ==> 0
+		 * 2. start with + and -
+		 * 3. it can only contains +, -, num.
+		 *    It is illegal if there are other chars
+		 *    
+		 *    +4  5 ==> +4
+		 *    134 abc ==> 134
+		 *    
+		 * 4. also consider overflow / underflow
+		 *    for any overflow just return Integer.Max_Number
+		 *    for any underflow just return INteger.Min_Number
+		 * 
+		 * */
         str = str.trim();
         if(str.length() == 0) {
         	return 0;
