@@ -48,6 +48,7 @@ public class MaxJobCosts {
 		}
 		
 		//all times
+		//sort both starting and ending time
 		ArrayList<Integer> times = new ArrayList<Integer>();
 		times.addAll(endTimes.keySet());
 		Collections.sort(times);
@@ -59,6 +60,7 @@ public class MaxJobCosts {
 		for(int i = 0; i < times.size(); i++) {
 			int endTime = times.get(i);
 			List<Interval> endIntervals = endTimes.get(endTime);
+			//only check for the end time
 			for(Interval interval : endIntervals) {
 			    if( i == 0) {
 				    maxCost[i] = Math.max(maxCost[i], interval.cost);
