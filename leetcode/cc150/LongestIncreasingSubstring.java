@@ -6,7 +6,8 @@ import util.Utils;
 //http://stackoverflow.com/questions/2631726/how-to-determine-the-longest-increasing-subsequence-using-dynamic-programming
 //http://www.cs.princeton.edu/courses/archive/spring13/cos423/lectures/LongestIncreasingSubsequence.pdf
 public class LongestIncreasingSubstring {
-	
+	//NOTE, it is not substring, actually it is subsequence, each char may not be next to each other.
+//	x
 	public static int printLongestIncreasingSubstr(Integer[] a) {
 	
 		//use dynamic programming
@@ -21,7 +22,9 @@ public class LongestIncreasingSubstring {
 		Integer[] backtrack = new Integer[a.length];
 		
 		for(int i = 0; i < a.length; i++) {
-			
+			//  ... j .... i
+			//dp[i] is the  longest increasing substring ending with i
+			//we assign it with 1 initially.
 			dp[i] = 1;
 			backtrack[i] = -1;
 			
