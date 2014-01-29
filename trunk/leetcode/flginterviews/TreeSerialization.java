@@ -3,6 +3,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 //or sometimes, you can use a combination of two order traversal
+
+//use level by level
+//http://leetcode.com/2010/09/serializationdeserialization-of-binary.html
+
 public class TreeSerialization {
 	
 	public static void main(String[] args) {
