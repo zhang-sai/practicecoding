@@ -13,4 +13,6 @@ public class NonAdjacentSumInAnArray {
 	//       2. not take i, take maxsum[i-1]
 	//a O(n)
 	
+	//see MaxNonContagiousSubArraySum
+	
 }
