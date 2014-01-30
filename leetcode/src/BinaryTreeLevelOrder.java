@@ -110,6 +110,26 @@ confused what "{1,#,2,3}" means? > read more on how binary tree is serialized on
         return retList;
     }
     
+	
+	/***
+	 * Proof, it is still O(n)
+	 * 
+	 * Although the DFS solution traverse the same node multiple times, it is not another order slower than the BFS solution. Here is the proof that the DFS solution above runs in O(N) time, where N is the number of nodes in the binary tree and we assume that the binary tree is balanced.
+
+We first compute the complexity of printLevel for the kth level:
+
+T(k) = 2T(k-1) + c
+     = 2k-1 T(1) + c
+     = 2k-1 + c
+Assuming it’s a balanced binary tree, then it would have a total of lg N levels.
+
+Therefore, the complexity of printing all levels is:
+
+T(1) + T(2) + ... + T(lg N)
+= 1 + 2 + 22 + ... + 2lg N-1 + c
+= O(N)
+	 * 
+	 * */
     public void getLevel(int level, TreeNode node, ArrayList<Integer> list) {
         if(node == null) {
             return;
