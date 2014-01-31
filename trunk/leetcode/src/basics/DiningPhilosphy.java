@@ -17,6 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 3. 
  * 
  * */
+@Deprecated
 class DiningPhilosopherProblem {
 	  // Makes the code more readable.
 	  public static class ChopStick {
