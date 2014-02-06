@@ -9,6 +9,8 @@ EG
         B[]={1,6,2}; 
 min = 5
 3-1, 4-2,5-6
+
+do not have to be the same, an element can be re-used multiple times
  * 
  * */
 public class MinWeightTwoGroups {
