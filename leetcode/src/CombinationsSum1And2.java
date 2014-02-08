@@ -6,6 +6,8 @@ import java.util.Set;
 
 
 public class CombinationsSum1And2 {
+	
+	//look at the similar problem: PossibleCoinCombinations
 
 	/**
 	 * Given a set of candidate numbers (C) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.
