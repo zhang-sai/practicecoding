@@ -60,9 +60,39 @@ public class Subsets {
         return list;
     }
 	
+	/**
+	 * In a recursive manner
+	 * */
+	public ArrayList<ArrayList<Integer>> subsets_new(int[] s) {
+		ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+		generateSubset(ret, s, new boolean[s.length], 0);
+		return ret;
+	}
+	
+	private void generateSubset(ArrayList<ArrayList<Integer>> ret, int[] nums,
+			boolean[] flags, int currIndex) {
+		if(currIndex >= nums.length) {
+			//start to print it output
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			for(int i = 0; i < nums.length; i++) {
+				if(flags[i]) {
+					list.add(nums[i]);
+				}
+			}
+			ret.add(list);
+			return;
+		}
+		//do that recursively
+		generateSubset(ret, nums, flags, currIndex + 1);
+		flags[currIndex] = true;
+		generateSubset(ret, nums, flags, currIndex + 1);
+		flags[currIndex] = false;
+	}
+	
 	public static void main(String[] args) {
 		Subsets as = new Subsets();
 		int[] set = new int[]{4, 1, 0};
 		System.out.println(as.subsets(set));
+		System.out.println(as.subsets_new(set));
 	}
 }
