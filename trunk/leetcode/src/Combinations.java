@@ -115,11 +115,45 @@ public class Combinations {
 		}
 	}
 	
+	public ArrayList<ArrayList<Integer>> combine_recursive(int n, int k) {
+		ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+		int[] nums = new int[n];
+		for(int i = 1; i <= n; i++) {
+			nums[i-1] = i;
+		}
+		combine_internal(ret, nums, new boolean[nums.length], 0, 0, k);
+		return ret;
+	}
 	
+	public void combine_internal(ArrayList<ArrayList<Integer>> ret,
+			int[] nums, boolean[] flags, int currIndex, int totalSelected, int k) {
+		if(totalSelected == k) {
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			for(int i = 0; i < flags.length; i++) {
+				if(flags[i]) {
+					list.add(nums[i]);
+				}
+			}
+			ret.add(list);
+			return;
+		}
+		//a few ways
+		//suppose we have 1, 2, 3, 4  current index = 1, length = 4
+		int restNum = nums.length - currIndex;
+		int neededNum = k - totalSelected;
+		if(restNum > neededNum) {
+			combine_internal(ret, nums, flags, currIndex + 1, totalSelected, k);
+		}
+		//select the current one
+		flags[currIndex] = true;
+		combine_internal(ret, nums, flags, currIndex + 1, totalSelected + 1, k);
+		flags[currIndex] = false;
+	}
 	
 	public static void main(String[] args) {
 		Combinations comb = new Combinations();
 		System.out.println(comb.combine(5, 3));
-		comb.combine_iter(5, 3);
+//		comb.combine_iter(5, 3);
+		System.out.println(comb.combine_recursive(5, 3));
 	}
 }
