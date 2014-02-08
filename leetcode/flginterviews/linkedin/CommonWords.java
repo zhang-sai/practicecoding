@@ -26,6 +26,10 @@ public class CommonWords {
 			 * 2. bit vector, in Java, it is BitSet
 			 * 
 			 *   for brute force comparison
+			 *   
+			 *   implement BitSet:
+			 *   
+			 *   http://stackoverflow.com/questions/7861778/how-to-implement-a-bit-vector-bitset-in-java
 			 * 
 			 * */
 }
