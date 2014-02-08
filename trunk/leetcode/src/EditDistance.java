@@ -7,6 +7,7 @@ a) Insert a character
 b) Delete a character
 c) Replace a character
  * */
+
 public class EditDistance {
 	public int minDistance(String word1, String word2) {
         // Start typing your Java solution below
@@ -20,6 +21,7 @@ public class EditDistance {
 		int[][] distances = new int[word1.length()][word2.length()];
 		distances[0][0] = word1.charAt(0) == word2.charAt(0) ? 0 : 1;
 		//compute the first row
+		//if the same, use i, otherwise, +1 of previous distance
 		for(int i = 1; i < word1.length(); i++) {
 			distances[i][0] = word1.charAt(i) == word2.charAt(0) ?
 					i : distances[i-1][0] + 1;
