@@ -15,52 +15,85 @@ class KMPAndSearchInALargeChunck {
 	 * 
 	 * */
 
-	// credit goes to: http://www.ics.uci.edu/~eppstein/161/960227.html
-	public static boolean kmp(char[] haystack, char[] needle) {
-		int[] overlap = computeOverlap(needle);
-		int n = haystack.length;
-		int m = needle.length;
-
-		int i = 0;
-		int o = 0;
-		while (i < n) {
-//			System.out.println("int: " + i);
-			int j = o;
-			while( i + j < n && j < m) {
-				if(haystack[i + j] == needle[j]) {
-					j++;
-				} else {
-					break;
-				}
-			}
-			if (j == m) {
-				return true;
-			}
-			o = j == 0 ?  0 : overlap[j - 1]; // overlap(P[0..j-1],P[0..m]);
-			i = i + Math.max(1, j - o);
-		}
-		return false;
-	}
-
-	// the overlap between pattern[0,, i] with the whole pattern
-	// the overlapped part, if nano is the whole pattern
-	// nan
-	// nano
-
-	// the overlap of two strings x and y to be the longest word that's a suffix
-	// of x and a prefix of y
-	private static int[] computeOverlap(char[] pattern) {
-		if (pattern.length == 1) {
-			return new int[] { 0 };
-		}
-		int[] overlap = new int[pattern.length];
-		for (int i = 0; i < pattern.length - 1; i++) {
-			overlap[i + 1] = overlap[i] + 1;
-			while (overlap[i + 1] > 0 && pattern[i] != pattern[overlap[i + 1] - 1])
-				overlap[i + 1] = overlap[overlap[i + 1] - 1] + 1;
-		}
-		return overlap;
-	}
+	   /**
+     * Pre processes the pattern array based on proper prefixes and proper
+     * suffixes at every position of the array
+     * 
+     * @param pattern
+     *            word that is to be searched in the search string
+     * @return partial match table which indicates
+     */
+    public static int[] overlap(char[] pattern) {
+        int i = 0, j = -1;
+        int length = pattern.length;
+        int[] overlap = new int[length + 1];
+ 
+        overlap[i] = j;
+        while (i < length) {
+            while (j >= 0 && pattern[i] != pattern[j]) {
+                // if there is mismatch consider next widest border
+                j = overlap[j];
+            }
+            i++;
+            j++;
+            overlap[i] = j;
+        }
+        // print pettern, partial match table and index
+//        System.out
+//                .println("printing pattern, partial match table, and its index");
+//        System.out.print(" ");
+//        for (char c : ptrn) {
+//            System.out.print(c + "   ");
+//        }
+//        System.out.println(" ");
+//        for (int tmp : b) {
+//            System.out.print(tmp + "   ");
+//        }
+//        System.out.print("\n ");
+//        for (int l = 0; l < ptrn.length; l++) {
+//            System.out.print(l + "   ");
+//        }
+//        System.out.println();
+        return overlap;
+    }
+ 
+    /**
+     * Based on the pre processed array, search for the pattern in the text
+     * 
+     * @param haystack
+     *            text over which search happens
+     * @param needle
+     *            pattern that is to be searched
+     */
+    public static void  kmp(char[] haystack, char[] needle) {
+        int i = 0, j = 0;
+        // pattern and text lengths
+        int needleLength = needle.length;
+        int haystackSize = haystack.length;
+ 
+        // initialize new array and preprocess the pattern
+        int[] overlap = overlap(needle);
+ 
+        while (i < haystackSize) {
+            while (j >= 0 && haystack[i] != needle[j]) {
+//                System.out.println("Mismatch happened, between text char "
+//                        + text[i] + " and pattern char " + ptrn[j]
+//                        + ", \nhence jumping the value of " + "j from " + j
+//                        + " to " + b[j] + " at text index i at " + i
+//                        + " based on partial match table");
+                j = overlap[j];
+            }
+            i++;
+            j++;
+ 
+            // a match is found
+            if (j == needleLength) {
+                System.out.println("FOUND SUBSTRING AT i " + i + " and index:"
+                        + (i - needleLength) + ",  target: " + new String(needle));
+                j = overlap[j];
+            }
+        }
+    }
 
 	/**
 	 * Search a needle in a haystack by using a buffer. The buffer can be
@@ -107,8 +140,8 @@ class KMPAndSearchInALargeChunck {
 	}
 
 	public static void main(String[] args) {
-		searchInALargeChunck("abcdefghijklmnopqst", "fgh");
-		searchInALargeChunck("sfafbgjljlfslfjihsxljxflsfj", "fgh");
+		searchInALargeChunck("abcdefghijklmnopqst", "fghi");
+		searchInALargeChunck("sfafbgjljlfslfjihsxljxflsfj", "fgxh");
 		searchInALargeChunck("sfafbgjljlfslfjihsxljxflsfj", "fslfjihs"); // larger
 																			// than
 																			// the
@@ -116,19 +149,12 @@ class KMPAndSearchInALargeChunck {
 
 		System.out.println("----- compute overlap ------");
 
-		int[] overlap = computeOverlap("fgh".toCharArray());
-		for (int o : overlap) {
-			System.out.print(o + " ");
-		}
-
 		System.out.println("\n----- test kmp ------");
 
-		 System.out.println(kmp("abcdefghijklmnopqst".toCharArray(),
-		 "fgh".toCharArray()));
-		 System.out.println(kmp("sfffffgggggghhhhh".toCharArray(),
-		 "fgh".toCharArray()));
-		 System.out.println(kmp("sfafbgjljlfslfjihsxljxflsfj".toCharArray(),
-		 "fslfjihs".toCharArray()));
+		 
+		kmp("abcdefghijklmnopqst".toCharArray(), "fgh".toCharArray());
+		kmp("sfffffgggggghhhhh".toCharArray(), "fgh".toCharArray());
+		kmp("sfafbgjljlfslfjihsxljxflsfj".toCharArray(), "fslfjihs".toCharArray());
 	}
 
 }
