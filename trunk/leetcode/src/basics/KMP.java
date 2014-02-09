@@ -23,6 +23,8 @@ class KMPAndSearchInALargeChunck {
      *            word that is to be searched in the search string
      * @return partial match table which indicates
      */
+	
+	//credit goes to: http://tekmarathon.wordpress.com/2013/05/14/algorithm-to-find-substring-in-a-string-kmp-algorithm/
     public static int[] overlap(char[] pattern) {
         int i = 0, j = -1;
         int length = pattern.length;
