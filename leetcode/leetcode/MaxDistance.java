@@ -36,6 +36,8 @@ public class MaxDistance {
 				continue;
 			}
 			//move j to the first valid location
+			//XXX this condition is important, move j while current j is shorter, but j is larger
+			//the following condition will check whehter j - i > maxDist
 			while(a[j] <= a[i] && j > i) {
 				j--;
 			}
