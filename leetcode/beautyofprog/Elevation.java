@@ -6,7 +6,7 @@
  * 
  * Stop the evaluation on a certain flow, to minimize the steps every one need to take
  * */
-public class Evaluation {
+public class Elevation {
 
 	
 	//persons start with 1

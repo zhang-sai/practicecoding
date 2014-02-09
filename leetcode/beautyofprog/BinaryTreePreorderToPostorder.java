@@ -4,7 +4,7 @@ import java.util.List;
 //given a preorder traversal result
 //return all possible postorder traversal
 
-public class BinaryTreeInorderToPostorder {
+public class BinaryTreePreorderToPostorder {
 
 	public static void main(String[] args) {
 		int[] vals = new int[]{1, 2, 3};
