@@ -5,7 +5,7 @@ public class LargestSubsequenceProduct {
 	//1. globalPos
 	//2. globalNeg
 	//3. currPos //largest
-	//4. currNeg //
+	//4. currNeg //smallest
 	// if the current value < 1 discard it (like the 0)
 	
 	public static void main(String[] args) {
@@ -36,9 +36,22 @@ public class LargestSubsequenceProduct {
 		//MAX 0
 		nums = new double[]{0.4, -0.1};
 		System.out.println(computeMaxSubsequentProduct(nums));
+		
+		//is -0.1
+		nums = new double[]{-0.1};
+		System.out.println(computeMaxSubsequentProduct(nums));
 	}
 	
+	/**
+	 * The result is always positive here.
+	 * */
 	static double computeMaxSubsequentProduct(double[] nums) {
+		
+		//handle special case
+		if(nums.length == 1) {
+			return nums[0];
+		}
+		
 		double globalMaxPos = Double.MIN_VALUE;
 		
 		double currPos = Double.NaN; //the initial state
@@ -46,7 +59,7 @@ public class LargestSubsequenceProduct {
 		
 		for(double num : nums) {
 			
-			System.out.println(num + "   " + currPos + "   " + currNeg + "  " + globalMaxPos);
+//			System.out.println(num + "   " + currPos + "   " + currNeg + "  " + globalMaxPos);
 			
 			//two cases
 			if(num > 0) {
@@ -64,6 +77,7 @@ public class LargestSubsequenceProduct {
 			} else if (num < 0) {
 				if(!Double.isNaN(currNeg)) {
 					currPos = currNeg*num;
+					//keep a copy of the original currPos
 					if(!Double.isNaN(currPos)) {
 					    currNeg = currPos*num;
 					} else {
