@@ -3,10 +3,25 @@ My selected parts:
 circular array, elements are +/-, find subsequence of max sum
 find two missing number in N numbers in range [0, N].
 KMP, Rabin-Karp, Boyer Moore
+
+
 strcpy, strcmp, strstr, atoi, itoa, strdup
+
+
 Given large text, find min cover distance of n words.
+
+
 use single array to implement 3 stacks
+(one stack from 0, another stack from length -1, the third stack
+is growing from middle, if the write overlaps, then move the elements)
+(http://stackoverflow.com/questions/4770627/how-to-implement-3-stacks-with-one-array)
+
+
 implement stack by queue.
+(either push or pop will be costly:
+see: http://stackoverflow.com/questions/688276/implement-stack-using-two-queues)
+
+
   15. Splay Tree
   16. AVL Tree
 18. Suffix Array
@@ -56,10 +71,13 @@ Large-scale system
    
    9. Map-reduce
    
+   Kafka + Storm
+   
+   Youtube mash design, how to do a video version of Mark’s FaceMash. SQL schema, recommendation/ranking algo design
+   
    
  OOP: elevator design, parking lot design
-distributed: large log file design, social network design, distributed cache
-design ....
+distributed: large log file design, social network design, distributed cache design ....
 
 Philosophy dining
 
@@ -70,18 +88,54 @@ distributed quickselect)
 if sorted in single machine: find smallest (k/m)th element among all 
 machines and discard the less partition.
 
-4. stack support O(1) getMin
-   queue support O(1) getMin
-e.g. k sliding window, most frequently clicked url in past 12 months.
-
-5. reservoir sampling for infinite stream, generate random(1-7) with random(
-1-5), card shuffle, string permute in place
-
-6. data structure with O(1) insert, delete, getRandom, get: hashmap + array
    
-Things happen after entering url
+
 
 load balancing, server communication, data consistence
+
+most frequently clicked url in past 12 months.
+
+----------------------
+
+e.g. k sliding window, 
+
+5. reservoir sampling for infinite stream, generate random(1-7) with random(
+1-5),
+
+
+
+
+Things happen after entering url
+detailed answer: http://stackoverflow.com/questions/2092527/what-happens-when-you-type-in-a-url-in-browser
+
+
+4. stack support O(1) getMin
+(use two stacks, and only stores values that equals to the curr min value)
+
+   queue support O(1) getMin
+(use a second queue to support it.
+Insert: push an element, and then dequeue all element in the second queue that is bigger than
+the current one
+Remove: remove an element, if it is not the biggest one, keep the same, otherwise, dequeue one
+http://stackoverflow.com/questions/12054415/get-min-max-in-o1-time-from-a-queue/12054481#12054481
+)
+   
+
+6. data structure with O(1) insert, delete, getRandom, get: hashmap + array
+(array[index] = value, hashmap[value] = index:
+the tricky part is remove:  first query the hashtable to get the index
+then, replace it with the last element in the array. 
+)
+(http://stackoverflow.com/questions/5682218/data-structure-insert-remove-contains-get-random-element-all-at-o1)
+
+
+why using 31 in string's hashcode
+1. The value 31 was chosen because it is an odd prime. 
+If it were even and the multiplication overflowed,
+information would be lost, as multiplication by 2 is
+equivalent to shifting. 
+2. A nice property of 31 is that the multiplication can be
+replaced by a shift and a subtraction for better performance: 31 * i == (i << 5) - i
 
 
 volatile keyword here:
