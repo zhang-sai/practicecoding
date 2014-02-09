@@ -17,9 +17,8 @@ public class BSTToDoubleLinkedList {
 		TreeNode head = leftListHead != null ? leftListHead : root;
 		if(leftListHead != null) {
 		    TreeNode leftTail = leftListHead;
-		    while(leftListHead != null && leftListHead.right != null) {
+		    while(leftTail != null && leftTail.right != null) {
 			    leftTail = leftListHead.right;
-			    leftListHead = leftListHead.right;
 		    }
 		    leftTail.right = root;
 		    root.left = leftTail;

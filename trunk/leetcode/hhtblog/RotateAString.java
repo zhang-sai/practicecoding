@@ -19,13 +19,13 @@ public class RotateAString {
 		}
 		//start to rotate
 		char[] cs = str.toCharArray();
-		rotate(cs, 0, step - 1);
-		rotate(cs, step, cs.length - 1);
-		rotate(cs, 0, cs.length - 1);
+		reverse(cs, 0, step - 1);
+		reverse(cs, step, cs.length - 1);
+		reverse(cs, 0, cs.length - 1);
 		return new String(cs);
 	}
 	
-	public static void rotate(char[] cs, int start, int end) {
+	public static void reverse(char[] cs, int start, int end) {
 		while(start < end) {
 			char tmp = cs[start];
 			cs[start] = cs[end];
