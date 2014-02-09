@@ -13,6 +13,7 @@ public class SquareWithLargestSum {
 		int[][][] sums = new int[rowNum][colNum][colNum];
 		//fill in this cube
 		for(int row = 0; row < rowNum; row++) {
+			//note use step as a variable here
 			for(int step = 0; step < colNum; step++) {
 				for(int startcol = 0; startcol < colNum; startcol ++) {
 					int endcol = startcol + step;

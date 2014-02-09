@@ -5,6 +5,7 @@ import java.util.Map;
 
 //find the longest composed word of other words
 //["a", "dog", "cat", "pig", "walker"] ==> "dogwalker"
+//first rank all words by length
 public class LongestComposedWord {
 
 	static class TrieNode {

@@ -2,6 +2,8 @@
 //a binary tree to a double linked list
 
 //duplicate to hht
+
+//also search: BSTToDoubleLinkedList
 class BiNode {
 	BiNode left, right;
 	public int data;
@@ -9,6 +11,8 @@ class BiNode {
 		data = v;
 	}
 }
+
+@Deprecated
 public class BinaryTreeToDoubleLinkedList {
 
 	public static BiNode treeToDoublyList(BiNode root) {

@@ -21,7 +21,7 @@ public class RankOfStreamValue {
 
 	/**
 	 * construct a tree, with a node stating the number of
-	 * element less or equal than it
+	 * element less or equal than it, on the *left* sub-tree
 	 * */
 	
 	public static TNode processStream(Integer[] array) {

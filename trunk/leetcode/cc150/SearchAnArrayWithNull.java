@@ -4,7 +4,7 @@
  * [1, null, null, 3, null, 4, null, 5, null, null, 6]
  * 
  * */
-public class SortAnArrayWithNull {
+public class SearchAnArrayWithNull {
 
 	public static int searchArray(Integer[] array, Integer target) {
 		int start = 0;
