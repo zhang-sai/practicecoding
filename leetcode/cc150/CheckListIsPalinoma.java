@@ -8,6 +8,8 @@ import java.util.Stack;
  * or 
  * 
  * 1->2->3->3->2->1
+ * 
+ * at the very beginning slow = head, and fast = head.next
  * */
 public class CheckListIsPalinoma {
 
