@@ -65,7 +65,7 @@ package g;
  * 
  * */
 
-public class CountMinSketch {
+public class MostFrequentURL {
 
 	/**
 	 * Use multiple hash function to keep track of the count number, and

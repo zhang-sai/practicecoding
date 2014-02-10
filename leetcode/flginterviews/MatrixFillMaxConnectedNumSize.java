@@ -4,10 +4,10 @@
  * 
  * the number of connected component
  * */
-public class MatrixFill {
+public class MatrixFillMaxConnectedNumSize {
 	
 	public static void main(String[] args) {
-		MatrixFill mf = new MatrixFill();
+		MatrixFillMaxConnectedNumSize mf = new MatrixFillMaxConnectedNumSize();
 		int[][] board = new int[][] {
 			new int[]{0, 1, 1, 0},
 			new int[]{1, 0, 0, 1},

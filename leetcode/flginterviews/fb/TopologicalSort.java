@@ -79,7 +79,7 @@ public class TopologicalSort {
 			//check its neighboring nodes
 			for(GraphNode nextNode : node.nextNodes) {
 				if(visited.contains(nextNode)) {
-					break;
+					break;  //find a cycle here, and jump
 				}
 				inedges.put(nextNode, inedges.get(nextNode) - 1);
 				if(inedges.get(nextNode) == 0) {
