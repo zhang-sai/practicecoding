@@ -28,6 +28,8 @@ public class GasStation {
         }
         int index = 0;
         int currTotal = 0;
+        //cannot be the starting point, since before coming
+        //to i, there is at least SOME gas in the car
         for(int i = 0; i < delta.length; i++) {
             currTotal += delta[i];
             if(currTotal < 0) {

@@ -25,6 +25,8 @@ If S = [1,2,2], a solution is:
  * */
 //another solution: http://smartlhc.blogspot.com/2013/02/subsets-ii.html
 //did not read but SHOULD
+
+//this uses recursion
 public class Subsets2 {
 
 	public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] num) {

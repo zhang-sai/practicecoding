@@ -80,6 +80,7 @@ dict = ["cat", "cats", "and", "sand", "dog"].
 
 A solution is ["cats and dog", "cat sand dog"].
 	 * */
+	x
 	public ArrayList<String> wordBreak_2(String s, Set<String> dict) {  
         int n = s.length();  
         ArrayList<ArrayList<Integer>> pres = new ArrayList<ArrayList<Integer>>(n);  

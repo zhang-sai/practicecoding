@@ -1,5 +1,5 @@
 
-public class SortLinkedList {
+public class MergeSortLinkedList {
 
 	public ListNode sortList(ListNode head) {
         // IMPORTANT: Please reset any member data you declared, as
