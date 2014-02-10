@@ -7,6 +7,8 @@ a = "11"
 b = "1"
 Return "100".
  * */
+
+//duplicate with AddBinary
 public class BinarySum {
 	public String addBinary(String a, String b) {
         // Start typing your Java solution below
