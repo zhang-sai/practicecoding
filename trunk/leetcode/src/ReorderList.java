@@ -14,8 +14,7 @@ Given {1,2,3,4}, reorder it to {1,4,2,3}.
 public class ReorderList {
 
 	//first reverse the list in place
-	static ListNode  reverseList(ListNode head)  
-    {  
+	static ListNode  reverseList(ListNode head) {  
         if(head == null || head.next == null)  
             return head;
         ListNode tmphead = reverseList(head.next);  

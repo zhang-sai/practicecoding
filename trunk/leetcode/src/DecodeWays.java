@@ -21,12 +21,14 @@ public class DecodeWays {
             return 0;  
         }
         int[] dp = new int[n+1];  
+        //empty string has 1 way to iterpret
         dp[0] = 1;  
         if (isValid(s.substring(0,1))) {
             dp[1] = 1;  
         } else {
             dp[1] = 0;  
         }
+        //use dp
         for(int i=2; i<=n;i++){  
             if (isValid(s.substring(i-1,i)))  {
                 dp[i] = dp[i-1];  //use the i- 1 number

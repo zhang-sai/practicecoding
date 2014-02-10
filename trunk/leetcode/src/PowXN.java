@@ -4,6 +4,7 @@
  * */
 //read the poster here: http://leetcode.com/groups/linkedin-interview-questions/forum/topic/implement-powx-y/
 //be aware of the space cost
+//see also: 
 public class PowXN {
 	
 	//also see: PowerFunctionWithDouble

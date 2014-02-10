@@ -58,6 +58,7 @@ public class DistinctSubSeqs {
         return numbers[0][0];
     }
 	
+	@Deprecated
 	public int numDistinct_old_but_work(String str, String target) {
 		if(target.length() > str.length()) {
 			return 0;

@@ -6,7 +6,9 @@ import java.util.Map;
 
 Return a deep copy of the list.
  * */
-public class CopyListWithRandomPointer {
+x
+public class CopyListWithRandomPointer {	
+	
 
 	public RandomListNode copyRandomList(RandomListNode head) {
         // Note: The Solution object is instantiated only once and is reused by each test case.
@@ -58,3 +60,7 @@ class RandomListNode {
 	      RandomListNode next, random;
 	      RandomListNode(int x) { this.label = x; }
 	  };
+	  
+	  //use constant space
+	  
+	  
