@@ -21,4 +21,5 @@ package basics;
 //explanation: http://code-slim-jim.blogspot.com/2010/06/reservoir-sampling.html
 public class SamplingForInfinite {
 
+	//see ShuffleCards
 }

@@ -66,6 +66,7 @@ public class ThreadedBST {
 		node.right = null;
 	}
 	
+	@Deprecated
 	public static void traverse_in_order(TreeNode root) {
 		System.out.println("Start traversal.");
 		//go to the first node

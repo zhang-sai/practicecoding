@@ -5,6 +5,8 @@
 //read the poster here: http://leetcode.com/groups/linkedin-interview-questions/forum/topic/implement-powx-y/
 //be aware of the space cost
 public class PowXN {
+	
+	//also see: PowerFunctionWithDouble
 
 	public double pow(double x, int n) {
         if(n > 0) {
