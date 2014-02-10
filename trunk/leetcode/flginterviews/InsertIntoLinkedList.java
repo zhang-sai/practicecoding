@@ -17,13 +17,16 @@ public class InsertIntoLinkedList {
 		n5.next = n6;
 		n6.next = n1;
 		
-		insertValue(n3, 4);
+//		insertValue(n3, 4);
+		insert(n3, 4);
 		printList(n3);
-		insertValue(n3, 4);
+//		insertValue(n3, 4);
+		insert(n3, 4);
 		printList(n3);
 		
 		n1.next = n1;
-		insertValue(n1, 4);
+//		insertValue(n1, 4);
+		insert(n1, 4);
 		printList(n1);
 	}
 	
@@ -39,7 +42,10 @@ public class InsertIntoLinkedList {
 	
 	//http://leetcode.com/2011/08/insert-into-a-cyclic-sorted-list.html
 	//see here
-	void insert(ListNode aNode, int x) {
+	/**
+	 * This is more element
+	 * */
+	static void insert(ListNode aNode, int x) {
 		if (aNode == null) {
 			aNode = new ListNode(x);
 			aNode.next = aNode;
@@ -53,7 +59,7 @@ public class InsertIntoLinkedList {
 			p = p.next;
 			if (x <= p.val && x >= prev.val)
 				break; // For case 1)
-			if ((prev.val > p.val) && (x < p.val || x > prev.val))
+			if ((prev.val > p.val) && (x < p.val || x > prev.val)) //reach the end
 				break; // For case 2)
 		} while (p != aNode); // when back to starting point, then stop. For
 								// case 3)
@@ -63,6 +69,8 @@ public class InsertIntoLinkedList {
 		prev.next = newNode;
 	}
 	
+	
+	//this is less elegant than the above solution
 	public static ListNode insertValue(ListNode aNode, int val) {
 		ListNode newNode = new ListNode(val);
 		if(aNode == null) {
