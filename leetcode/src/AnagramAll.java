@@ -14,9 +14,9 @@ public class AnagramAll {
 	public ArrayList<String> anagrams(String[] strs) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        if(strs.length < 2) return new ArrayList();
+        if(strs.length < 2) return new ArrayList<String>();
         
-        HashMap<String, ArrayList<String>> map = new HashMap();
+        HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
         
         for(String str : strs) {
             String key = sortChars(str);

@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * */
-public class ConstructBinaryTrees {
+public class ConstructBinaryTreesFromInPrePostOrders {
 
 	/**
 	 * Given inorder and postorder traversal of a tree, construct the binary tree.
@@ -105,7 +105,7 @@ inorder = {4,10,3,1,7,11,8,2}
 	 }
 	 
 	 public static void main(String[] args) {
-		 ConstructBinaryTrees tree = new ConstructBinaryTrees();
+		 ConstructBinaryTreesFromInPrePostOrders tree = new ConstructBinaryTreesFromInPrePostOrders();
 		 tree.buildTree(new int[]{1, 2}, new int[]{1, 2});
 	 }
 	 

@@ -12,9 +12,9 @@ Given the below binary tree,
      2   3
 Return 6.
  * */
-public class BinaryTreeMaxPath {
+public class BinaryTreeMaxPathFromAnyNode {
 	
-int currentMax = Integer.MIN_VALUE;
+    int currentMax = Integer.MIN_VALUE;
 	
 	public int maxPathSum(TreeNode root) {
         // Start typing your Java solution below
@@ -24,6 +24,13 @@ int currentMax = Integer.MIN_VALUE;
 		return currentMax;
     }
     
+	/**
+	 * The max value of include this node:
+	 * (1) node + left + right
+	 * (2) node + left or right (if one is > 0)
+	 * (3) node  (if both left and right is < 0)
+	 * 
+	 * */
     int computeMax(TreeNode root){
          
         if (root == null) {
@@ -53,7 +60,7 @@ int currentMax = Integer.MIN_VALUE;
 	
 
 	public static void main(String[] args) {
-		BinaryTreeMaxPath search = new BinaryTreeMaxPath();
+		BinaryTreeMaxPathFromAnyNode search = new BinaryTreeMaxPathFromAnyNode();
 		TreeNode root = new TreeNode(0);
 		TreeNode l = new TreeNode(1);
 		TreeNode r = new TreeNode(1);
