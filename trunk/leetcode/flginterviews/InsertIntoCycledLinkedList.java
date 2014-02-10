@@ -1,6 +1,6 @@
 
 //http://leetcode.com/2011/08/insert-into-a-cyclic-sorted-list.html
-public class InsertIntoLinkedList {
+public class InsertIntoCycledLinkedList {
 
 	public static void main(String[] args) {
 		ListNode n1 = new ListNode(1);

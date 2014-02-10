@@ -15,6 +15,8 @@ public class TrimATree {
 			return t;
 		}
 		
+		//discard the current nodes
+		//if the value is < min or > max
 		if(t.val < min) {
 			return trim(t.left, min, max);
 		} else {
