@@ -80,7 +80,8 @@ dict = ["cat", "cats", "and", "sand", "dog"].
 
 A solution is ["cats and dog", "cat sand dog"].
 	 * */
-	x
+	
+	//it keeps track the previously-valid indices
 	public ArrayList<String> wordBreak_2(String s, Set<String> dict) {  
         int n = s.length();  
         ArrayList<ArrayList<Integer>> pres = new ArrayList<ArrayList<Integer>>(n);  
@@ -107,7 +108,7 @@ A solution is ["cats and dog", "cat sand dog"].
             if (pre == 0) {  
                  res.add(s.substring(0, n));  
             } else {  
-                ArrayList<String> preres = getPath(s, pre, pres);  
+                ArrayList<String> preres = getPath(s, pre /**the previous one*/, pres);  
                 String sub = s.substring(pre, n);  
                 for (String ss : preres)   {
                     res.add(ss + " " + sub);  
