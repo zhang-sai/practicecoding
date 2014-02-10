@@ -3,6 +3,8 @@ public class DeleteCharsInString {
 	
 	//delete all characters
 	//They are student,  aeiou   ==output==> Thy r stdnts
+	
+	//see RemoveBadChars
 
 	public static void delete(String src, String dest) {
 		boolean[] dict = new boolean[256];
