@@ -37,11 +37,11 @@ public class IpAddressRegex {
 		matcher = pattern.matcher(ip);
 		System.out.println("Input String matches regex - " + matcher.matches());
 		
-		ip = "128.1.192.255";
+		ip = "128.01.192.255";
 		matcher = pattern.matcher(ip);
 		System.out.println("Input String matches regex - " + matcher.matches());
 		
-		ip = "256.2.1.1";
+		ip = "256.2.1.01";
 		matcher = pattern.matcher(ip);
 		System.out.println("Input String matches regex - " + matcher.matches());
 		
