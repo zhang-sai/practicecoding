@@ -8,9 +8,12 @@
  * */
 public class Elevation {
 
+	public static void main(String[] args) {
+		getSteps(new int[]{0, 1, 3, 5, 3, 3});
+	}
 	
 	//persons start with 1
-	public int getSteps(int[] persons) { //the number of person on every flow {
+	public static int getSteps(int[] persons) { //the number of person on every flow {
 		int minFloor = 0;
 		
 		//stop at the first floor
@@ -34,7 +37,9 @@ public class Elevation {
 				//since n1 + n2 is keep increasing
 				//there must be some point that n1 + n2 > n3
 				targetFloor = i;
-				minFloor = (n1 + n2 - n3);
+//				minFloor = (n1 + n2 - n3);
+				minFloor = minFloor + (n1 + n2) - n3;
+				n1 += n2;
 				n2 = persons[i];
 				n3 -= persons[i];
 				
@@ -43,7 +48,7 @@ public class Elevation {
 			}
 		}
 		
-		System.out.println("target floor: " + targetFloor);
+		System.out.println("target floor: " + targetFloor + ", min floor: " + minFloor);
 		
 		return minFloor;
     }
