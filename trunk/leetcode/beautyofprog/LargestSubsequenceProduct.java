@@ -1,49 +1,11 @@
 
 public class LargestSubsequenceProduct {
 
-	//keep four variables
-	//1. globalPos
-	//2. globalNeg
-	//3. currPos //largest
-	//4. currNeg //smallest
-	// if the current value < 1 discard it (like the 0)
-	
-	public static void main(String[] args) {
-		//MAX 100
-		double[] nums = new double[]{1, 2, 3, 4, 0, 100};
-		System.out.println(computeMaxSubsequentProduct(nums));
-		
-		//MAX 120
-		nums = new double[]{1, 2, 30, 4, 0, 100};
-		System.out.println(computeMaxSubsequentProduct(nums));
-		
-		//MAX 100
-		nums = new double[]{1, 2, 30, -4, 0, 100};
-		System.out.println(computeMaxSubsequentProduct(nums));
-		
-		//MAX 0.4
-		nums = new double[]{0.1, 0.2, 0.3, 0.4, 0, -100};
-		System.out.println(computeMaxSubsequentProduct(nums));
-		
-		//MAX 0
-		nums = new double[]{-0.1, 0};
-		System.out.println(computeMaxSubsequentProduct(nums));
-		
-		//MAX 0
-		nums = new double[]{-0.4, -9};
-		System.out.println(computeMaxSubsequentProduct(nums));
-		
-		//MAX 0
-		nums = new double[]{0.4, -0.1};
-		System.out.println(computeMaxSubsequentProduct(nums));
-		
-		//is -0.1
-		nums = new double[]{-0.1};
-		System.out.println(computeMaxSubsequentProduct(nums));
-	}
 	
 	/**
-	 * The result is always positive here.
+	 * The result is always positive here for an array whose size > 1
+	 * 
+	 * or zero
 	 * */
 	static double computeMaxSubsequentProduct(double[] nums) {
 		
@@ -116,4 +78,49 @@ public class LargestSubsequenceProduct {
 		return globalMaxPos;
 	}
 	
+
+	//keep four variables
+	//1. globalPos
+	//2. globalNeg
+	//3. currPos //largest
+	//4. currNeg //smallest
+	// if the current value < 1 discard it (like the 0)
+	
+	public static void main(String[] args) {
+		//MAX 100
+		double[] nums = new double[]{1, 2, 3, 4, 0, 100};
+		System.out.println(computeMaxSubsequentProduct(nums));
+		
+		//MAX 120
+		nums = new double[]{1, 2, 30, 4, 0, 100};
+		System.out.println(computeMaxSubsequentProduct(nums));
+		
+		//MAX 100
+		nums = new double[]{1, 2, 30, -4, 0, 100};
+		System.out.println(computeMaxSubsequentProduct(nums));
+		
+		//MAX 0.4
+		nums = new double[]{0.1, 0.2, 0.3, 0.4, 0, -100};
+		System.out.println(computeMaxSubsequentProduct(nums));
+		
+		//MAX 0
+		nums = new double[]{-0.1, 0};
+		System.out.println(computeMaxSubsequentProduct(nums));
+		
+		//MAX 0
+		nums = new double[]{-0.4, -9};
+		System.out.println(computeMaxSubsequentProduct(nums));
+		
+		//MAX 0
+		nums = new double[]{0.4, -0.1};
+		System.out.println(computeMaxSubsequentProduct(nums));
+		
+		//is -0.1
+		nums = new double[]{-0.1};
+		System.out.println(computeMaxSubsequentProduct(nums));
+		
+		//MAX 0
+		nums = new double[]{0, 0};
+		System.out.println(computeMaxSubsequentProduct(nums));
+	}
 }
