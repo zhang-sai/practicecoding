@@ -12,7 +12,7 @@ public class TrailingZeroInFactorial {
 		//e.g., if n = 24,  so that 24/5 == 4 ==> 4 trailiing zeros
 		//      if n = 25,  25/5 = 5, and 25/25 = 1 so that trailing zero = 6
 		for (int i = 5; n/i > 0; i =i*5) {
-			count = count + n/i;
+			count = count + n/i;  /*** only need to plus n/i, */ 
 		}
 		return count;
 	}
