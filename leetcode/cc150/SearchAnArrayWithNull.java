@@ -23,7 +23,7 @@ public class SearchAnArrayWithNull {
 			} else {
 				//search both ways
 				int high = mid + 1;
-				while(array[high] == null) {
+				while(high < array.length && array[high] == null) {
 					high ++;
 				}
 				if(high <= array.length - 1 && high <= end && array[high] <= target) {
@@ -31,7 +31,7 @@ public class SearchAnArrayWithNull {
 					continue;
 				}
 				int low = mid - 1;
-				while(array[low] == null) {
+				while(low >= 0 && array[low] == null) {
 					low --;
 				}
 				if(low >= 0 && low >= start && array[low] >= target) {
