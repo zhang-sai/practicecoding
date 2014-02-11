@@ -5,6 +5,7 @@
 public class SearchMagicNumber {
 
 	//start, end, is inclusive
+	/*** note that two ways are possible! */
 	public static void searchForMagicNumber(int[] a, int start, int end) {
 		if(start > end) {
 			return;
