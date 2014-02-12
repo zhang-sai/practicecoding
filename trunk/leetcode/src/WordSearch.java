@@ -34,59 +34,28 @@ public class WordSearch {
         if(charIndex == cs.length) {
             return true;
         }
+        if(startX < 0 || startX >= rowNum) {
+            return false;
+        }
+        if(startY < 0 || startY >= colNum) {
+            return false;
+        }
         char c = cs[charIndex];
         if(board[startX][startY] != c) {
             return false;
         }
-        //need the following check
-        if(charIndex == cs.length-1) {
-            return true;
-        }
-        if(startX + 1 < rowNum) {
-            char tmp = board[startX][startY];
-            if(tmp != '#') {
-                board[startX][startY] = '#';
-                boolean result = exist(board, rowNum, colNum, startX+1, startY, cs, charIndex+1);
-                board[startX][startY] = tmp;
-                if(result) {
-                    return true;
-                }
-            }
-        }
-        if(startX - 1 >= 0) {
-            char tmp = board[startX][startY];
-            if(tmp != '#') {
-                board[startX][startY] = '#';
-                boolean result = exist(board, rowNum, colNum, startX-1, startY, cs, charIndex+1);
-                board[startX][startY] = tmp;
-                if(result) {
-                    return true;
-                }
-            }
-        }
-        if(startY + 1 < colNum) {
-            char tmp = board[startX][startY];
-            if(tmp != '#') {
-                board[startX][startY] = '#';
-                boolean result = exist(board, rowNum, colNum, startX, startY + 1, cs, charIndex+1);
-                board[startX][startY] = tmp;
-                if(result) {
-                    return true;
-                }
-            }
-        }
-        if(startY - 1 >= 0) {
-            char tmp = board[startX][startY];
-            if(tmp != '#') {
-                board[startX][startY] = '#';
-                boolean result = exist(board, rowNum, colNum, startX, startY - 1, cs, charIndex+1);
-                board[startX][startY] = tmp;
-                if(result) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        
+        //we match the current one
+        char tmp = board[startX][startY];
+        board[startX][startY] = '#';
+        boolean result = false;
+        result = exist(board, rowNum, colNum, startX+1, startY, cs, charIndex+1)
+            || exist(board, rowNum, colNum, startX - 1, startY, cs, charIndex+1)
+            || exist(board, rowNum, colNum, startX, startY + 1, cs, charIndex+1)
+            || exist(board, rowNum, colNum, startX, startY - 1, cs, charIndex+1);
+        
+        board[startX][startY] = tmp;
+        return result;
     }
 	
 	public static void main(String[] args) {
