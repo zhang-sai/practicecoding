@@ -9,6 +9,7 @@ public class BinaryTreePreorderToPostorder {
 	public static void main(String[] args) {
 		int[] vals = new int[]{1, 2, 3};
 		for(TreeNode n : constructTrees(vals, 0, vals.length - 1)) {
+			System.out.println("--");
 			posttraverse(n);
 			System.out.println();
 		}
