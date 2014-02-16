@@ -60,8 +60,8 @@ public class BinaryTreePreorderToPostorder {
 			return;
 		}
 		posttraverse(n.left);
-		System.out.print(n.val + " ");
 		posttraverse(n.right);
+		System.out.print(n.val + " ");
 		
 	}
 }
