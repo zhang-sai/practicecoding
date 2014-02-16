@@ -6,12 +6,17 @@ public class ReverseWords {
 		char[] cs = str.toCharArray();
 		reverse(cs);
 		System.out.println(new String(cs) + "|");
+		
+		str = "HI   World";
+		cs = str.toCharArray();
+		reverse(cs);
+		System.out.println(new String(cs) + "|");
 	}
 	
 	public static void reverse(char[] chars) {
-		System.out.println(new String(chars));
+//		System.out.println(new String(chars));
 		reverse(chars, 0, chars.length - 1);
-		System.out.println(new String(chars));
+//		System.out.println(new String(chars));
 		int start = 0;
 		//move to the first non-space char
 		while(chars[start] == ' ') {
@@ -30,7 +35,7 @@ public class ReverseWords {
 				while(chars[start] == ' ') {
 					start++;
 				}
-				end = start + 1;
+				end = start;
 			} else if(end == chars.length - 1) {
 				//still reverse
 				//XXX be aware of this case
