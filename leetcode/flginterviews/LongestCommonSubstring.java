@@ -7,6 +7,7 @@
  * http://en.wikipedia.org/wiki/Longest_common_substring_problem
  * */
 
+
 public class LongestCommonSubstring {
 
 	public static void main(String[] args) {
@@ -35,7 +36,7 @@ public class LongestCommonSubstring {
 				if(str1.charAt(i-1) == str2.charAt(j - 1)) {
 					max[i][j] = max[i-1][j-1] + 1;
 				} else {
-					max[i][j] = 0;
+					max[i][j] = 0; /**This is critical*/
 				}
 				//update the index
 				//donot forget this step
