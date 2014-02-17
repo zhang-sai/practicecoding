@@ -18,4 +18,30 @@ public class FourPointsSquare {
 	 * 
 	 * */
 	
+	public static void main(String[] args) {
+		int a = Integer.MAX_VALUE;
+		System.out.println(a);
+		System.out.println(Integer.toBinaryString(a));
+		a++;
+		System.out.println(a);
+		System.out.println(Integer.toBinaryString(a));
+		a++;
+		System.out.println(a);
+		System.out.println(Integer.toBinaryString(a));
+		a++;
+		System.out.println(a);
+		System.out.println(Integer.toBinaryString(a));
+		
+		/**
+		 * 0000 0111=7 two's complement is 1111 1001= -7
+		 * 
+		 * */
+		a = 0;
+		System.out.println(a);
+		System.out.println(Integer.toBinaryString(a));
+		a--;
+		System.out.println(a);
+		System.out.println(Integer.toBinaryString(a));
+	}
+	
 }
