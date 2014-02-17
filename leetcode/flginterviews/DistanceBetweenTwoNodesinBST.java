@@ -3,6 +3,7 @@
  * */
 
 //what about not BST, but an arbitrary tree
+//first, find the lowest common ancester, and then search the distance
 public class DistanceBetweenTwoNodesinBST {
 
 	public int getDistance(TreeNode root, TreeNode n1, TreeNode n2) {
