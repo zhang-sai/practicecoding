@@ -4,7 +4,7 @@ public class NextLargeNumberWithTheSameDigits {
 	//idea: scan from right to left, and stop at the first place that a[i] < a[i+1]
 	//  then find the smallest number on the right of j > i, that a[j] > a[i]
 	//  swap a[i]  and a[j], and sort all digits on the right of j
-	//e.g.,  1 5 6 4 3  => first  find 5,  then  swap 5 with 3
-	//   1 3 6 4 5 ==>  1 3 4 5 6
+	//e.g., 1 2 5 4 3  ==>  find 2 ==> swap 2 with the smallest number on the right
+	//=> 1 3 5 4 2 ==> sort on the right of 3 ==> 1 3 2 4 5
 	
 }
