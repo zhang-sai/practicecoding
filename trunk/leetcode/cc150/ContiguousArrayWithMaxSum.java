@@ -12,7 +12,8 @@ public class ContiguousArrayWithMaxSum {
 			currMax += v;
 			if(currMax > max) {
 				max = currMax;
-			} else if(currMax < 0) {
+			} 
+			if(currMax < 0) {
 				currMax = 0;
 			}
 		}
@@ -20,6 +21,6 @@ public class ContiguousArrayWithMaxSum {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(findMaxSubarray(new int[]{2, -8, 3, -2, 4, -10}));
+		System.out.println(findMaxSubarray(new int[]{-22, 8, 3, -2, 4, -10}));
 	}
 }
