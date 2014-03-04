@@ -33,9 +33,29 @@ public class LetterCombination {
 			return list;
 		}
 		
-		return this.allCombinations(map, digits);
+//		return this.allCombinations(map, digits);
+		ArrayList<String> results = new ArrayList<String>();
+		findAllCombinations(results, map, new char[digits.length()], digits.toCharArray(), 0);
+		return results;
 		
     }
+	
+	private void findAllCombinations(ArrayList<String> results,
+			Map<String, String[]> map, char[] resultArray,
+			char[] chars, int currIndex) {
+		if(currIndex == resultArray.length) {
+			results.add(new String(resultArray));
+			return;
+		}
+		//then do recursion
+		String v = chars[currIndex] + "";
+		String[] strs = map.get(v);
+		for(String str : strs) {
+			char c = str.charAt(0);
+			resultArray[currIndex] = c;
+			findAllCombinations(results, map, resultArray, chars, currIndex + 1);
+		}
+	}
 	
 	//XXX no current list here in the parameters
 	private ArrayList<String> allCombinations(Map<String, String[]> map, String leftDigits) {
