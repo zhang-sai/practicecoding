@@ -1,5 +1,7 @@
 import java.util.Random;
 
+import util.Utils;
+
 /**
  * Given an integer array, count the number of inversions.
 
@@ -15,9 +17,10 @@ http://n00tc0d3r.blogspot.com/search?q=inversions
  * two elements a[i] and a[j] form an inversion if a[i] > a[j] and i < j
  * */
 
+
 public class CountingInversions {
 
-	public static long countInversion_bruteforce(int[] a) {
+	public static long countInversion_bruteforce(Integer[] a) {
 		long count = 0;
 
 		for (int i = 0; i < a.length - 1; ++i) {
@@ -33,42 +36,68 @@ public class CountingInversions {
 	//
 	/* merge two sorted subarrays A[l..mid) and A[mid..r) into one sorted array  
 	   and count inversions during the process. B is a temporary array for merging. */  
-	 private static long mergeAndCount(int[] A, int l, int mid, int r, int[] B) {  
+	 private static long mergeAndCount(Integer[] A, int l, int mid, int r, Integer[] B) {  
 	   long count = 0;  
 
 	   // copy from A to B  
+	   //src, src-index, dest, dest-index, length
 	   System.arraycopy(A, l, B, l, r-l);  
 	   // merge
-	   for (
-	      int i=l, h1=l, h2=mid; 
-	      i<r; 
-	      ++i) {
-	     if (h1 >= mid || (h2 < r && B[h2] < B[h1])) {
-	      /**
-	       * If an element x has an inversion, what does it tells us? That said,
-	       * among k elements that are behind x, (k-1) of them are no less than
-	       * x and 1 of them are less than x. Thus, in the sorted array, x need
-	       * to move 1 step to get the subarray starting from x to the end be sorted.
-	       * That's essentially the sorting process.
-	       * 
-	       * */
-	      //XXX this step is critical: why h2 - i?
-	      // suppose  1 3 9  mid-point  2 4 6
-	      // when h2 = 3 with value 2  h1 = 1 with value 3
-	      //   now i = 2, so h2 - i = 1 
-	    	 
-	       count += (h2 - i);
-	       A[i] = B[h2++];
-	     } else {
-	       A[i] = B[h1++];
-	     }
-	   }  
+	   
+	   int index = l;
+	   int h1 = l;
+	   int h2 = mid;
+	   while(h1 < mid && h2 < r) {
+		   if(B[h2] < B[h1]) {
+			   count += (h2 - index); //count the number of inversion
+			   A[index++] = B[h2++];
+		   } else {
+			   A[index++] = B[h1++];
+		   }
+	   }
+	   
+	   while(h1 < mid) {
+		   A[index++] = B[h1++];
+	   }
+	   while(h2 < r) {
+		   A[index++] = B[h2++];
+	   }
+	   
+//	   for (int i=l, h1=l, h2=mid;  i<r;  ++i) {
+//		   /**
+//		    *  i
+//		    *  1 3 9  midpoint 2 4 6
+//		    *  h1              h2
+//		    * */
+//		   
+//		   
+//	     if (h1 >= mid || (h2 < r && B[h2] < B[h1])) {
+//	      //XXX this step is critical: why h2 - i?
+//	      // suppose  1 3 9  mid-point  2 4 6
+//	      // when h2 = 3 with value 2,  h1 = 1 with value 3
+//	      //   now i = 2, so h2 - i = 1 
+//	    	 
+//	       //which means that h2 should be put in the position i
+//	       //now h2 - i many elements are before it!
+//	    	 
+//	    	 //the first condition is redundant
+//	    	 if(h1 >= mid) {
+//	    		 if(h2 != i) {
+//	    			 throw new Error("h2: " + h2 + " i: " + i + Utils.dumpArray(B));
+//	    		 }
+//	    	 }
+//	       count += (h2 - i);
+//	       A[i] = B[h2++];
+//	     } else {
+//	       A[i] = B[h1++];
+//	     }
+//	   }  
 	   
 	   return count;  
 	 }  
 	   
 	 /* count inversions in A[l..r) */  
-	 public static long countInversion(int[] A, int l, int r, int[] B) {  
+	 public static long countInversion(Integer[] A, int l, int r, Integer[] B) {  
 	   if (l >= r) return 0;  
 	   
 	   long count = 0;  
@@ -84,20 +113,20 @@ public class CountingInversions {
 	   return count;  
 	 }  
 	 
-	public static long printInversions(int[] a) {
-		long c = countInversion(a, 0, a.length, new int[a.length]);
+	public static long printInversions(Integer[] a) {
+		long c = countInversion(a, 0, a.length, new Integer[a.length]);
 		System.out.println("sort count: " + c);
 		return c;
 	}
 
 	public static void main(String[] args) {
-		int[] a = new int[] { 22, 48, 12, 35, 57 };
+		Integer[] a = new Integer[] { 22, 48, 12, 35, 57 };
 		System.out.println("brute force: " + countInversion_bruteforce(a));
 		printInversions(a);
 		
 		Random r = new Random();
 		for(int i = 0; i < 100; i++) {
-			int[] array = new int[r.nextInt(100) + 1];
+			Integer[] array = new Integer[r.nextInt(100) + 1];
 			for(int j = 0; j < array.length; j++) {
 				array[j] = r.nextInt(10*array.length);
 			}
