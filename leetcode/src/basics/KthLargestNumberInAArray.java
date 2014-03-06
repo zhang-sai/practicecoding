@@ -1,6 +1,7 @@
 package basics;
 
 
+
 public class KthLargestNumberInAArray {
 
 	//two possible solutions
@@ -37,6 +38,16 @@ public class KthLargestNumberInAArray {
 			}
 		}
 		//after the loop, the correct pivot should rely on right's position
+		/**
+		 * e.g., 5 4 5 6 7
+		 * pivot is 5, so that
+		 * 
+		 * 5 4 5       6     7
+		 *     right   left
+		 *     
+		 * so the correct position to swap pivot is right
+		 * 
+		 * */
 		//
 		swap(nums, pivot, right);
 		
