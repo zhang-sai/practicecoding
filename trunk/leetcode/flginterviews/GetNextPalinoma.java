@@ -1,5 +1,6 @@
 //http://www.mitbbs.com/article_t/JobHunting/32581581.html
 //http://www.ardendertat.com/2011/12/01/programming-interview-questions-19-find-next-palindrome-number/
+//the next smallerst , e.g., 123 --> next is 131
 
 public class GetNextPalinoma {
 
@@ -13,6 +14,7 @@ public class GetNextPalinoma {
 	//   a b c d e f ===> a b c c b a
 	//  then increase two c together
 
+	
 	public static void main(String[] args) {
 		char[] cs = new char[]{'1', '2', '3'};
 		System.out.println(getNextPalinoma(cs, cs));
@@ -29,6 +31,7 @@ public class GetNextPalinoma {
 	public static int getNextPalinoma(char[] nums, char[] originalNums) {
 		int length = nums.length;
 		boolean isEven = nums.length % 2 == 0;
+		
 		int mid = isEven ? length/2 - 1 : length/2;
 		char[] newNums = new char[nums.length];
 		for(int i = 0; i <= mid; i++) {

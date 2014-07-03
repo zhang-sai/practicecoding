@@ -2,6 +2,7 @@ package basics;
 
 //http://leetcode.com/2011/01/find-k-th-smallest-element-in-union-of.html
 
+
 public class KthLargestNumberInTwoArrays {
 	
 	public static void main(String[] args) {
@@ -47,9 +48,9 @@ public class KthLargestNumberInTwoArrays {
 		}
 		
 		if (ai < bj) {
-			return getKLargest(a, i+1, b, bStartIndex, k-i-1); //discard a's below part, and b's above part
+			return getKLargest(a, i+1, b, bStartIndex, k-1-i); //discard a's below part, and b's above part
 		} else {
-			return getKLargest(a, aStartIndex, b, j+1, k-j-1); //discard a's above part, and b's below part
+			return getKLargest(a, aStartIndex, b, j+1, k-1-j); //discard a's above part, and b's below part
 		}
 	}
 	

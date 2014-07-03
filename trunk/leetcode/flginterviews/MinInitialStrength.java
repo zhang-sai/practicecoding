@@ -12,6 +12,7 @@
  * your strength will not be < 0
  * */
 
+
 public class MinInitialStrength {
 
 	public static int getMin(int[][] grid) {
@@ -43,10 +44,12 @@ public class MinInitialStrength {
 				//a path from the top
 				int minFromTop = mins[r-1][c] + grid[r][c]; //Math.min(mins[r-1][c], mins[r-1][c] + grid[r][c]);
 				int historyMinFromTop = Math.min(historyMins[r-1][c], historyMins[r-1][c] + grid[r][c]);
+				
 				//a path from the left
 				int minFromLeft = mins[r][c-1] + grid[r][c]; //Math.min(mins[r][c-1], mins[r][c-1] + grid[r][c]);
 				int historyMinFromLeft = Math.min(historyMins[r][c-1], historyMins[r][c-1] + grid[r][c]);
 				
+				/**this use the max!*/
 				if(historyMinFromLeft > historyMinFromTop) {
 					historyMins[r][c] = historyMinFromLeft;
 					mins[r][c] = minFromLeft;
@@ -83,6 +86,13 @@ public class MinInitialStrength {
 				new int[]{1,  -1,  4, -60, 300},
 				new int[]{2,  -3,  -1, 2,  -99},
 				new int[]{0, 200, -199, 1,  5}
+			};
+		System.out.println("Result: " + getMin(grid)); //should be -2
+		System.out.println("-----------"); 
+		grid = new int[][] {
+				new int[]{1, -100},
+				new int[]{1,  2},
+				new int[]{-100, 3}
 			};
 		System.out.println("Result: " + getMin(grid)); //should be -2
 	}

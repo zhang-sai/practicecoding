@@ -9,6 +9,7 @@ one possible solution could be 5+5-1.
  * 
  * http://www.careercup.com/question?id=15466752
  * */
+
 public class AutoCalculator {
 	
 	static class CalNode {

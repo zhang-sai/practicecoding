@@ -21,9 +21,11 @@ public class ZigZagConversion {
 	          return result.toString();  
 	      }
 	      for(int i =0; i< nRows; i++) {  
-	        for(int j =0, index =i; index < s.length(); j++, index = (2*nRows-2)*j +i) { 
+	        for(int j =0, index =i;
+	            index < s.length();
+	            j++, index = (2*nRows-2)*j +i) { 
 	          result.append(s.charAt(index));  //red element
-	          if(i ==0 || i == nRows-1) {            
+	          if(i ==0 || i == nRows-1) {      //green     
 	            continue;  
 	          }  
 	          if(index+(nRows- i-1)*2 < s.length()) {  

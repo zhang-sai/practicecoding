@@ -1,6 +1,7 @@
 /**
  * http://zhedahht.blog.163.com/blog/static/254111742007127104759245/
  * */
+
 public class BSTToDoubleLinkedList {
 
 	public TreeNode bstToList(TreeNode root) {

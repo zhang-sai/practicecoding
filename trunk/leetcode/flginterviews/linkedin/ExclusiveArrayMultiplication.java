@@ -13,8 +13,7 @@ public class ExclusiveArrayMultiplication {
 
 	// cacluate all mult
 	static void array_multiplication(int A[], int OUTPUT[], int n) {
-		int left = 1;
-		int right = 1;
+		
 		for (int i = 0; i < n; i++)
 			OUTPUT[i] = 1;
 		
@@ -34,6 +33,9 @@ public class ExclusiveArrayMultiplication {
 		//output[2] = 12, output[2] = 
 		//left = 16, right = 9
 		//output[3] = 16, output[2] = 27
+		
+		int left = 1;
+		int right = 1;
 		for (int i = 0; i < n; i++) {
 			OUTPUT[i] *= left;
 			OUTPUT[n - 1 - i] *= right;
@@ -41,6 +43,7 @@ public class ExclusiveArrayMultiplication {
 			right *= A[n - 1 - i];
 		}
 	}
+	
 	
 	public static void main(String[] args) {
 		int[] o = new int[]{1, 1, 1, 1, 1};

@@ -19,6 +19,10 @@ A = [2,3,1,1,4], return true.
 A = [3,2,1,0,4], return false.
  * */
 public class JumpGame1and2 {
+	
+	public static void main(String[] args) {
+		System.out.println(new JumpGame1and2().canJump(new int[]{1, 1, 1, 1, 0}));
+	}
 	public boolean canJump(int[] A) {
         //do in a reverse way, avoiding perform search
         //in which you do not know which index to expand next

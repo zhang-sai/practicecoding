@@ -29,6 +29,7 @@ Your algorithm should run in O(n) time and uses constant space.
         for(int i = 0; i < length; i++) {
         	while(a[i] != i+1) { //XXX note this is a while loop until a[i] == i + 1
         		int value = a[i];
+        		/**This condition is critical */
         	    if(value <= 0 || value > length || value == a[value -1]) {
         	    	break;
         	    }

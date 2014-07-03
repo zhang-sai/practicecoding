@@ -39,6 +39,7 @@ package g;
         any term that occurs more than 1/(1 + 99) (1%) of the time
         ) //this is the special case
  *  
+ *  
  * 
  *  2. most frequent in the last month 
  *  assign each word to an integer, since integer comparison is much faster than string.
@@ -61,12 +62,14 @@ package g;
        disk files (and each file is sorted).
 
        The system flush the in-memory map into a disk file (sort it). Now, the
-       problem becomes merging a set of sorted disk file. Using similar process, we would get one sorted disk file at the end.
+       problem becomes merging a set of sorted disk file. Using similar process,
+       we would get one sorted disk file at the end.
  * 
  * */
 
 public class MostFrequentURL {
 
+	String s = "abcd \n";
 	/**
 	 * Use multiple hash function to keep track of the count number, and
 	 * get the minimal values

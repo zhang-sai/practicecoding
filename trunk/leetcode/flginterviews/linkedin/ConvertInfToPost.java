@@ -17,6 +17,7 @@ import java.util.Stack;
  * if it is ), pop the stack until the (, and also pop out (
  * 
  * */
+
 class InToPost {
 	public static String infixToPostfix(String expr) {
 		StringBuilder postfix = new StringBuilder();
@@ -110,6 +111,8 @@ class InToPost {
 		output = InToPost.infixToPostfix("1*(2+3)");
 		System.out.println("Postfix is " + output + '\n');
 		output = InToPost.infixToPostfix("1*2+3");
+		System.out.println("Postfix is " + output + '\n');
+		output = InToPost.infixToPostfix("1*2^3");
 		System.out.println("Postfix is " + output + '\n');
 
 	}

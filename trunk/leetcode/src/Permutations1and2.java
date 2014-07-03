@@ -155,6 +155,7 @@ For example,
 	
 	public static void main(String[] args) {
 		Permutations1and2 p = new Permutations1and2();
-		System.out.println(p.permute(new int[]{1, 2, 3}));
+//		System.out.println(p.permute(new int[]{1, 2, 3}));
+		System.out.println(p.permuteUnique(new int[]{1, 1, 2, 3}));
 	}
 }

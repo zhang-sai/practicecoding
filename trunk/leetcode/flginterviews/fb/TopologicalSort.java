@@ -15,6 +15,7 @@ import java.util.Set;
 
 import basics.GraphNode;
 
+
 /**
  * http://n00tc0d3r.blogspot.com/2013/09/topological-sort.html
  * 
@@ -47,6 +48,7 @@ public class TopologicalSort {
 		Queue<GraphNode> queue = new LinkedList<GraphNode>();
 		Set<GraphNode> visited = new HashSet<GraphNode>();
 		
+		//the result
 		List<GraphNode> res = new LinkedList<GraphNode>();
 		
 		//count the incoming edges
@@ -73,7 +75,7 @@ public class TopologicalSort {
 		
 		while(!queue.isEmpty()) {
 			GraphNode node = queue.poll();
-			//add to the result
+			//the popped element should be added to the result
 			res.add(node);
 			visited.add(node);
 			//check its neighboring nodes

@@ -12,6 +12,7 @@ import java.util.Map;
  * */
 public class MaxJobCosts {
 
+	
 	//use interval to mimic a job
 	public static void  main(String[] args) {
 		Interval[] intervals = new Interval[]{
@@ -29,17 +30,12 @@ public class MaxJobCosts {
 	
 	public static int maxJobCosts(Interval[] intervals) {
 		
-		Map<Integer, List<Interval>> startTimes = new HashMap<Integer, List<Interval>>();
+//		Map<Integer, List<Interval>> startTimes = new HashMap<Integer, List<Interval>>();
 		Map<Integer, List<Interval>> endTimes = new HashMap<Integer, List<Interval>>();
 		
 		for(Interval interval : intervals) {
 			int start = interval.start;
 			int end = interval.end;
-			//the start
-			if(!startTimes.containsKey(start)) {
-				startTimes.put(start, new LinkedList<Interval>());
-			} 
-			startTimes.get(start).add(interval);
 			//the end
 			if(!endTimes.containsKey(end)) {
 				endTimes.put(end, new LinkedList<Interval>());

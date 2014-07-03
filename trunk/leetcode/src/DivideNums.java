@@ -6,6 +6,7 @@
 //one way is to use log(a/b) = loga - logb
 //xx
 //XXX
+
 public class DivideNums {
 	public int divide(int dividend, int divisor) {      
         if(dividend==divisor) {
@@ -20,7 +21,8 @@ public class DivideNums {
         }
 
         boolean sign = false;
-        int count=1, res=0;        
+        int res=0;        
+        /** check whether any dividend is MIN_VALUE*/
         if(divisor<0 && dividend<0){
             //avoid overflow here
             if(dividend==Integer.MIN_VALUE){
@@ -35,9 +37,11 @@ public class DivideNums {
             sign=true;            
         }
 
+        /**We can safely do the abs computation*/
         dividend=Math.abs(dividend);
         divisor=Math.abs(divisor);
 
+        int count=1;
         int savedDivisor=divisor;
         int rem=dividend; //the remaining value
         while(rem >= savedDivisor){

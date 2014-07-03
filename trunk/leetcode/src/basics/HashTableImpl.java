@@ -1,8 +1,48 @@
 package basics;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Implement a hash table using an array
+ * 
+ * That should handle collision
  * */
+
+// consider multi-threading
+
+/**
+ * Here the entry can also be implemented
+ * as a list node, with a node pointing to the rest
+ * */
+
+/**
+ * To make it thread-safe, can use read-write lock
+ * 
+ * also, be careful to make some data structure volatile
+ * 
+ * Volatile variable: : two threads may have their local copies
+ * 
+ * 
+ * lock.read();
+ * try {
+ *    xxx
+ *    
+ * } finally {
+ *    lock.unlock();
+ * }
+ * 
+ * */
+
+class MyEntry<K, V> {
+	K key;
+	V value;
+	public MyEntry(K k, V v) {
+		key = k;
+		value = v;
+	}
+}
+
 class MyHashTable<K, V> {
 
 	/* take the capacity as prime number to reduce the collision */
@@ -11,22 +51,38 @@ class MyHashTable<K, V> {
 
 	/* initialize array to store value */
 
-	private V[] tableValues = (V[]) new Object[SIZE];
+	private List<MyEntry>[] tableValues = new List[SIZE];
 
 	public synchronized V put(K key, V value) {
 		if (value == null) {
 			throw new NullPointerException();
 		}
 		int index = hash(key.hashCode()) % SIZE;
-		tableValues[index] = value;
+		if(tableValues[index] == null) {
+			tableValues[index] = new LinkedList<MyEntry>();
+		}
+		for(MyEntry<K, V> e : tableValues[index]) {
+			if(e.key.equals(key)) {
+				e.value = value;
+				return value;
+			}
+		}
+		tableValues[index].add(new MyEntry(key, value));
 		return value;
 	}
 
 	public synchronized V get(K key) {
 		int index = hash(key.hashCode()) % SIZE;
-		return tableValues[index];
+		for(MyEntry<K, V> e : tableValues[index]) {
+			if(e.key.equals(key)) {
+				return e.value;
+			}
+		}
+		return null;
 	}
 
+	//rehash function will copy every entry to the new place
+	
 	/**
 	 * 
 	 * method calculates the hash code

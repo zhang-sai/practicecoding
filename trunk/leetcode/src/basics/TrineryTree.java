@@ -47,6 +47,7 @@ public class TrineryTree {
 		}
 	}
 
+	
 	private TrineryTreeNode insert(TrineryTreeNode node, String str, int index) {
 		char c = str.charAt(index);
 		// create a node
@@ -61,6 +62,8 @@ public class TrineryTree {
 		} else if (index < str.length() - 1) {
 			node.mid = insert(node.mid, str, index + 1);
 		} else {
+			//the final one
+			//index = str.length() - 1
 			node.flag = true;
 		}
 

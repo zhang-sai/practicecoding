@@ -33,6 +33,7 @@ public class CountingInversions {
 		return count;
 	}
 
+	
 	//
 	/* merge two sorted subarrays A[l..mid) and A[mid..r) into one sorted array  
 	   and count inversions during the process. B is a temporary array for merging. */  

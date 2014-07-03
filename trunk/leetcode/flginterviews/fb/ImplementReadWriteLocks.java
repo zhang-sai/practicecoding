@@ -1,5 +1,6 @@
 package fb;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +11,11 @@ import java.util.Map;
  * */
 class ReadWriteLock{
 
+	  /**
+	   * two easy-to-miss points:
+	   * (1) increase and decrease the request in acquiring the locks
+	   * (2) write and read can have multiple accesses
+	   * */
 	  private Map<Thread, Integer> readingThreads =
 	       new HashMap<Thread, Integer>();
 

@@ -1,7 +1,7 @@
 
 public class ConvertSortedListToBinaryTree {
 
-ListNode gb = null;
+    ListNode gb = null;
     
     public TreeNode sortedListToBST(ListNode head) {
         // Note: The Solution object is instantiated only once and is reused by each test case.
@@ -14,6 +14,25 @@ ListNode gb = null;
         gb = head;
         return sortedListToBST(0, length - 1);
     }
+    
+    /**
+     * 
+     *   1  2  3  4  5 6 7
+     *   
+     *   gb = 1
+     *   
+     *   mid = 4
+     *   
+     *   gb = 2
+     *   
+     *   2.left = 1
+     *   
+     *   gb = 3
+     *   
+     *   
+     *   
+     * 
+     * */
     
     public TreeNode sortedListToBST(int start, int end) {
     	

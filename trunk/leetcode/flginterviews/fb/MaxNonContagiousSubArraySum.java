@@ -27,7 +27,7 @@ public class MaxNonContagiousSubArraySum {
 		     for (int j=0; j<i-1; ++j) {  
 		       maxSum[i] = Math.max(data[i] + maxSum[j], maxSum[i]);  
 		     }  
-		   }  
+		   } 
 		   
 		   // find the max of all subsequences  
 		   int max = 0;  

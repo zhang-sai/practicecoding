@@ -12,6 +12,7 @@ import java.util.Map;
 //the same as PermutationSequence
 public class ReversePermutationIndex {
 	
+	
 	public static void main(String[] args) {
 		char[] chars = new char[]{'1', '2', '3'};
 		for(int i = 0; i < 6; i++) {

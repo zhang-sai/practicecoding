@@ -11,5 +11,6 @@ package g;
 public class ShortestDistanceOfFetchGoods {
 
 	//from each good, and perform BFS, and then summarize the shortest path
+
 	
 }

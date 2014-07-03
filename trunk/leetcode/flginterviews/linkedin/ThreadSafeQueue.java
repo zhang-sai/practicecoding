@@ -17,6 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * a standard answer:
  * http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/Condition.html
  * */
+
 class BlockingQueue<T> {
 
 	private Queue<T> queue = new LinkedList<T>();

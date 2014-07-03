@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
-
+x
 /**
  * http://www.mitbbs.com/article_t/JobHunting/32617501.html
  * 
@@ -19,9 +19,9 @@ import java.util.Set;
  * */
 public class CrossRiver {
 	
-	
 	/**
 	 * Using recrusive and caching
+	 * speed, and pos is the starting point
 	 * */
 	public static int getMinStepRecursive(int[] array, int speed, int pos) {
 		if(pos >= array.length) {

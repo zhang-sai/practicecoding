@@ -5,6 +5,7 @@ import java.util.Random;
 //http://www.vogella.com/articles/JavaAlgorithmsQuicksort/article.html#quicksort
 public class QuickSort {
 
+	
 	public static void quickSort(int[] a, int low, int high) {
 		if (low < high) {
 			int q = partition(a, low, high);

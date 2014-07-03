@@ -18,6 +18,11 @@ TAKEN http://www.careercup.com/question?id=16381662
 
 TAKEN http://www.careercup.com/question?id=15503949
  - the celebrity
+ There can be at most one celebrity. Suppose A and B are both celebrities. A knows B by virtue of B's celebrity. But then A can't be a celebrity, by virtue of the rule that celebrities can't know anyone. Given that you have only celebrity, you can use a linear algorithm. Start with person 1, and they're the provisional celebrity. With person 2, see if either 2 doesn't know 1 or 1 knows 2, and if so, 1 is no longer a celebrity, and swap 1 and 2. For each new person, try to see if you can eliminate the celebrity's status with two simple checks, and then swap as needed. 
+
+After the first linear pass, you'll have a provisional celebrity, and then take another linear pass to verify that he really is a celebrity. 
+
+If there are no celebrities, then the second pass will be terminate fairly quickly.
 
 TAKEN http://www.careercup.com/question?id=15468738
 

@@ -26,6 +26,7 @@ this is different than coloring, for instance, the following graph is not possib
 
  * */
 
+
 public class MeetingArrangement {
 
 	//use interevals to represent a meeting

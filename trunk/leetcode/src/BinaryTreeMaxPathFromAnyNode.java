@@ -12,6 +12,8 @@ Given the below binary tree,
      2   3
 Return 6.
  * */
+
+//Related question: FindAllPathsSumToAValue
 public class BinaryTreeMaxPathFromAnyNode {
 	
     int currentMax = Integer.MIN_VALUE;

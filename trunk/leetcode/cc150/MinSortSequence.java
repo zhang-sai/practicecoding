@@ -8,6 +8,11 @@ public class MinSortSequence {
 	//example: 1, 2, 4, 7, 10, 9, 11
 	//sort: 10, 9
 	//eg, 1 2 4 7 10 11 7 12 6 7 16 18 19
+	//                  s  e
+	//                     curr min= 6
+	//   curr max = 11
+	//   starting from 0, find the first 7 as the start index
+	//   starting from end, find the second 7
 	//divide it into 3 parts, and then shrink the left and right parts
 	public static void findMinSeq(Integer[] array) {
 		if(array.length < 2) {
@@ -38,8 +43,8 @@ public class MinSortSequence {
 		System.out.println("Initial startIndex: " + startIndex + ",  endIndex: " + endIndex);
 		
 		//then start to shrink on both sides
-		int currMax = Integer.MIN_VALUE;
 		int currMin = Integer.MAX_VALUE;
+		int currMax = Integer.MIN_VALUE;
 		
 		//MUST go to the rest of the array XXXX
 		for(int i = startIndex; i < array.length; i++) {

@@ -18,6 +18,7 @@ Output: An array B[], B[i] is the maximum value of from A[i] to A[i+w-1]
 Requirement: Find a good optimal way to get B[i]
  * 
  * */
+
 public class SlidiingWindows {
 
 	public static void main(String[] args) {

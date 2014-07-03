@@ -8,7 +8,8 @@ Note:
 You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).
  * */
 public class StockProfit3 {
-
+ 
+	
 	public int maxProfit(int[] prices) {
         // Note: The Solution object is instantiated only once and is reused by each test case.
         if(prices.length < 2) {

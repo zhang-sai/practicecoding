@@ -3,6 +3,7 @@ package basics;
 import util.Utils;
 import linkedin.TreeNode;
 
+
 /**
  * Construct a threaded BST and do traversal
  * 
@@ -13,7 +14,7 @@ import linkedin.TreeNode;
  * */
 
 /**
- * difficult to achieve constant time and space.
+ * Add a single boolean flag to indicate if a pointer is a flag or not.
  * */
 
 public class ThreadedBST {
@@ -24,6 +25,7 @@ public class ThreadedBST {
 		if(root == null) {
 			return null;
 		}
+		System.out.println("visiting: " + root.val);
 		TreeNode leftPrev = buildThreadedBST(root.left);
 		if(leftPrev != null) {
 			 TreeNode iter = leftPrev;
@@ -38,11 +40,26 @@ public class ThreadedBST {
 			  *      0
 			  *     /
 			  *    1
+			  *    
+			  *      0
+			  *     /
+			  *    1
+			  *     \2
+			  *     /
+			  *    3
 			  * */
-		     while(iter.right != null && iter.right != leftPrev) {
-		            iter = iter.right;
+		     while(iter.right != null 
+		    		 && iter.right != leftPrev /**this may be introduced by the right part iteration*/
+		    		 ) {
+//		    	    if(iter.right == leftPrev) {
+//		    	    	System.out.println("iter.right: " + iter.val + ", leftPrev: " + leftPrev.val);
+//		                break;
+//		    	    }
+		    	    iter = iter.right;
 		     }
 		     iter.right = root;
+		     iter.rightThread = true;
+		     System.out.println("connecting left part: " + iter.val + "  to " + root.val);
 		}
 		
 		TreeNode rightPrev = buildThreadedBST(root.right);
@@ -53,6 +70,8 @@ public class ThreadedBST {
 	        }
 	 
 	        iter.right = root;
+	        iter.rightThread = true;
+	        System.out.println("connecting right part: " + iter.val + "  to " + root.val);
 	    }
 	 
 	    return root;
@@ -66,7 +85,7 @@ public class ThreadedBST {
 		node.right = null;
 	}
 	
-	@Deprecated
+//	@Deprecated
 	public static void traverse_in_order(TreeNode root) {
 		System.out.println("Start traversal.");
 		//go to the first node
@@ -75,19 +94,28 @@ public class ThreadedBST {
 		    node = node.left;
 		}
 		while(node != null) {
-//			System.out.println(node.val);
-//			node = getNextNode(node);
-//			if(node.left == null) {
-//				System.out.println(node.val);
-//				node = node.right;
-//			} else {
-//				node = node.left;
-//			}
+			System.out.println(node.val);
+			node = getNextNode(node);
 		}
 	}
 	
+//	xx
 	private static TreeNode getNextNode(TreeNode node) {
-		return null;
+		TreeNode currNode = node;
+		if(currNode.right != null && !currNode.rightThread) {
+			/**
+			 * avoid
+			 *    1
+			 *   /
+			 *  2  (2.right points to 1) 
+			 * */
+			currNode = currNode.right;
+			while(currNode.left != null) {
+				currNode = currNode.left;
+			}
+			return currNode;
+		}
+		return currNode.right; //goes to the above level
 	}
 	
 	public static void main(String[] args) {

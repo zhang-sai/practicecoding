@@ -5,6 +5,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+/**
+ * 
+ * An extension is to find numbers: a^2 + b^2 = c^2
+ * 
+ * treat it as the three sum problem, by first computing the square value of all numbers
+ * */
+
 public class ThreeFourSums {
 
 	/**
