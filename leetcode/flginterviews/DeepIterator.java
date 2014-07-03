@@ -11,9 +11,9 @@ import java.util.Stack;
 
 what about empty list? such as {1, 2, {}, 3}
  * */
-
 public class DeepIterator {
 	
+
 	
     static class DeepIter implements Iterator {
     	//the input
@@ -49,6 +49,7 @@ public class DeepIterator {
 				iterStack = new Stack<Iterator>();
 				currIter = this.list.iterator();
 			}
+			
 			while(!currIter.hasNext()) {
 				//pop up the rest
 				//no more iterator, just return

@@ -34,6 +34,7 @@ public class SearchStrngSetWithTrie {
 		}
 	}
 	
+	
 	static TrieNode constructTrie(String t) {
 		TrieNode root = new TrieNode(null);
 		

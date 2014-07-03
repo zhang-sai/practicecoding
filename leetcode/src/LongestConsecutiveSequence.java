@@ -13,6 +13,7 @@ Your algorithm should run in O(n) complexity.
 
 XXX only update the lowest and highest index
  * */
+
 public class LongestConsecutiveSequence {
 	//here is an example solution:
 	//http://discuss.leetcode.com/questions/1070/longest-consecutive-sequence

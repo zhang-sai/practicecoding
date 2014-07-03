@@ -3,6 +3,15 @@
  * */
 public class IsABalancedBinaryTree {
 
+	/**
+	 * In the worst case, it is O(n^2), for a skewed tree
+	 * 
+	 * */
+	
+	/**
+	 * An O(n) solution, by precompute heights for all nodes
+	 * */
+	//http://www.geeksforgeeks.org/how-to-determine-if-a-binary-tree-is-balanced/
 	public boolean isBalanced(TreeNode root) {
         // Start typing your Java solution below
         // DO NOT write main() function

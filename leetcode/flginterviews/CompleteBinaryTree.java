@@ -49,6 +49,7 @@ import java.util.List;
  * */
 public class CompleteBinaryTree {
 
+	
 	// level by leve traverse, and check the next level
 	// a flag indicate noMoreRight Node
 

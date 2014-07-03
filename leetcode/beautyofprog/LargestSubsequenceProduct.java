@@ -2,6 +2,7 @@
 public class LargestSubsequenceProduct {
 
 	
+	
 	/**
 	 * The result is always positive here for an array whose size > 1
 	 * 
@@ -39,7 +40,7 @@ public class LargestSubsequenceProduct {
 			} else if (num < 0) {
 				if(!Double.isNaN(currNeg)) {
 					currPos = currNeg*num;
-					//keep a copy of the original currPos
+					//XXX wrong keep a copy of the original currPos
 					if(!Double.isNaN(currPos)) {
 					    currNeg = currPos*num;
 					} else {

@@ -13,6 +13,7 @@ You may assume no duplicate exists in the array.
 //XXX for binary search, use the recursive form
 public class SearchInRotateArray {
 
+	//compare the middle
 	//suppose the array is sorted in increasing order
 	public int search(int[] A, int target) {
         int l = 0;

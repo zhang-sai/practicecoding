@@ -5,3 +5,23 @@ http://n00tc0d3r.blogspot.com/2013/09/big-data-consistent-hashing.html
 http://n00tc0d3r.blogspot.com/2013/07/big-data-count-occurrences.html
 
 http://n00tc0d3r.blogspot.com/2013/06/summary-distributed-system-design.html
+
+1.2. Design an distributed file system to store files of TB size
+Follow-up: How to find and store the top-k most frequent keywords among 
+documents stored on all Google servers
+
+
+https://www.facebook.com/note.php?note_id=365915113919
+
+http://www.mitbbs.com/article_t/JobHunting/32498535.html
+
+http://blog.csdn.net/sigh1988/article/details/9790337
+
+Design the system architecture(FE and BE) for above service in a distributed
+system (find optimal office location).
+
+design interface for memory cache
+
+
+Design:copy and shuffle lines in a 8 GB file, memory limit 1 GB (you are 
+given multiple machines)

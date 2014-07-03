@@ -19,7 +19,7 @@ http://tech-queries.blogspot.com/2011/03/maximum-area-rectangle-in-histogram.htm
 
 
  * */
-public class LargestRectangle {
+public class LargestRectangleHistogram {
 
 	public int largestRectangleArea(int[] height) {
         // Start typing your Java solution below
@@ -36,6 +36,9 @@ public class LargestRectangle {
 			 } else {
 				 //if the curr bar is lower
 				 //XXX we do NOT push curr into the stack
+				 /**
+				  * measure the largest possible area construct by the top bar
+				  * */
 				 int topIndex = leftIndex.pop();
 				 //use the left popped bar
 				 int currArea = height[topIndex]* (leftIndex.isEmpty() ? index : index - (leftIndex.peek()) - 1);
@@ -54,7 +57,7 @@ public class LargestRectangle {
     }
 	
 	public static void main(String[] args) {
-		LargestRectangle r = new LargestRectangle();
+		LargestRectangleHistogram r = new LargestRectangleHistogram();
 		int area = r.largestRectangleArea(new int[]{0, 2, 0});
 		System.out.println(area);
 	}

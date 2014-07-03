@@ -60,14 +60,11 @@ public class SpiralMatrix {
 		
 		//this check the condition
 		while(xsteps >= 0 && ysteps >= 0) {
-//			System.out.println("\nx: " + y + ", y: " + y
-//					+ ", xsteps: " + xsteps + ", ysteps: " + ysteps);
 			printInternal(matrix, x, y, xsteps, ysteps);
 			xsteps = xsteps - 2;
 			ysteps = ysteps - 2;
 			x++;
 			y++;
-//			System.out.println();
 		}
 		
 	}
@@ -81,17 +78,14 @@ public class SpiralMatrix {
 			System.out.print(matrix[x][y] + " ");
 			y++;
 		}
-//		y++; //move back
 		for(int i = 0; i < ysteps; i++) {
 			System.out.print(matrix[x][y] + " ");
 			x++;
 		}
-//		x++;
 		for(int i = 0; i < xsteps; i++) {
 			System.out.print(matrix[x][y] + " ");
 			y--;
 		}
-//		y--;
 		for(int i = 0; i < ysteps; i++) {
 			System.out.print(matrix[x][y] + " ");
 			x--;

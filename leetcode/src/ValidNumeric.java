@@ -28,7 +28,7 @@ XXX
 
 
 public class ValidNumeric {
-	
+	//see ValidNumberRegex
 	public boolean isNumber(String s) {
         // Note: The Solution object is instantiated only once and is reused by each test case.
         s = s.trim();

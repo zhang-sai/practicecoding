@@ -9,6 +9,7 @@ import java.util.Stack;
 //http://get-that-job-at-google.blogspot.com/2013/02/rocketfuel-codesprint-at-iit-bombay.html
 //http://www.mitbbs.com/article_t/JobHunting/32613553.html
 
+
 //5,1,4,2,3 this is not possible
 //supports only pushFront, pushBack, and popBack.
 

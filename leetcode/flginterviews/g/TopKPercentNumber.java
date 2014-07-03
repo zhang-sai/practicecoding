@@ -11,6 +11,7 @@ In more general cases, adjust the heap size accordingly.
 *
 *  3. use balance tree, and adjust its value to be balanced
  * */
+
 public class TopKPercentNumber {
 
 }

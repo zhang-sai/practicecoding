@@ -18,6 +18,8 @@ import util.Utils;
  * 4
  * */
 //4.9
+
+//check for every level
 public class FindAllPathsSumToAValue {
 
 	public static void printAllPaths(TreeNode node, int sum) {

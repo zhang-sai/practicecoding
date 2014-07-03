@@ -48,7 +48,7 @@ public class ClosestGuardToHouse {
 				}
 			}
 		}
-		
+	
 		while(!queue.isEmpty()) {
 			Pair top = queue.poll();
 			int x = top.x;

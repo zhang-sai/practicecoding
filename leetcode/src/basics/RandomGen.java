@@ -5,10 +5,16 @@ package basics;
 //http://stackoverflow.com/questions/137783/expand-a-random-range-from-15-to-17
 
 /**
- * How does it work? Think of it like this: imagine printing out this double-dimension array on paper, tacking it up to a dart board and randomly throwing darts at it. If you hit a non-zero value, it's a statistically random value between 1 and 7, since there are an equal number of non-zero values to choose from. If you hit a zero, just keep throwing the dart until you hit a non-zero. That's what this code is doing: the i and j indexes randomly select a location on the dart board, and if we don't get a good result, we keep throwing darts.
+ * How does it work? Think of it like this: imagine printing out this double-dimension array on paper, 
+ * tacking it up to a dart board and randomly throwing darts at it. If you hit a non-zero value, it's a
+ * statistically random value between 1 and 7, since there are an equal number of non-zero values to
+ * choose from. If you hit a zero, just keep throwing the dart until you hit a non-zero. That's what
+ * this code is doing: the i and j indexes randomly select a location on the dart board, and if we don't get a good result, we keep throwing darts.
 
 Like Adam said, this can run forever in the worst case, but statistically the worst case never happens. :)
  * */
+
+//rejection sampliing more see: http://leetcode.com/2010/11/rejection-sampling.html
 public class RandomGen {
 
 	int rand7()

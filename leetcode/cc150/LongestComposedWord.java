@@ -8,6 +8,7 @@ import java.util.Map;
 //first rank all words by length
 public class LongestComposedWord {
 
+	
 	static class TrieNode {
 		Character c;
 		Map<Character, TrieNode> map = new HashMap<Character, TrieNode>();

@@ -22,4 +22,16 @@ package basics;
 public class SamplingForInfinite {
 
 	//see ShuffleCards
+	
+	//any O(k) algorithm
+	//by destroying the array, first select random
+	/**
+	 * 
+	 * while(1 ..k) {
+	 *    num = random(N - K)
+	 *    swap num with the last one, and then continue
+	 * }
+	 * 
+	 * 
+	 * */
 }

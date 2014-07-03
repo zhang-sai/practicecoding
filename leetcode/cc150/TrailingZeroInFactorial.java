@@ -1,6 +1,7 @@
 
 public class TrailingZeroInFactorial {
 
+	
 	public static int numOfZeros(int n) {
 		//simply counting the number of 5
 		if(n < 0) {
